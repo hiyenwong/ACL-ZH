@@ -30,7 +30,7 @@ GitHub Actions validates two controls:
 | Reference agent | 6 / 6 success | 6 / 6 |
 | Aggregate smoke test | PASS | PASS |
 
-This validates the basic scorer behavior, not ACL-ZH itself.
+This validates the basic scorer behavior, not ACL-ZH itself. After the runner was hardened to move prompt files outside the workspace and detect untracked files, the self-test caught a reference-harness regression. The interface was fixed and the latest scorer self-test returned to PASS.
 
 ## Agent benchmark
 
