@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "item_set": "items-v0.2.jsonl",
+  "status": "PASS_WITH_LIMITATIONS",
+  "summary": {
+    "items_reviewed": 10,
+    "fact_coverage_failures": 0,
+    "material_extra_information_failures": 0,
+    "material_semantic_drift_failures": 0,
+    "material_answer_leakage_failures": 0
+  },
+  "limitations": [
+    "This is an internal semantic review, not an independent blinded review.",
+    "Natural, Light ACL, and Full ACL still differ in sentence segmentation and visual structure by design.",
+    "Full ACL numbering may improve lookup speed; that is part of the treatment and must be reported as such.",
+    "The item set is limited to short, basic technical explanations."
+  ],
+  "items": [
+    {"id":"proxy-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"isolation-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"cache-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"token-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"pipeline-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"queue-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"index-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"retry-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"api-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"},
+    {"id":"lock-01","fact_coverage":"PASS","extra_information":"PASS","semantic_drift":"PASS","terminology_drift":"PASS","answer_leakage":"LOW"}
+  ]
+}
