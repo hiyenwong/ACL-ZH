@@ -1,6 +1,15 @@
-# ACL-ZH Benchmark Specification v0.2
+# ACL-ZH Benchmark Specification v0.3
 
-## 1. Research questions
+## 1. Research tracks
+
+ACL-ZH now separates two directions:
+
+- **Input Track — Human → Agent**: whether controlled Chinese improves execution reliability.
+- **Output Track — Agent → Human**: whether controlled Chinese improves human understanding of model outputs.
+
+These tracks must be analyzed independently.
+
+## 2. Input Track research questions
 
 ### RQ1
 ACL-ZH 是否降低 coding agent 的约束违反率？
@@ -20,7 +29,7 @@ ACL-ZH 是否提高任务成功率和首轮成功率？
 - F: Flow
 - V: Validation
 
-## 2. Hypotheses
+## 3. Input Track hypotheses
 
 - **H0-1**: Baseline、Minimal ACL、Full ACL 的任务成功率没有显著差异。
 - **H0-2**: 三组的约束违反率没有显著差异。
@@ -28,7 +37,7 @@ ACL-ZH 是否提高任务成功率和首轮成功率？
 
 只有数据拒绝零假设时，README 才能增加对应的效果声明。
 
-## 3. Experimental arms
+## 4. Input Track experimental arms
 
 ### Baseline
 自然中文。允许省略、代词、模糊程度词等真实写法，但必须表达相同任务意图。
@@ -46,7 +55,7 @@ ACL-ZH 是否提高任务成功率和首轮成功率？
 ### Full ACL
 应用当前 ACL-ZH v0.1 的完整结构和规则。
 
-## 4. Fairness rule
+## 5. Input Track fairness rule
 
 三个 arm 必须拥有相同的业务信息。
 
@@ -63,7 +72,7 @@ ACL-ZH 是否提高任务成功率和首轮成功率？
 - 将代词替换为 Baseline 上下文中已给出的实体名；
 - 将同一信息拆成原子步骤。
 
-## 5. Repetition and order
+## 6. Input Track repetition and order
 
 默认：
 
@@ -73,7 +82,7 @@ ACL-ZH 是否提高任务成功率和首轮成功率？
 - 每次从干净 fixture 创建新的 workspace；
 - 不复用 agent conversation/session。
 
-## 6. Model controls
+## 7. Input Track model controls
 
 每组必须记录：
 
@@ -91,7 +100,7 @@ ACL-ZH 是否提高任务成功率和首轮成功率？
 
 不同模型版本不得直接聚合。
 
-## 7. Primary outcome metrics
+## 8. Input Track primary outcome metrics
 
 ### Task Success Rate
 所有 required checks 通过。
@@ -108,7 +117,7 @@ agent 第一次结束任务时所有 required checks 即通过，未发生人工
 ### Wrong-file Modification Rate
 修改 forbidden path 的 run 比例。
 
-## 8. Secondary metrics
+## 9. Input Track secondary metrics
 
 - test pass rate;
 - changed files;
@@ -122,7 +131,7 @@ agent 第一次结束任务时所有 required checks 即通过，未发生人工
 
 成本指标不能替代质量指标。
 
-## 9. Deterministic scoring
+## 10. Input Track deterministic scoring
 
 优先采用机器评分：
 
@@ -135,7 +144,7 @@ agent 第一次结束任务时所有 required checks 即通过，未发生人工
 
 只有无法确定性评分的项目才允许人工 review；人工 review 必须 blind to variant。
 
-## 10. Statistical analysis
+## 11. Statistical analysis
 
 二元 paired outcomes（同 task、同 repetition seed）优先使用：
 
@@ -152,7 +161,7 @@ agent 第一次结束任务时所有 required checks 即通过，未发生人工
 
 小样本阶段重点报告原始结果和 effect size，不用 p-value 包装不确定结论。
 
-## 11. Decision gates
+## 12. Decision gates
 
 规则进入稳定规范前至少满足：
 
@@ -163,7 +172,7 @@ agent 第一次结束任务时所有 required checks 即通过，未发生人工
 
 未满足的规则保持 experimental，必要时删除。
 
-## 12. Ablation matrix
+## 13. Input Track ablation matrix
 
 在 Full ACL 得到正结果后，增加：
 
@@ -175,7 +184,30 @@ agent 第一次结束任务时所有 required checks 即通过，未发生人工
 
 如果删除某规则族后性能不下降，该规则族不能仅凭直觉保留为强制规则。
 
-## 13. Reporting
+## 14. Output Track
+
+The Output Track tests human comprehension of model-generated explanations.
+
+Initial experimental arms:
+
+- O0 Natural Chinese
+- O1 Light ACL
+- O2 Full ACL
+- O3 Diagram-first
+- O4 Interactive HTML
+
+Primary metrics:
+
+- comprehension accuracy;
+- time to correct answer;
+- misinterpretation rate;
+- delayed recall accuracy.
+
+Diagram and HTML arms are modality experiments and must not be used as evidence that controlled language itself caused an effect.
+
+Detailed design: [output/prose-comprehension/SPEC.md](output/prose-comprehension/SPEC.md).
+
+## 15. Reporting
 
 每次正式 benchmark 发布：
 
