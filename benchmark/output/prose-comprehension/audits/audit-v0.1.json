@@ -1,0 +1,111 @@
+{
+  "version": "0.1",
+  "item_set": "items-v0.1.jsonl",
+  "status": "FAIL_REQUIRES_REVISION",
+  "summary": {
+    "items_reviewed": 10,
+    "items_with_material_findings": 4,
+    "systematic_findings": 1
+  },
+  "systematic_findings": [
+    {
+      "id": "SYS-001",
+      "severity": "medium",
+      "type": "answer_leakage",
+      "finding": "Full ACL uses semantic headings such as 风险、收益、优化、判断依据. Several questions ask for the corresponding category. This can reduce lookup difficulty independently of language clarity.",
+      "action": "Either remove category-matching headings from Full ACL or redesign questions so that headings do not directly cue the requested answer category."
+    }
+  ],
+  "items": [
+    {
+      "id": "proxy-01",
+      "fact_coverage": "PASS",
+      "extra_information": "LOW",
+      "semantic_drift": "PASS",
+      "terminology_drift": "PASS",
+      "answer_leakage": "LOW",
+      "notes": "Natural uses '这类头', which weakly generalizes beyond X-Forwarded-For, but does not materially change the tested facts."
+    },
+    {
+      "id": "isolation-01",
+      "fact_coverage": "PASS",
+      "extra_information": "PASS",
+      "semantic_drift": "PASS",
+      "terminology_drift": "PASS",
+      "answer_leakage": "LOW",
+      "notes": "Meaning is materially aligned across variants."
+    },
+    {
+      "id": "cache-01",
+      "fact_coverage": "PASS",
+      "extra_information": "FAIL",
+      "semantic_drift": "LOW",
+      "terminology_drift": "PASS",
+      "answer_leakage": "LOW",
+      "notes": "Natural adds '这样能减少后端压力', which is not in the fact sheet."
+    },
+    {
+      "id": "token-01",
+      "fact_coverage": "PASS",
+      "extra_information": "PASS",
+      "semantic_drift": "PASS",
+      "terminology_drift": "PASS",
+      "answer_leakage": "LOW",
+      "notes": "Meaning is materially aligned across variants."
+    },
+    {
+      "id": "pipeline-01",
+      "fact_coverage": "PASS",
+      "extra_information": "PASS",
+      "semantic_drift": "LOW",
+      "terminology_drift": "PASS",
+      "answer_leakage": "LOW",
+      "notes": "Natural adds evaluative wording such as '更稳妥', but the underlying operational facts are preserved."
+    },
+    {
+      "id": "queue-01",
+      "fact_coverage": "PASS",
+      "extra_information": "PASS",
+      "semantic_drift": "PASS",
+      "terminology_drift": "PASS",
+      "answer_leakage": "LOW",
+      "notes": "Meaning is materially aligned across variants."
+    },
+    {
+      "id": "index-01",
+      "fact_coverage": "PASS",
+      "extra_information": "FAIL",
+      "semantic_drift": "LOW",
+      "terminology_drift": "PASS",
+      "answer_leakage": "MEDIUM",
+      "notes": "Natural explains low selectivity as '字段取值非常集中'; this explanatory fact is not explicitly present in the fact sheet. Full ACL heading '判断依据' closely matches q2."
+    },
+    {
+      "id": "retry-01",
+      "fact_coverage": "PASS",
+      "extra_information": "FAIL",
+      "semantic_drift": "LOW",
+      "terminology_drift": "PASS",
+      "answer_leakage": "MEDIUM",
+      "notes": "Natural adds the scenario of an already overloaded service. Full ACL headings '风险' and '缓解' closely align with question types."
+    },
+    {
+      "id": "api-01",
+      "fact_coverage": "PASS",
+      "extra_information": "FAIL",
+      "semantic_drift": "LOW",
+      "terminology_drift": "PASS",
+      "answer_leakage": "MEDIUM",
+      "notes": "Natural adds the explanation that deployed clients may depend on existing fields. This is plausible but not explicit in the fact sheet."
+    },
+    {
+      "id": "lock-01",
+      "fact_coverage": "PASS",
+      "extra_information": "FAIL",
+      "semantic_drift": "LOW",
+      "terminology_drift": "PASS",
+      "answer_leakage": "MEDIUM",
+      "notes": "Natural adds '减少不必要的临界区', which is not in the fact sheet. Full ACL '优化' heading closely cues q2."
+    }
+  ]
+}
