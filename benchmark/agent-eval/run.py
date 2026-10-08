@@ -122,7 +122,7 @@ def read_cli_version(command):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", required=True)
-    ap.add_argument("--variant", choices=["baseline", "minimal", "full"], required=True)
+    ap.add_argument("--variant", required=True, help="Prompt field name in each manifest row")
     ap.add_argument("--agent", required=True)
     ap.add_argument("--agent-command", required=True, help="Command template. Placeholders: {prompt_file}, {workspace}")
     ap.add_argument("--repetitions", type=int, default=1)
@@ -136,6 +136,9 @@ def main():
     args = ap.parse_args()
 
     tasks = load_manifest(args.manifest)
+    missing = [t.get("id", "<unknown>") for t in tasks if args.variant not in t]
+    if missing:
+        raise SystemExit(f"variant {args.variant!r} missing from tasks: {missing}")
     rng = random.Random(args.seed)
     runs = [(t, i) for t in tasks for i in range(args.repetitions)]
     rng.shuffle(runs)
