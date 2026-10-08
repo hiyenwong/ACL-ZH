@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACL-ZH blind equivalence review",
+  "type": "object",
+  "required": [
+    "reviewer_id",
+    "item_id",
+    "label",
+    "fact_coverage",
+    "extra_information",
+    "semantic_drift",
+    "terminology_drift",
+    "answer_leakage",
+    "overall_equivalent"
+  ],
+  "properties": {
+    "reviewer_id": {"type": "string"},
+    "item_id": {"type": "string"},
+    "label": {"enum": ["A", "B", "C"]},
+    "fact_coverage": {"enum": ["pass", "minor", "fail"]},
+    "extra_information": {"enum": ["none", "minor", "material"]},
+    "semantic_drift": {"enum": ["none", "minor", "material"]},
+    "terminology_drift": {"enum": ["none", "minor", "material"]},
+    "answer_leakage": {"enum": ["none", "low", "material"]},
+    "overall_equivalent": {"type": "boolean"},
+    "notes": {"type": ["string", "null"]}
+  }
+}
