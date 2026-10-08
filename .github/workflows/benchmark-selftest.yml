@@ -1,0 +1,55 @@
+name: Benchmark self-test
+
+on:
+  push:
+    paths:
+      - "benchmark/**"
+      - ".github/workflows/benchmark-selftest.yml"
+  pull_request:
+    paths:
+      - "benchmark/**"
+      - ".github/workflows/benchmark-selftest.yml"
+  workflow_dispatch:
+
+jobs:
+  scorer-self-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: No-op must fail all hidden oracles
+        run: |
+          rm -rf /tmp/aclzh-noop
+          python benchmark/agent-eval/run.py             --manifest benchmark/tasks/manifest.jsonl             --variant baseline             --agent noop             --agent-command 'true'             --repetitions 1             --output /tmp/aclzh-noop
+          python - <<'PY'
+          import glob, json
+          rows=[]
+          for f in glob.glob('/tmp/aclzh-noop/*.jsonl'):
+              rows += [json.loads(x) for x in open(f, encoding='utf-8') if x.strip()]
+          assert len(rows) == 6, len(rows)
+          assert sum(r['task_success'] for r in rows) == 0, rows
+          assert sum(r['hidden_oracle_pass'] for r in rows) == 0, rows
+          print('noop self-test: PASS')
+          PY
+
+      - name: Reference agent must pass all hidden oracles
+        run: |
+          rm -rf /tmp/aclzh-reference
+          python benchmark/agent-eval/run.py             --manifest benchmark/tasks/manifest.jsonl             --variant full             --agent reference             --agent-command 'python "$GITHUB_WORKSPACE/benchmark/agent-eval/reference_agent.py"'             --repetitions 1             --output /tmp/aclzh-reference
+          python - <<'PY'
+          import glob, json
+          rows=[]
+          for f in glob.glob('/tmp/aclzh-reference/*.jsonl'):
+              rows += [json.loads(x) for x in open(f, encoding='utf-8') if x.strip()]
+          assert len(rows) == 6, len(rows)
+          failed=[r for r in rows if not r['task_success']]
+          assert not failed, failed
+          print('reference self-test: PASS')
+          PY
+
+      - name: Aggregate smoke test
+        run: |
+          python benchmark/agent-eval/aggregate.py /tmp/aclzh-reference/*.jsonl
