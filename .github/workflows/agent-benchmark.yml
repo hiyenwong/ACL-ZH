@@ -29,6 +29,7 @@ jobs:
         agent: [codex, claude]
     env:
       CODEX_ACCESS_TOKEN: ${{ secrets.CODEX_ACCESS_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       ACLZH_REPETITIONS: ${{ github.event_name == 'push' && '1' || inputs.repetitions }}
       ACLZH_TIMEOUT: ${{ github.event_name == 'push' && '600' || inputs.timeout_seconds }}
@@ -47,9 +48,9 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.agent }}" = "codex" ]; then
-            if [ -z "${CODEX_ACCESS_TOKEN:-}" ]; then
+            if [ -z "${CODEX_ACCESS_TOKEN:-}" ] && [ -z "${OPENAI_API_KEY:-}" ]; then
               echo "available=false" >> "$GITHUB_OUTPUT"
-              echo "Codex smoke skipped: CODEX_ACCESS_TOKEN is not configured."
+              echo "Codex smoke skipped: neither CODEX_ACCESS_TOKEN nor OPENAI_API_KEY is configured."
             else
               echo "available=true" >> "$GITHUB_OUTPUT"
             fi
