@@ -143,7 +143,7 @@ ACL-ZH/
 - GitHub Actions scorer 自检；
 - 后续 rule-family ablation 设计。
 
-runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方提供 `codex exec` 作为非交互自动化入口；实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。citeturn454525search3turn454525search5
+runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方提供 `codex exec` 作为非交互自动化入口；实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。参考：[Codex as a platform](https://developers.openai.com/blog/codex-as-a-platform/) 与 [Access tokens](https://learn.chatgpt.com/docs/enterprise/access-tokens).
 
 ## 下一阶段：真实 Agent A/B + Ablation
 
