@@ -1,0 +1,124 @@
+name: Agent benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      agent:
+        description: "Agent CLI"
+        required: true
+        type: choice
+        options:
+          - codex
+          - claude
+      model:
+        description: "Exact model name or CLI alias"
+        required: true
+        type: string
+      reasoning_effort:
+        description: "Codex reasoning effort; recorded for Claude as metadata"
+        required: true
+        default: "medium"
+        type: string
+      repetitions:
+        description: "Runs per task and variant"
+        required: true
+        default: "5"
+        type: string
+      timeout_seconds:
+        description: "Per-agent-run timeout"
+        required: true
+        default: "600"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    env:
+      ACLZH_MODEL: ${{ inputs.model }}
+      ACLZH_REASONING: ${{ inputs.reasoning_effort }}
+      ACLZH_REPETITIONS: ${{ inputs.repetitions }}
+      ACLZH_TIMEOUT: ${{ inputs.timeout_seconds }}
+      CODEX_ACCESS_TOKEN: ${{ secrets.CODEX_ACCESS_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install selected agent
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.agent }}" = "codex" ]; then
+            test -n "$CODEX_ACCESS_TOKEN" || { echo "Missing CODEX_ACCESS_TOKEN repository secret"; exit 2; }
+            npm install -g @openai/codex
+            codex --version
+          else
+            test -n "$ANTHROPIC_API_KEY" || { echo "Missing ANTHROPIC_API_KEY repository secret"; exit 2; }
+            npm install -g @anthropic-ai/claude-code
+            claude --version
+          fi
+
+      - name: Run Baseline / Minimal / Full
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p benchmark/results/agent-ci
+
+          if [ "${{ inputs.agent }}" = "codex" ]; then
+            AGENT_CMD='codex exec --json --full-auto --model "$ACLZH_MODEL" --config model_reasoning_effort="$ACLZH_REASONING" - < "{prompt_file}"'
+            VERSION_CMD='codex --version'
+          else
+            AGENT_CMD='cat "{prompt_file}" | claude -p --output-format json --model "$ACLZH_MODEL" --max-turns 20 --dangerously-skip-permissions'
+            VERSION_CMD='claude --version'
+          fi
+
+          for VARIANT in baseline minimal full; do
+            python benchmark/agent-eval/run.py               --manifest benchmark/tasks/manifest.jsonl               --variant "$VARIANT"               --agent "${{ inputs.agent }}"               --agent-command "$AGENT_CMD"               --repetitions "$ACLZH_REPETITIONS"               --timeout-seconds "$ACLZH_TIMEOUT"               --model "$ACLZH_MODEL"               --reasoning-effort "$ACLZH_REASONING"               --cli-version-command "$VERSION_CMD"               --run-label "github-actions-${GITHUB_RUN_ID}"               --output benchmark/results/agent-ci
+          done
+
+      - name: Aggregate
+        shell: bash
+        run: |
+          python benchmark/agent-eval/aggregate.py benchmark/results/agent-ci/*.jsonl             | tee benchmark/results/agent-ci/aggregate.json
+
+      - name: Write environment metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os, platform, subprocess
+          from pathlib import Path
+          agent = "${{ inputs.agent }}"
+          version_cmd = ["codex", "--version"] if agent == "codex" else ["claude", "--version"]
+          version = subprocess.run(version_cmd, text=True, capture_output=True).stdout.strip()
+          data = {
+              "agent": agent,
+              "model": "${{ inputs.model }}",
+              "reasoning_effort": "${{ inputs.reasoning_effort }}",
+              "repetitions": int("${{ inputs.repetitions }}"),
+              "runner_os": platform.platform(),
+              "python": platform.python_version(),
+              "cli_version": version,
+              "github_run_id": os.environ.get("GITHUB_RUN_ID"),
+              "git_sha": os.environ.get("GITHUB_SHA"),
+          }
+          Path("benchmark/results/agent-ci/environment.json").write_text(
+              json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          PY
+
+      - name: Upload raw benchmark artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-${{ inputs.agent }}-${{ inputs.model }}-${{ github.run_id }}
+          path: benchmark/results/agent-ci/
+          if-no-files-found: error
+          retention-days: 30
