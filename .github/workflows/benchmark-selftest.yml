@@ -38,7 +38,7 @@ jobs:
       - name: Reference agent must pass all hidden oracles
         run: |
           rm -rf /tmp/aclzh-reference
-          python benchmark/agent-eval/run.py             --manifest benchmark/tasks/manifest.jsonl             --variant full             --agent reference             --agent-command 'python "$GITHUB_WORKSPACE/benchmark/agent-eval/reference_agent.py"'             --repetitions 1             --output /tmp/aclzh-reference
+          python benchmark/agent-eval/run.py             --manifest benchmark/tasks/manifest.jsonl             --variant full             --agent reference             --agent-command 'python "$GITHUB_WORKSPACE/benchmark/agent-eval/reference_agent.py" "{prompt_file}"'             --repetitions 1             --output /tmp/aclzh-reference
           python - <<'PY'
           import glob, json
           rows=[]
