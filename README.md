@@ -87,7 +87,7 @@ GitHub Actions 实际运行结果：
 
 这证明当前 scorer 至少能够区分“什么都没做”和“已知正确实现”，避免了“现有测试本来就通过，因此空操作被误判为成功”的假阳性。
 
-详见 [benchmark/SELFTEST.md](benchmark/SELFTEST.md)。
+详见 [benchmark/SELFTEST.md](benchmark/SELFTEST.md)。\n\n在 runner 加固后（prompt 移出 workspace、补充未跟踪文件检测、保存 raw traces、记录模型/CLI 元数据），scorer 自检曾因 reference harness 接口变更失败；修复后最新自检重新通过。这个失败也保留在 Actions 历史中，用于说明 CI 确实能够捕获 benchmark 回归。
 
 ### 3. 真实 Claude Code / Codex A/B：尚未执行
 
@@ -143,7 +143,7 @@ ACL-ZH/
 - GitHub Actions scorer 自检；
 - 后续 rule-family ablation 设计。
 
-runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方提供 `codex exec` 作为非交互自动化入口；实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。参考：[Codex as a platform](https://developers.openai.com/blog/codex-as-a-platform/) 与 [Access tokens](https://learn.chatgpt.com/docs/enterprise/access-tokens).
+runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方支持 `codex exec` 与 JSONL event stream；Claude Code 官方支持 `claude -p` 非交互模式和 JSON 输出。实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。参考：[Codex evals](https://developers.openai.com/blog/eval-skills/)、[Codex access tokens](https://developers.openai.com/zh-Hans/docs/enterprise/access-tokens) 与 [Claude Code CLI reference](https://docs.anthropic.com/en/docs/claude-code/cli-usage)。
 
 ## 下一阶段：真实 Agent A/B + Ablation
 
@@ -169,7 +169,7 @@ Full ACL
 
 ## 状态
 
-**v0.2 Experimental — benchmark harness implemented and self-tested; downstream agent effect unvalidated**
+**v0.2 Experimental — benchmark harness implemented, hardened and self-tested; real-agent workflow ready; downstream ACL effect unvalidated**
 
 ## Disclaimer
 
