@@ -1,0 +1,35 @@
+{
+  "n_cases": 12,
+  "aggregate": {
+    "baseline": {
+      "chars": 21.5,
+      "ambiguity_hits": 1.5,
+      "explicit_sections": 0,
+      "action_terms": 0.333,
+      "flow_markers": 0.083,
+      "normative_markers": 0.083,
+      "exact_identifier_refs": 0,
+      "validation_evidence": 0,
+      "ambiguity_index": 2.917
+    },
+    "acl": {
+      "chars": 70.417,
+      "ambiguity_hits": 0,
+      "explicit_sections": 2.167,
+      "action_terms": 3.667,
+      "flow_markers": 0.917,
+      "normative_markers": 0.75,
+      "exact_identifier_refs": 0.75,
+      "validation_evidence": 0.167,
+      "ambiguity_index": -2.458
+    }
+  },
+  "interpretation": {
+    "supported": [
+      "The ACL-ZH rewrites remove the ambiguity markers targeted by the current rule set.",
+      "The ACL-ZH rewrites add explicit structure, flow, normative language, and identifiers."
+    ],
+    "cost": "Mean prompt length increased from 21.5 to 70.417 Chinese characters, approximately 3.28x.",
+    "not_supported": "No downstream coding-agent performance improvement has been demonstrated by this static test."
+  }
+}
