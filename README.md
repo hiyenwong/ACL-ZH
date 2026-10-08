@@ -195,7 +195,8 @@ ACL-ZH/
 - 原始 JSONL 结果记录；
 - 聚合统计脚本；
 - GitHub Actions scorer 自检；
-- 后续 rule-family ablation 设计；
+- rule-family ablation prompt matrix：已落地；
+- Ablation harness：6 tasks × 6 variants = 36 reference runs，CI PASS；
 - Agent → Human prose-comprehension 实验规范；
 - Output 题库 v0.2：10 items / 30 variants / 20 objective questions；
 - Information Equivalence Audit v0.1：FAIL，并保留失败记录；
@@ -216,7 +217,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-当 Baseline / Minimal / Full 三组得到真实结果后，才进入规则消融：
+真实 Agent A/B 目前仍被 GitHub 模型凭证阻塞；不过 Ablation 基础设施已经实现并通过 CI。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
@@ -227,7 +228,7 @@ Full ACL
 └── remove Validation
 ```
 
-如果移除某一规则组以后表现没有下降，该规则组不能仅凭“感觉合理”成为强制规范。
+当前 ablation 定义采用**信息保持**原则：`Full - Constraint` 等变体不会删除底层任务事实，只移除对应规则族的受控表达机制，避免把“缺少信息”误判成“规则族无效”。如果移除某一规则组以后表现没有下降，该规则组不能仅凭“感觉合理”成为强制规范。详见 [benchmark/ABLATION.md](benchmark/ABLATION.md)。
 
 ### Output Track：人类理解实验
 
