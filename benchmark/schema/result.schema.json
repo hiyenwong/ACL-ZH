@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACL-ZH agent benchmark run",
+  "type": "object",
+  "required": ["task_id","variant","agent","repetition","tests_pass","constraint_violation","task_success","changed_files"],
+  "properties": {
+    "task_id": {"type":"string"},
+    "category": {"type":"string"},
+    "variant": {"enum":["baseline","minimal","full"]},
+    "agent": {"type":"string"},
+    "repetition": {"type":"integer","minimum":0},
+    "elapsed_seconds": {"type":"number","minimum":0},
+    "changed_files": {"type":"array","items":{"type":"string"}},
+    "forbidden_path_changes": {"type":"array","items":{"type":"string"}},
+    "unrequested_changes": {"type":"array","items":{"type":"string"}},
+    "tests_pass": {"type":"boolean"},
+    "constraint_violation": {"type":"boolean"},
+    "task_success": {"type":"boolean"}
+  }
+}
