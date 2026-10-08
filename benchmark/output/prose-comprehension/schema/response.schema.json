@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACL-ZH output comprehension response",
+  "type": "object",
+  "required": [
+    "participant_id",
+    "item_id",
+    "variant",
+    "question_id",
+    "correct",
+    "response_time_ms"
+  ],
+  "properties": {
+    "participant_id": {"type": "string"},
+    "item_id": {"type": "string"},
+    "variant": {"enum": ["natural", "light_acl", "full_acl", "diagram", "html"]},
+    "question_id": {"type": "string"},
+    "question_type": {"type": ["string", "null"]},
+    "correct": {"type": "boolean"},
+    "response_time_ms": {"type": "integer", "minimum": 0},
+    "confidence": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+    "cognitive_load": {"type": ["number", "null"], "minimum": 1, "maximum": 7},
+    "delayed_recall_correct": {"type": ["boolean", "null"]},
+    "expertise": {"type": ["string", "null"]},
+    "native_chinese": {"type": ["boolean", "null"]}
+  }
+}
