@@ -52,3 +52,27 @@ Observed:
 - No A/B result can be inferred from this run.
 
 Current blocker is exclusively repository credential configuration; the smoke workflow path itself is functioning.
+
+
+## Ablation infrastructure
+
+Status: **implemented / self-tested / not executed on real models**
+
+The ablation manifest contains:
+
+- full
+- full_minus_action
+- full_minus_reference
+- full_minus_constraint
+- full_minus_flow
+- full_minus_validation
+
+A CI smoke test executed 6 tasks × 6 variants = 36 deterministic reference-agent runs through the same benchmark runner.
+
+Workflow run: 37799769504
+
+Result: **PASS**
+
+The ablation variants preserve underlying task information and remove only the controlled-expression mechanism associated with one rule family.
+
+Real-model ablation remains gated on a meaningful Baseline / Minimal / Full signal.
