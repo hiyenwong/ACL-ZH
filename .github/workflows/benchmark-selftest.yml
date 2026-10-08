@@ -54,6 +54,23 @@ jobs:
         run: |
           python benchmark/agent-eval/aggregate.py /tmp/aclzh-reference/*.jsonl
 
+      - name: Ablation harness smoke test
+        run: |
+          rm -rf /tmp/aclzh-ablation
+          for VARIANT in full full_minus_action full_minus_reference full_minus_constraint full_minus_flow full_minus_validation; do
+            python benchmark/agent-eval/run.py               --manifest benchmark/tasks/manifest-ablation.jsonl               --variant "$VARIANT"               --agent reference               --agent-command 'python "$GITHUB_WORKSPACE/benchmark/agent-eval/reference_agent.py" "{prompt_file}"'               --repetitions 1               --output /tmp/aclzh-ablation
+          done
+          python - <<'PY'
+          import glob, json
+          rows=[]
+          for f in glob.glob('/tmp/aclzh-ablation/*.jsonl'):
+              rows += [json.loads(x) for x in open(f, encoding='utf-8') if x.strip()]
+          assert len(rows) == 36, len(rows)
+          variants={r['variant'] for r in rows}
+          assert variants == {'full','full_minus_action','full_minus_reference','full_minus_constraint','full_minus_flow','full_minus_validation'}, variants
+          print('ablation harness self-test: PASS')
+          PY
+
       - name: Validate output comprehension item set
         run: |
           python benchmark/output/prose-comprehension/validate_items.py \
