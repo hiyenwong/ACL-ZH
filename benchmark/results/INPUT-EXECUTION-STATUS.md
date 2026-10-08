@@ -36,3 +36,19 @@ After a credential is configured, updating or manually dispatching `.github/work
 This blocked run must not be counted as a benchmark result.
 
 The first publishable Input Track result requires actual model execution and committed raw/aggregate results.
+
+
+## Retry after OPENAI_API_KEY fallback support
+
+Workflow run: 37797545467
+
+Commit: `f9e8d828fe59038d3af5649b784a05d3b6b83005`
+
+Observed:
+
+- Codex credential gate: no `CODEX_ACCESS_TOKEN` and no `OPENAI_API_KEY`; agent execution skipped.
+- Claude credential gate: no `ANTHROPIC_API_KEY`; agent execution skipped.
+- No model outputs were produced.
+- No A/B result can be inferred from this run.
+
+Current blocker is exclusively repository credential configuration; the smoke workflow path itself is functioning.
