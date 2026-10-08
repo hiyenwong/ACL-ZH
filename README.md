@@ -171,6 +171,9 @@ ACL-ZH/
     │       │   ├── anonymize.py
     │       │   ├── review.schema.json
     │       │   ├── aggregate_reviews.py
+    │       │   ├── build_reviewer_html.py
+    │       │   ├── validate_reviews.py
+    │       │   ├── COORDINATOR.md
     │       │   └── selftest.py
     │       └── results/README.md
     └── results/
@@ -197,7 +200,10 @@ ACL-ZH/
 - Information Equivalence Audit v0.2：PASS WITH LIMITATIONS；
 - Independent Blind Review Protocol：已落地；
 - 匿名 A/B/C review pack 生成器与 answer-key 分离机制：已落地；
-- Blind review anonymization self-test：PASS；
+- 生产盲审默认使用私密随机 mapping；固定 seed 仅用于 CI 可重复自检；
+- 自包含 reviewer HTML 生成器：已落地；
+- reviewer JSONL 完整性校验：已落地；
+- Blind review end-to-end self-test：PASS；
 - Output item-set 自动校验脚本并已接入 CI；
 - 人类实验 response schema；
 - Comprehension Accuracy / Misinterpretation Rate / Response Time / Delayed Recall 聚合脚本。
@@ -225,11 +231,11 @@ Full ACL
 
 prose-comprehension 题库已经迭代到 **v0.2**：10 个技术主题、30 份文本版本（Natural / Light ACL / Full ACL）、20 道客观题。题库覆盖 reverse proxy、事务隔离、缓存、认证 Token、数据管道、消息队列、数据库索引、重试、API 兼容性和并发锁。
 
-v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5 个 item 存在额外解释信息，并发现 Full ACL 部分结构标签可能提示答案类别。修正后生成 v0.2；第二轮内部审计结果为 **PASS WITH LIMITATIONS**。当前 CI 也改为校验 v0.2。需要注意：v0.2 仍只完成内部语义审查，因此只能称为 **human-study candidate**，不能称为 validated instrument。为此仓库已经加入 Independent Blind Review Protocol：第三方 reviewer 只看到 fact sheet 与匿名 A/B/C 文本，不知道 Natural / Light ACL / Full ACL 的真实身份。匿名化工具与 CI 自检已经通过，但真正的独立 reviewer 结果仍未产生。
+v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5 个 item 存在额外解释信息，并发现 Full ACL 部分结构标签可能提示答案类别。修正后生成 v0.2；第二轮内部审计结果为 **PASS WITH LIMITATIONS**。当前 CI 也改为校验 v0.2。需要注意：v0.2 仍只完成内部语义审查，因此只能称为 **human-study candidate**，不能称为 validated instrument。为此仓库已经加入 Independent Blind Review Protocol：第三方 reviewer 只看到 fact sheet 与匿名 A/B/C 文本，不知道 Natural / Light ACL / Full ACL 的真实身份。匿名化工具、浏览器 reviewer UI、response validator 与端到端 CI 自检已经通过。生产盲审默认生成私密随机映射，不把 mapping 写入公开日志；reviewer 只拿到自包含 HTML，coordinator 单独保管 answer key。真正的独立 reviewer 结果仍未产生。
 
 实验将对比 Natural Chinese / Light ACL / Full ACL，并测理解正确率、查找时间、误解率和延迟回忆。这里的 Light ACL 对应一个重要假设：严格程度不一定越高越好，最优点可能位于自然中文与严格受控语言之间。
 
-下一步门槛是至少两名独立 reviewer 完成匿名等价性审查，并且所有 A/B/C 版本均无 material issue。只有通过这一门槛，才进入 pilot human-comprehension study。
+当前已经达到 **external blind review ready**。下一步门槛是至少两名独立 reviewer 使用匿名 HTML 独立完成 30 个 review cell，并且所有 A/B/C 版本均无 material issue。聚合结果必须在打开 answer key 之前冻结；只有通过这一门槛，才进入 pilot human-comprehension study。
 
 之后再单独扩展 Diagram-first 和 Interactive HTML。Diagram、HTML、Video 属于输出模态研究，必须和纯语言控制效果分开报告。
 
@@ -242,7 +248,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 ## 状态
 
-**v0.3 Experimental — bidirectional Human↔Agent research framework; Input harness self-tested; Output comprehension benchmark designed; ACL effects still unvalidated**
+**v0.3 Experimental — Input harness self-tested; Output item set audited; external blind-review package ready; ACL effects still unvalidated**
 
 ## Disclaimer
 
