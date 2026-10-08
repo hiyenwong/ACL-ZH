@@ -166,6 +166,12 @@ ACL-ZH/
     │       ├── aggregate.py
     │       ├── items/example.json
     │       ├── schema/response.schema.json
+    │       ├── blind-review/
+    │       │   ├── PROTOCOL.md
+    │       │   ├── anonymize.py
+    │       │   ├── review.schema.json
+    │       │   ├── aggregate_reviews.py
+    │       │   └── selftest.py
     │       └── results/README.md
     └── results/
         ├── README.md
@@ -189,6 +195,9 @@ ACL-ZH/
 - Output 题库 v0.2：10 items / 30 variants / 20 objective questions；
 - Information Equivalence Audit v0.1：FAIL，并保留失败记录；
 - Information Equivalence Audit v0.2：PASS WITH LIMITATIONS；
+- Independent Blind Review Protocol：已落地；
+- 匿名 A/B/C review pack 生成器与 answer-key 分离机制：已落地；
+- Blind review anonymization self-test：PASS；
 - Output item-set 自动校验脚本并已接入 CI；
 - 人类实验 response schema；
 - Comprehension Accuracy / Misinterpretation Rate / Response Time / Delayed Recall 聚合脚本。
@@ -216,9 +225,11 @@ Full ACL
 
 prose-comprehension 题库已经迭代到 **v0.2**：10 个技术主题、30 份文本版本（Natural / Light ACL / Full ACL）、20 道客观题。题库覆盖 reverse proxy、事务隔离、缓存、认证 Token、数据管道、消息队列、数据库索引、重试、API 兼容性和并发锁。
 
-v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5 个 item 存在额外解释信息，并发现 Full ACL 部分结构标签可能提示答案类别。修正后生成 v0.2；第二轮内部审计结果为 **PASS WITH LIMITATIONS**。当前 CI 也改为校验 v0.2。需要注意：v0.2 仍只完成内部语义审查，尚未完成独立盲审，因此只能称为 **human-study candidate**，不能称为 validated instrument。
+v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5 个 item 存在额外解释信息，并发现 Full ACL 部分结构标签可能提示答案类别。修正后生成 v0.2；第二轮内部审计结果为 **PASS WITH LIMITATIONS**。当前 CI 也改为校验 v0.2。需要注意：v0.2 仍只完成内部语义审查，因此只能称为 **human-study candidate**，不能称为 validated instrument。为此仓库已经加入 Independent Blind Review Protocol：第三方 reviewer 只看到 fact sheet 与匿名 A/B/C 文本，不知道 Natural / Light ACL / Full ACL 的真实身份。匿名化工具与 CI 自检已经通过，但真正的独立 reviewer 结果仍未产生。
 
 实验将对比 Natural Chinese / Light ACL / Full ACL，并测理解正确率、查找时间、误解率和延迟回忆。这里的 Light ACL 对应一个重要假设：严格程度不一定越高越好，最优点可能位于自然中文与严格受控语言之间。
+
+下一步门槛是至少两名独立 reviewer 完成匿名等价性审查，并且所有 A/B/C 版本均无 material issue。只有通过这一门槛，才进入 pilot human-comprehension study。
 
 之后再单独扩展 Diagram-first 和 Interactive HTML。Diagram、HTML、Video 属于输出模态研究，必须和纯语言控制效果分开报告。
 
