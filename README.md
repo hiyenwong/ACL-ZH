@@ -2,11 +2,11 @@
 
 **Agent Controlled Language for Chinese**
 
-ACL-ZH 是一个研究型项目：探索“受控中文指令”是否能提高 AI Agent 的执行可靠性。项目受 **ASD-STE100 (Simplified Technical English)** 的受控语言思想启发，但不是 ASD-STE100 的中文翻译、官方扩展或兼容性认证。
+ACL-ZH 是一个研究型项目：探索受控中文是否能降低 Human ↔ Agent 双向通信中的信息损失。第一阶段研究 Human → Agent 的执行可靠性；第二阶段研究 Agent → Human 的解释可理解性。项目受 **ASD-STE100 (Simplified Technical English)** 的受控语言思想启发，但不是 ASD-STE100 的中文翻译、官方扩展或兼容性认证。
 
 核心问题不是“这种写法看起来是否更规范”，而是：
 
-> **同一个任务，在相同模型和环境下，ACL-ZH 是否真的比自然中文带来更高的成功率、更低的约束违反和更少的越界修改？**
+> **同样的信息，用受控中文表达后，Agent 是否执行得更可靠？人类是否理解得更准确、更快？**
 
 ## 项目原则
 
@@ -14,14 +14,50 @@ ACL-ZH 当前是 **hypothesis + benchmark**，不是已经验证有效的标准�
 
 规则只有在实验中证明有价值，或具有明确的安全/正确性理由时，才应该进入稳定规范。没有数据支持的规则可以被修改或删除。
 
+## 双向研究框架
+
+ACL-ZH 将 Human–AI communication 拆成两个独立方向：
+
+```text
+Human → Agent
+Instruction Reliability
+
+Agent → Human
+Understanding Efficiency
+```
+
+### Input Track — Human → Agent
+
+研究受控中文是否改善：
+
+- Task Success Rate
+- First-pass Success Rate
+- Constraint Violation Rate
+- Unrequested Change Rate
+- Wrong-file Modification Rate
+
+### Output Track — Agent → Human
+
+研究受控中文是否改善：
+
+- Comprehension Accuracy
+- Time to Correct Answer
+- Misinterpretation Rate
+- Delayed Recall Accuracy
+- Cognitive Load
+
+Output Track 还会单独比较 Diagram、Interactive HTML 等输出模态，但这些结果不能被混同为“受控语言效果”。
+
+详见 [benchmark/output/prose-comprehension/SPEC.md](benchmark/output/prose-comprehension/SPEC.md)。
+
 ## 与 ASD-STE100 的关系
 
 | ASD-STE100 | ACL-ZH |
 | --- | --- |
 | Simplified Technical English | Agent Controlled Language for Chinese |
-| Human → Human | Human → AI Agent → Action |
-| 控制词汇和句法 | 研究词汇、句法、约束、控制流和验证对 Agent 行为的影响 |
-| 目标是清晰一致的技术信息 | 目标是可重复、可验证的 Agent 执行 |
+| Human → Human | Human ↔ AI Agent |
+| 控制词汇和句法 | 研究受控中文对 Agent 执行与人类理解的影响 |
+| 目标是清晰一致的技术信息 | 目标是降低 Human–Agent 双向通信中的歧义与理解成本 |
 
 ACL-ZH 借鉴 ASD-STE100 的方法论：减少歧义、统一术语、限制容易误解的表达，并尝试把规则变成可检查对象。
 
@@ -37,7 +73,7 @@ v0.1 将规则分为五组：
 
 详见 [spec/ACL-ZH-000.md](spec/ACL-ZH-000.md)。
 
-## Benchmark 设计
+## Input Benchmark 设计
 
 Benchmark 不只比较“自然中文 vs 更长的 prompt”，而是三组：
 
@@ -59,7 +95,7 @@ Token、tool calls、耗时和 prompt 长度只作为成本指标。
 
 完整实验设计见 [benchmark/BENCHMARK_SPEC.md](benchmark/BENCHMARK_SPEC.md)。
 
-## 当前实验结果
+## 当前实验结果与证据边界
 
 ### 1. 静态语言对照：已完成
 
@@ -145,7 +181,9 @@ ACL-ZH/
 
 runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方支持 `codex exec` 与 JSONL event stream；Claude Code 官方支持 `claude -p` 非交互模式和 JSON 输出。实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。参考：[Codex evals](https://developers.openai.com/blog/eval-skills/)、[Codex access tokens](https://developers.openai.com/zh-Hans/docs/enterprise/access-tokens) 与 [Claude Code CLI reference](https://docs.anthropic.com/en/docs/claude-code/cli-usage)。
 
-## 下一阶段：真实 Agent A/B + Ablation
+## 下一阶段
+
+### Input Track：真实 Agent A/B + Ablation
 
 当 Baseline / Minimal / Full 三组得到真实结果后，才进入规则消融：
 
@@ -160,6 +198,10 @@ Full ACL
 
 如果移除某一规则组以后表现没有下降，该规则组不能仅凭“感觉合理”成为强制规范。
 
+### Output Track：人类理解实验
+
+先从技术说明文开始，对比 Natural Chinese / Light ACL / Full ACL；在信息等价前提下测理解正确率、查找时间、误解率和延迟回忆。之后再单独扩展 Diagram-first 和 Interactive HTML。
+
 ## Agent 适配
 
 - Claude Code：`adapters/claude-code/CLAUDE.md`
@@ -169,7 +211,7 @@ Full ACL
 
 ## 状态
 
-**v0.2 Experimental — benchmark harness implemented, hardened and self-tested; real-agent workflow ready; downstream ACL effect unvalidated**
+**v0.3 Experimental — bidirectional Human↔Agent research framework; Input harness self-tested; Output comprehension benchmark designed; ACL effects still unvalidated**
 
 ## Disclaimer
 
