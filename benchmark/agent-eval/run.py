@@ -190,6 +190,7 @@ def main():
                 row = {
                     "task_id": task["id"],
                     "category": task["category"],
+                    "track": task.get("track", "controlled"),
                     "variant": args.variant,
                     "agent": args.agent,
                     "model": args.model,
