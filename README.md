@@ -186,6 +186,8 @@ ACL-ZH/
 - GitHub Actions scorer 自检；
 - 后续 rule-family ablation 设计；
 - Agent → Human prose-comprehension 实验规范；
+- v0.1 Output 题库：10 items / 30 variants / 20 objective questions；
+- Output item-set 自动校验脚本并已接入 CI；
 - 人类实验 response schema；
 - Comprehension Accuracy / Misinterpretation Rate / Response Time / Delayed Recall 聚合脚本。
 
@@ -210,7 +212,11 @@ Full ACL
 
 ### Output Track：人类理解实验
 
-先从技术说明文开始，对比 Natural Chinese / Light ACL / Full ACL；在信息等价前提下测理解正确率、查找时间、误解率和延迟回忆。这里的 Light ACL 对应一个重要假设：严格程度不一定越高越好，最优点可能位于自然中文与严格受控语言之间。
+首版 prose-comprehension 题库已经落地：**10 个技术主题、30 份文本版本（Natural / Light ACL / Full ACL）、20 道客观题**。题库覆盖 reverse proxy、事务隔离、缓存、认证 Token、数据管道、消息队列、数据库索引、重试、API 兼容性和并发锁。
+
+CI 已对 JSON 格式、必填字段、重复 ID、题目数量和三种文本版本完整性进行自动校验，当前状态为 **PASS**。需要注意：这只能证明题库结构可用，**不能证明三个文本版本在语义上完全信息等价**；在正式人类实验前仍需要独立 reviewer 按 fact sheet 做内容审查。
+
+实验将对比 Natural Chinese / Light ACL / Full ACL，并测理解正确率、查找时间、误解率和延迟回忆。这里的 Light ACL 对应一个重要假设：严格程度不一定越高越好，最优点可能位于自然中文与严格受控语言之间。
 
 之后再单独扩展 Diagram-first 和 Interactive HTML。Diagram、HTML、Video 属于输出模态研究，必须和纯语言控制效果分开报告。
 
