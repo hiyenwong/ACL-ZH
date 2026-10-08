@@ -57,4 +57,4 @@ jobs:
       - name: Validate output comprehension item set
         run: |
           python benchmark/output/prose-comprehension/validate_items.py \
-            benchmark/output/prose-comprehension/items/items-v0.1.jsonl
+            benchmark/output/prose-comprehension/items/items-v0.2.jsonl
