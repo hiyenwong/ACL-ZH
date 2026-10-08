@@ -1,0 +1,23 @@
+version: "0.1"
+terms:
+  - term: 尽量
+    reason: 未定义约束强度
+    recommendation: 使用“必须 / 不得 / 应该 / 可以”或明确例外条件
+  - term: 最好
+    reason: 无法确定是否为要求
+  - term: 适当
+    reason: 判断标准缺失
+  - term: 合理
+    reason: 判断标准缺失
+  - term: 看情况
+    reason: 条件未显式定义
+  - term: 必要时
+    reason: “必要”的触发条件未定义
+  - term: 简单
+    reason: 工作范围不可验证
+  - term: 稍微
+    reason: 修改程度不可验证
+  - term: 顺便
+    reason: 隐含非核心任务
+  - term: 这里
+    reason: 可能存在模糊引用
