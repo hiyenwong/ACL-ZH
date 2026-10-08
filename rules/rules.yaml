@@ -1,0 +1,114 @@
+version: "0.1"
+status: draft
+language: zh-CN
+inspired_by: ASD-STE100
+
+levels:
+  error: must_fix
+  warning: should_fix
+
+rules:
+  - id: ACLZH-A001
+    category: action
+    severity: error
+    title: 一个指令只包含一个主要动作
+  - id: ACLZH-A002
+    category: action
+    severity: error
+    title: 动作必须有明确对象
+  - id: ACLZH-A003
+    category: action
+    severity: warning
+    title: 优先使用可执行动词
+  - id: ACLZH-A004
+    category: action
+    severity: warning
+    title: 目标与动作分离
+  - id: ACLZH-A005
+    category: action
+    severity: error
+    title: 不得在长描述中隐藏多个动作
+
+  - id: ACLZH-R001
+    category: reference
+    severity: warning
+    title: 避免模糊指代
+  - id: ACLZH-R002
+    category: reference
+    severity: warning
+    title: 已知时使用精确标识符
+  - id: ACLZH-R003
+    category: reference
+    severity: warning
+    title: 一个概念使用一个标准术语
+  - id: ACLZH-R004
+    category: reference
+    severity: error
+    title: 不得为语言一致性修改代码标识符
+  - id: ACLZH-R005
+    category: reference
+    severity: warning
+    title: 相对引用必须唯一可解析
+
+  - id: ACLZH-C001
+    category: constraint
+    severity: error
+    title: 任务与约束分离
+  - id: ACLZH-C002
+    category: constraint
+    severity: warning
+    title: 避免未定义程度词
+  - id: ACLZH-C003
+    category: constraint
+    severity: warning
+    title: 明确修改范围
+  - id: ACLZH-C004
+    category: constraint
+    severity: error
+    title: 明确兼容性要求
+  - id: ACLZH-C005
+    category: constraint
+    severity: error
+    title: 明确定义例外行为
+
+  - id: ACLZH-F001
+    category: flow
+    severity: warning
+    title: 条件先于依赖动作
+  - id: ACLZH-F002
+    category: flow
+    severity: warning
+    title: 使用显式分支标记
+  - id: ACLZH-F003
+    category: flow
+    severity: error
+    title: 高风险或不确定场景定义停止条件
+  - id: ACLZH-F004
+    category: flow
+    severity: warning
+    title: 不使用模糊连接词隐藏控制流
+  - id: ACLZH-F005
+    category: flow
+    severity: warning
+    title: 定义失败后的行为
+
+  - id: ACLZH-V001
+    category: validation
+    severity: error
+    title: 完成条件必须可验证
+  - id: ACLZH-V002
+    category: validation
+    severity: error
+    title: 成功声明必须有证据
+  - id: ACLZH-V003
+    category: validation
+    severity: warning
+    title: 已知时明确验证命令
+  - id: ACLZH-V004
+    category: validation
+    severity: warning
+    title: 执行与验证分离
+  - id: ACLZH-V005
+    category: validation
+    severity: error
+    title: 报告未解决问题
