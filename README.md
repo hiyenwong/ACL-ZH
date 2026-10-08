@@ -37,15 +37,15 @@ v0.1 将规则分为五组：
 
 详见 [spec/ACL-ZH-000.md](spec/ACL-ZH-000.md)。
 
-## Benchmark：不是只比较“自然中文 vs 长 prompt”
+## Benchmark 设计
 
-Benchmark 现在定义三组：
+Benchmark 不只比较“自然中文 vs 更长的 prompt”，而是三组：
 
 1. **Baseline**：自然中文。
 2. **Minimal ACL**：只消除关键执行歧义。
 3. **Full ACL**：完整 ACL-ZH 结构化表达。
 
-加入 Minimal ACL 是因为第一轮静态测试发现 Full ACL 平均长度约为 Baseline 的 **3.28 倍**。如果不加入中间组，就无法知道收益究竟来自受控语言规则，还是单纯来自“写得更长、更详细”。
+加入 Minimal ACL 是因为第一轮静态测试发现 Full ACL 平均长度约为 Baseline 的 **3.28 倍**。如果只比较 Baseline 与 Full ACL，就无法判断收益究竟来自受控语言规则，还是单纯来自“写得更长、更详细”。
 
 主指标全部是 Agent 行为指标：
 
@@ -57,11 +57,11 @@ Benchmark 现在定义三组：
 
 Token、tool calls、耗时和 prompt 长度只作为成本指标。
 
-完整设计见 [benchmark/BENCHMARK_SPEC.md](benchmark/BENCHMARK_SPEC.md)。
+完整实验设计见 [benchmark/BENCHMARK_SPEC.md](benchmark/BENCHMARK_SPEC.md)。
 
 ## 当前实验结果
 
-### 已完成：静态语言对照
+### 1. 静态语言对照：已完成
 
 12 组 Baseline / Full ACL 文本对照显示：
 
@@ -72,36 +72,78 @@ Token、tool calls、耗时和 prompt 长度只作为成本指标。
 
 这只能说明 Full ACL 更显式、更长，并减少了我们定义的歧义标记。
 
-### 尚未证明：真实 Agent 性能提升
+### 2. Benchmark scorer 自检：已完成并通过
 
-**目前没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的任务成功率。**
+Benchmark harness 使用两组确定性控制进行自检：
 
-真实 A/B 结果必须在相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下运行后才能得出。
+- **No-op control**：不修改任何代码，必须被 hidden oracle 全部判定失败。
+- **Reference control**：执行已知正确的最小实现，必须全部判定成功。
+
+GitHub Actions 实际运行结果：
+
+- No-op：**0 / 6 task success**
+- Reference agent：**6 / 6 task success**
+- Aggregate smoke test：**PASS**
+
+这证明当前 scorer 至少能够区分“什么都没做”和“已知正确实现”，避免了“现有测试本来就通过，因此空操作被误判为成功”的假阳性。
+
+详见 [benchmark/SELFTEST.md](benchmark/SELFTEST.md)。
+
+### 3. 真实 Claude Code / Codex A/B：尚未执行
+
+**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。**
+
+正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
 结果状态见 [benchmark/results/README.md](benchmark/results/README.md)。
 
-## 已落地的 Benchmark Harness
+## 已落地成果
 
-仓库已经包含：
+当前仓库已经从“语言规范草案”推进为一个可执行的实验项目：
 
 ```text
-benchmark/
-├── BENCHMARK_SPEC.md
-├── METHODOLOGY.md
-├── cases.jsonl
-├── tasks/
-│   └── manifest.jsonl
-├── agent-eval/
-│   ├── run.py
-│   └── aggregate.py
-├── schema/
-│   └── result.schema.json
-└── results/
-    ├── README.md
-    └── static-v0.1.json
+ACL-ZH/
+├── spec/
+│   └── ACL-ZH-000.md
+├── rules/
+│   ├── rules.yaml
+│   └── ambiguous-words.yaml
+├── adapters/
+│   ├── claude-code/CLAUDE.md
+│   └── codex/AGENTS.md
+└── benchmark/
+    ├── BENCHMARK_SPEC.md
+    ├── METHODOLOGY.md
+    ├── SELFTEST.md
+    ├── cases.jsonl
+    ├── tasks/
+    │   └── manifest.jsonl
+    ├── agent-eval/
+    │   ├── run.py
+    │   ├── aggregate.py
+    │   └── reference_agent.py
+    ├── schema/
+    │   └── result.schema.json
+    └── results/
+        ├── README.md
+        └── static-v0.1.json
 ```
 
-runner 支持任意可非交互执行的 coding-agent CLI，通过命令模板调用。Codex 官方提供 `codex exec` 作为非交互自动化入口；Claude Code 运行时也应记录实际 CLI 版本和完整命令，避免把易变化的参数写死在规范中。
+### 已经具备的能力
+
+- 三组 prompt 对照：Baseline / Minimal ACL / Full ACL；
+- fresh workspace 隔离运行；
+- visible tests；
+- hidden behavioral oracle；
+- forbidden-path 检查；
+- unrequested-change 检查；
+- task success 自动判定；
+- 原始 JSONL 结果记录；
+- 聚合统计脚本；
+- GitHub Actions scorer 自检；
+- 后续 rule-family ablation 设计。
+
+runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方提供 `codex exec` 作为非交互自动化入口；实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。citeturn454525search3turn454525search5
 
 ## 下一阶段：真实 Agent A/B + Ablation
 
@@ -127,7 +169,7 @@ Full ACL
 
 ## 状态
 
-**v0.2 Experimental — benchmark harness implemented; downstream agent effect unvalidated**
+**v0.2 Experimental — benchmark harness implemented and self-tested; downstream agent effect unvalidated**
 
 ## Disclaimer
 
