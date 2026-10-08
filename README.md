@@ -186,7 +186,9 @@ ACL-ZH/
 - GitHub Actions scorer 自检；
 - 后续 rule-family ablation 设计；
 - Agent → Human prose-comprehension 实验规范；
-- v0.1 Output 题库：10 items / 30 variants / 20 objective questions；
+- Output 题库 v0.2：10 items / 30 variants / 20 objective questions；
+- Information Equivalence Audit v0.1：FAIL，并保留失败记录；
+- Information Equivalence Audit v0.2：PASS WITH LIMITATIONS；
 - Output item-set 自动校验脚本并已接入 CI；
 - 人类实验 response schema；
 - Comprehension Accuracy / Misinterpretation Rate / Response Time / Delayed Recall 聚合脚本。
@@ -212,9 +214,9 @@ Full ACL
 
 ### Output Track：人类理解实验
 
-首版 prose-comprehension 题库已经落地：**10 个技术主题、30 份文本版本（Natural / Light ACL / Full ACL）、20 道客观题**。题库覆盖 reverse proxy、事务隔离、缓存、认证 Token、数据管道、消息队列、数据库索引、重试、API 兼容性和并发锁。
+prose-comprehension 题库已经迭代到 **v0.2**：10 个技术主题、30 份文本版本（Natural / Light ACL / Full ACL）、20 道客观题。题库覆盖 reverse proxy、事务隔离、缓存、认证 Token、数据管道、消息队列、数据库索引、重试、API 兼容性和并发锁。
 
-CI 已对 JSON 格式、必填字段、重复 ID、题目数量和三种文本版本完整性进行自动校验，当前状态为 **PASS**。需要注意：这只能证明题库结构可用，**不能证明三个文本版本在语义上完全信息等价**；在正式人类实验前仍需要独立 reviewer 按 fact sheet 做内容审查。
+v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5 个 item 存在额外解释信息，并发现 Full ACL 部分结构标签可能提示答案类别。修正后生成 v0.2；第二轮内部审计结果为 **PASS WITH LIMITATIONS**。当前 CI 也改为校验 v0.2。需要注意：v0.2 仍只完成内部语义审查，尚未完成独立盲审，因此只能称为 **human-study candidate**，不能称为 validated instrument。
 
 实验将对比 Natural Chinese / Light ACL / Full ACL，并测理解正确率、查找时间、误解率和延迟回忆。这里的 Light ACL 对应一个重要假设：严格程度不一定越高越好，最优点可能位于自然中文与严格受控语言之间。
 
