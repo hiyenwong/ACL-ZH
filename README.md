@@ -160,6 +160,13 @@ ACL-ZH/
     │   └── reference_agent.py
     ├── schema/
     │   └── result.schema.json
+    ├── output/
+    │   └── prose-comprehension/
+    │       ├── SPEC.md
+    │       ├── aggregate.py
+    │       ├── items/example.json
+    │       ├── schema/response.schema.json
+    │       └── results/README.md
     └── results/
         ├── README.md
         └── static-v0.1.json
@@ -177,7 +184,10 @@ ACL-ZH/
 - 原始 JSONL 结果记录；
 - 聚合统计脚本；
 - GitHub Actions scorer 自检；
-- 后续 rule-family ablation 设计。
+- 后续 rule-family ablation 设计；
+- Agent → Human prose-comprehension 实验规范；
+- 人类实验 response schema；
+- Comprehension Accuracy / Misinterpretation Rate / Response Time / Delayed Recall 聚合脚本。
 
 runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex 官方支持 `codex exec` 与 JSONL event stream；Claude Code 官方支持 `claude -p` 非交互模式和 JSON 输出。实际 benchmark 必须记录模型、CLI 版本、reasoning effort 和完整命令。参考：[Codex evals](https://developers.openai.com/blog/eval-skills/)、[Codex access tokens](https://developers.openai.com/zh-Hans/docs/enterprise/access-tokens) 与 [Claude Code CLI reference](https://docs.anthropic.com/en/docs/claude-code/cli-usage)。
 
@@ -200,7 +210,9 @@ Full ACL
 
 ### Output Track：人类理解实验
 
-先从技术说明文开始，对比 Natural Chinese / Light ACL / Full ACL；在信息等价前提下测理解正确率、查找时间、误解率和延迟回忆。之后再单独扩展 Diagram-first 和 Interactive HTML。
+先从技术说明文开始，对比 Natural Chinese / Light ACL / Full ACL；在信息等价前提下测理解正确率、查找时间、误解率和延迟回忆。这里的 Light ACL 对应一个重要假设：严格程度不一定越高越好，最优点可能位于自然中文与严格受控语言之间。
+
+之后再单独扩展 Diagram-first 和 Interactive HTML。Diagram、HTML、Video 属于输出模态研究，必须和纯语言控制效果分开报告。
 
 ## Agent 适配
 
