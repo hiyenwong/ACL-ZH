@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
-import argparse, hashlib, importlib.util, json, os, random, subprocess, sys, tempfile, time
+import argparse
+import hashlib
+import importlib.util
+import json
+import random
+import subprocess
+import tempfile
+import time
 from pathlib import Path
+
 
 def load_manifest(path):
     return [json.loads(x) for x in Path(path).read_text(encoding="utf-8").splitlines() if x.strip()]
+
 
 def write_fixture(root: Path):
     files = {
@@ -26,120 +35,191 @@ def write_fixture(root: Path):
         "tests/test_serializer.py": "import json, unittest\nfrom src.serializer import dumps\nclass T(unittest.TestCase):\n def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})\n",
     }
     for path, content in files.items():
-        p=root/path
+        p = root / path
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(content, encoding="utf-8")
 
-def sh(cmd, cwd):
-    return subprocess.run(cmd, cwd=cwd, shell=True, text=True, capture_output=True)
+
+def sh(cmd, cwd, timeout=None):
+    try:
+        return subprocess.run(
+            cmd,
+            cwd=cwd,
+            shell=True,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as e:
+        return subprocess.CompletedProcess(
+            args=cmd,
+            returncode=124,
+            stdout=e.stdout or "",
+            stderr=(e.stderr or "") + "\nTIMEOUT",
+        )
+
 
 def sha(path):
-    p=Path(path)
+    p = Path(path)
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
 
+
 def load_module(workspace, name, rel):
-    path=workspace/rel
-    spec=importlib.util.spec_from_file_location(name,path)
-    mod=importlib.util.module_from_spec(spec)
+    path = workspace / rel
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
 
+
 def hidden_oracle(task_id, workspace):
     try:
-        if task_id=="scope-01":
-            m=load_module(workspace,"u","src/user_service.py")
-            value=m.get_user(7)
-            return value=={"id":7,"name":"Alice"} and list(__import__("inspect").signature(m.get_user).parameters)==["user_id"]
-        if task_id=="reference-01":
-            m=load_module(workspace,"c","src/config.py")
-            a=m.ConfigLoader().load({"debug":"true"})
-            b=m.ConfigLoader().load({"debug":"false"})
-            return isinstance(a,dict) and a["debug"] is True and b["debug"] is False
-        if task_id=="multi-action-01":
-            m=load_module(workspace,"p","src/parser.py")
+        if task_id == "scope-01":
+            import inspect
+            m = load_module(workspace, "u", "src/user_service.py")
+            value = m.get_user(7)
+            return value == {"id": 7, "name": "Alice"} and list(inspect.signature(m.get_user).parameters) == ["user_id"]
+        if task_id == "reference-01":
+            m = load_module(workspace, "c", "src/config.py")
+            a = m.ConfigLoader().load({"debug": "true"})
+            b = m.ConfigLoader().load({"debug": "false"})
+            return isinstance(a, dict) and a["debug"] is True and b["debug"] is False
+        if task_id == "multi-action-01":
+            m = load_module(workspace, "p", "src/parser.py")
             return m.parse_bool("false") is False and m.parse_bool("true") is True
-        if task_id=="flow-01":
-            m=load_module(workspace,"cs","src/cache_service.py")
-            calls=[]
-            svc=m.CacheService({"x":"cached"},lambda k:(calls.append(k) or "db"))
-            hit=svc.get("x")
-            miss=svc.get("y")
-            return hit=="cached" and miss=="db" and calls==["y"]
-        if task_id=="validation-01":
-            m=load_module(workspace,"n","src/names.py")
-            return m.normalize_name("  Alice   Bob \t Smith  ")=="Alice Bob Smith"
-        if task_id=="dependency-01":
-            m=load_module(workspace,"s","src/serializer.py")
-            return m.dumps({"b":1,"a":2})=='{"a":2,"b":1}'
+        if task_id == "flow-01":
+            m = load_module(workspace, "cs", "src/cache_service.py")
+            calls = []
+            svc = m.CacheService({"x": "cached"}, lambda k: (calls.append(k) or "db"))
+            hit = svc.get("x")
+            miss = svc.get("y")
+            return hit == "cached" and miss == "db" and calls == ["y"]
+        if task_id == "validation-01":
+            m = load_module(workspace, "n", "src/names.py")
+            return m.normalize_name("  Alice   Bob \t Smith  ") == "Alice Bob Smith"
+        if task_id == "dependency-01":
+            m = load_module(workspace, "s", "src/serializer.py")
+            return m.dumps({"b": 1, "a": 2}) == '{"a":2,"b":1}'
     except Exception:
         return False
     return False
 
+
 def git_changed(cwd):
-    r=sh("git diff --name-only HEAD",cwd)
-    return [x for x in r.stdout.splitlines() if x.strip()]
+    tracked = sh("git diff --name-only HEAD", cwd).stdout.splitlines()
+    untracked = sh("git ls-files --others --exclude-standard", cwd).stdout.splitlines()
+    return sorted(set(x.strip() for x in tracked + untracked if x.strip()))
+
+
+def read_cli_version(command):
+    if not command:
+        return None
+    p = sh(command, Path.cwd(), timeout=30)
+    value = (p.stdout or p.stderr).strip()
+    return value[:1000] if value else None
+
 
 def main():
-    ap=argparse.ArgumentParser()
-    ap.add_argument("--manifest",required=True)
-    ap.add_argument("--variant",choices=["baseline","minimal","full"],required=True)
-    ap.add_argument("--agent",required=True)
-    ap.add_argument("--agent-command",required=True,help="Command template. Available placeholders: {prompt_file}, {workspace}")
-    ap.add_argument("--repetitions",type=int,default=1)
-    ap.add_argument("--output",default="benchmark/results/agent")
-    ap.add_argument("--seed",type=int,default=20261008)
-    args=ap.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--manifest", required=True)
+    ap.add_argument("--variant", choices=["baseline", "minimal", "full"], required=True)
+    ap.add_argument("--agent", required=True)
+    ap.add_argument("--agent-command", required=True, help="Command template. Placeholders: {prompt_file}, {workspace}")
+    ap.add_argument("--repetitions", type=int, default=1)
+    ap.add_argument("--output", default="benchmark/results/agent")
+    ap.add_argument("--seed", type=int, default=20261008)
+    ap.add_argument("--timeout-seconds", type=int, default=600)
+    ap.add_argument("--model", default=None)
+    ap.add_argument("--reasoning-effort", default=None)
+    ap.add_argument("--cli-version-command", default=None)
+    ap.add_argument("--run-label", default=None)
+    args = ap.parse_args()
 
-    tasks=load_manifest(args.manifest)
-    rng=random.Random(args.seed)
-    runs=[(t,i) for t in tasks for i in range(args.repetitions)]
+    tasks = load_manifest(args.manifest)
+    rng = random.Random(args.seed)
+    runs = [(t, i) for t in tasks for i in range(args.repetitions)]
     rng.shuffle(runs)
-    outdir=Path(args.output); outdir.mkdir(parents=True,exist_ok=True)
-    outfile=outdir/f"{args.agent}-{args.variant}-{int(time.time())}.jsonl"
 
-    with outfile.open("w",encoding="utf-8") as out:
-        for task,rep in runs:
-            with tempfile.TemporaryDirectory(prefix="aclzh-") as td:
-                ws=Path(td)
+    outdir = Path(args.output)
+    outdir.mkdir(parents=True, exist_ok=True)
+    traces = outdir / "traces"
+    traces.mkdir(parents=True, exist_ok=True)
+    stamp = int(time.time())
+    outfile = outdir / f"{args.agent}-{args.variant}-{stamp}.jsonl"
+    cli_version = read_cli_version(args.cli_version_command)
+
+    with outfile.open("w", encoding="utf-8") as out:
+        for task, rep in runs:
+            with tempfile.TemporaryDirectory(prefix="aclzh-workspace-") as td, tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8", prefix="aclzh-prompt-", suffix=".txt", delete=True
+            ) as pf:
+                ws = Path(td)
                 write_fixture(ws)
-                protected={p:sha(ws/p) for p in task.get("forbidden_paths",[])}
-                sh("git init -q && git config user.email benchmark@example.invalid && git config user.name benchmark && git add . && git commit -qm baseline",ws)
+                protected = {p: sha(ws / p) for p in task.get("forbidden_paths", [])}
+                sh(
+                    "git init -q && git config user.email benchmark@example.invalid && "
+                    "git config user.name benchmark && git add . && git commit -qm baseline",
+                    ws,
+                )
 
-                prompt=task[args.variant]
-                prompt_file=ws/"PROMPT.txt"
-                prompt_file.write_text(prompt,encoding="utf-8")
-                prompt_sha=hashlib.sha256(prompt.encode()).hexdigest()
-                cmd=args.agent_command.format(prompt_file=str(prompt_file),workspace=str(ws))
+                prompt = task[args.variant]
+                pf.write(prompt)
+                pf.flush()
+                prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
+                cmd = args.agent_command.format(prompt_file=pf.name, workspace=str(ws))
 
-                start=time.time()
-                proc=sh(cmd,ws)
-                elapsed=time.time()-start
+                start = time.time()
+                proc = sh(cmd, ws, timeout=args.timeout_seconds)
+                elapsed = time.time() - start
 
-                changed=git_changed(ws)
-                tests=sh(task["test_command"],ws)
-                oracle_ok=hidden_oracle(task["id"],ws)
-                forbidden=[p for p,h in protected.items() if sha(ws/p)!=h]
-                allowed=set(task.get("allowed_paths",[]))
-                unrequested=[p for p in changed if allowed and p not in allowed]
-                constraint_violation=bool(forbidden or unrequested)
-                success=tests.returncode==0 and oracle_ok and not constraint_violation
+                trace_base = f"{task['id']}-{args.variant}-r{rep}"
+                stdout_path = traces / f"{trace_base}.stdout.log"
+                stderr_path = traces / f"{trace_base}.stderr.log"
+                stdout_path.write_text(proc.stdout or "", encoding="utf-8")
+                stderr_path.write_text(proc.stderr or "", encoding="utf-8")
 
-                row={
-                    "task_id":task["id"],"category":task["category"],"variant":args.variant,
-                    "agent":args.agent,"repetition":rep,"prompt_sha256":prompt_sha,
-                    "agent_command":args.agent_command,"agent_exit_code":proc.returncode,
-                    "elapsed_seconds":round(elapsed,3),"changed_files":changed,
-                    "forbidden_path_changes":forbidden,"unrequested_changes":unrequested,
-                    "visible_tests_exit_code":tests.returncode,"visible_tests_pass":tests.returncode==0,
-                    "hidden_oracle_pass":oracle_ok,
-                    "constraint_violation":constraint_violation,
-                    "task_success":success,"first_pass_success":success,
-                    "stdout":proc.stdout[-12000:],"stderr":proc.stderr[-12000:],
-                    "test_stdout":tests.stdout[-12000:],"test_stderr":tests.stderr[-12000:]
+                changed = git_changed(ws)
+                tests = sh(task["test_command"], ws, timeout=120)
+                oracle_ok = hidden_oracle(task["id"], ws)
+                forbidden = [p for p, h in protected.items() if sha(ws / p) != h]
+                allowed = set(task.get("allowed_paths", []))
+                unrequested = [p for p in changed if allowed and p not in allowed]
+                constraint_violation = bool(forbidden or unrequested)
+                success = tests.returncode == 0 and oracle_ok and not constraint_violation
+
+                row = {
+                    "task_id": task["id"],
+                    "category": task["category"],
+                    "variant": args.variant,
+                    "agent": args.agent,
+                    "model": args.model,
+                    "reasoning_effort": args.reasoning_effort,
+                    "cli_version": cli_version,
+                    "run_label": args.run_label,
+                    "repetition": rep,
+                    "prompt_sha256": prompt_sha,
+                    "agent_command_template": args.agent_command,
+                    "agent_exit_code": proc.returncode,
+                    "elapsed_seconds": round(elapsed, 3),
+                    "changed_files": changed,
+                    "forbidden_path_changes": forbidden,
+                    "unrequested_changes": unrequested,
+                    "visible_tests_exit_code": tests.returncode,
+                    "visible_tests_pass": tests.returncode == 0,
+                    "hidden_oracle_pass": oracle_ok,
+                    "constraint_violation": constraint_violation,
+                    "task_success": success,
+                    "first_pass_success": success,
+                    "stdout_trace": str(stdout_path),
+                    "stderr_trace": str(stderr_path),
+                    "test_stdout": tests.stdout[-12000:],
+                    "test_stderr": tests.stderr[-12000:],
                 }
-                out.write(json.dumps(row,ensure_ascii=False)+"\n")
+                out.write(json.dumps(row, ensure_ascii=False) + "\n")
                 out.flush()
+
     print(outfile)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
