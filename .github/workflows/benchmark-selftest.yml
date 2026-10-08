@@ -58,3 +58,8 @@ jobs:
         run: |
           python benchmark/output/prose-comprehension/validate_items.py \
             benchmark/output/prose-comprehension/items/items-v0.2.jsonl
+
+      - name: Self-test blind review anonymization
+        run: |
+          python benchmark/output/prose-comprehension/blind-review/selftest.py \
+            benchmark/output/prose-comprehension/items/items-v0.2.jsonl
