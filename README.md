@@ -79,9 +79,17 @@ ACL-ZH 的目标是降低人类向 AI Agent 下达任务时的语言歧义，使
 - Claude Code：`adapters/claude-code/CLAUDE.md`
 - OpenAI Codex：`adapters/codex/AGENTS.md`
 
+## 实验证据
+
+当前只有第一轮静态语言对照测试。结果显示 ACL-ZH 能消除当前规则集所定义的歧义标记，但平均指令长度约增加到 baseline 的 **3.28 倍**。
+
+**尚无证据证明 ACL-ZH 能提升 Claude Code、Codex 或其他 coding agent 的真实任务成功率。** 后续结论必须来自可复现的 A/B agent benchmark。
+
+详见 [benchmark/METHODOLOGY.md](benchmark/METHODOLOGY.md) 与 [benchmark/results/static-v0.1.json](benchmark/results/static-v0.1.json)。
+
 ## 状态
 
-**v0.1 Draft**
+**v0.1 Draft / Unvalidated for downstream agent performance**
 
 ## Disclaimer
 
