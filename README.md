@@ -125,13 +125,15 @@ GitHub Actions 实际运行结果：
 
 详见 [benchmark/SELFTEST.md](benchmark/SELFTEST.md)。\n\n在 runner 加固后（prompt 移出 workspace、补充未跟踪文件检测、保存 raw traces、记录模型/CLI 元数据），scorer 自检曾因 reference harness 接口变更失败；修复后最新自检重新通过。这个失败也保留在 Actions 历史中，用于说明 CI 确实能够捕获 benchmark 回归。
 
-### 3. 真实 Claude Code / Codex A/B：尚未执行
+### 3. 真实 Claude Code / Codex A/B：已触发 smoke，但被凭证阻塞
 
-**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。**
+首次真实 smoke workflow 已经触发，但 Codex 与 Claude 两个 job 都因仓库未配置模型凭证而跳过，没有产生模型输出。Codex 现在支持 `CODEX_ACCESS_TOKEN` 或 `OPENAI_API_KEY`；Claude 需要 `ANTHROPIC_API_KEY`。
+
+**因此目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。**
 
 正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
-结果状态见 [benchmark/results/README.md](benchmark/results/README.md)。
+执行状态见 [benchmark/results/INPUT-EXECUTION-STATUS.md](benchmark/results/INPUT-EXECUTION-STATUS.md)，结果状态见 [benchmark/results/README.md](benchmark/results/README.md)。
 
 ## 已落地成果
 
