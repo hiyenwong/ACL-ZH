@@ -1,0 +1,12 @@
+{"id":"T01","category":"ambiguous_scope","baseline":"把登录这里优化一下，尽量别改原来的接口，有问题的话把测试也处理一下。","acl":"目标：重构登录模块。\n范围：允许修改 src/auth/**；禁止修改公开 API。\n任务：1. 检查现有实现。2. 识别重复逻辑。3. 重构重复逻辑。4. 更新受影响的测试。\n约束：不得新增第三方依赖。必须保持现有外部行为。\n验证：运行 pnpm test。\n停止条件：如果完成任务必须修改公开 API，停止并报告原因。"}
+{"id":"T02","category":"pronoun_reference","baseline":"把这个函数改一下，然后把它加到那个地方，原来的逻辑别动。","acl":"任务：1. 修改 parseConfig()。2. 在 ConfigLoader.load() 中调用 parseConfig()。\n约束：不得改变 ConfigLoader.load() 的现有外部行为。"}
+{"id":"T03","category":"multi_action","baseline":"修改 parser 并更新 schema 和测试，同时保持兼容性。","acl":"任务：1. 修改 parser。2. 更新 schema。3. 更新受影响的测试。\n约束：必须保持向后兼容。"}
+{"id":"T04","category":"vague_modal","baseline":"最好不要加新依赖，必要时可以调整接口。","acl":"约束：不得新增第三方依赖。\n停止条件：如果完成任务必须调整公开接口，停止并报告原因。"}
+{"id":"T05","category":"implicit_flow","baseline":"先看看有没有类似实现，有就复用，没有就新建一个，然后补测试。","acl":"任务：1. 搜索现有实现。2. 如果存在可复用实现，复用现有实现。3. 如果不存在可复用实现，创建新实现。4. 添加测试。"}
+{"id":"T06","category":"validation","baseline":"改好以后确认没问题。","acl":"验证：1. 运行 pnpm lint。2. 运行 pnpm test。3. 仅当两个命令退出码均为 0 时，报告任务完成。"}
+{"id":"T07","category":"stop_condition","baseline":"如果迁移没问题就把旧的删掉。","acl":"任务：1. 运行新迁移。2. 验证迁移结果。3. 如果验证失败，停止并保留旧迁移。4. 如果验证通过，删除旧迁移。"}
+{"id":"T08","category":"relative_reference","baseline":"沿用之前那个方案，把上面的配置一起改掉。","acl":"任务：1. 使用 ADR-004 中定义的缓存方案。2. 修改 config/cache.yaml 以匹配 ADR-004。"}
+{"id":"T09","category":"completion_evidence","baseline":"确保 API 修好了，测试也过了。","acl":"验证：1. 运行 tests/api。2. 记录测试命令和退出码。3. 仅当退出码为 0 时，声明 API 修复完成。"}
+{"id":"T10","category":"scope_boundary","baseline":"重构用户模块，其他地方尽量别动。","acl":"目标：重构用户模块。\n范围：允许修改 src/user/**。禁止修改 src/order/** 和 src/payment/**。"}
+{"id":"T11","category":"fallback","baseline":"调用失败的话处理一下，别影响现有功能。","acl":"条件：如果外部调用失败，返回现有 fallback 结果。\n约束：不得改变成功路径的现有行为。"}
+{"id":"T12","category":"canonical_terms","baseline":"用户、账号、账户这几个地方统一一下。","acl":"术语：业务实体统一称为“用户”。\n约束：不得修改代码中的 public identifier。\n任务：仅修改面向用户的中文技术文本中的同义术语。"}
