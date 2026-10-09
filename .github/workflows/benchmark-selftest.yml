@@ -71,6 +71,10 @@ jobs:
           print('ablation harness self-test: PASS')
           PY
 
+      - name: File-block parser regression test
+        run: |
+          python benchmark/local-model/selftest_file_block_parser.py
+
       - name: Web-manual input scorer self-test
         run: |
           python benchmark/web-eval/selftest.py
