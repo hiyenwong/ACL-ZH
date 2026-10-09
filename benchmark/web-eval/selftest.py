@@ -6,7 +6,7 @@ base=Path(__file__).parent
 root=base.parents[1]
 exporter=base/'export_web_prompts.py'
 scorer=base/'score_web_patch.py'
-manifest=root/'tasks'/'manifest.jsonl'
+manifest=root/'benchmark'/'tasks'/'manifest.jsonl'
 
 with tempfile.TemporaryDirectory() as td:
     td=Path(td)
