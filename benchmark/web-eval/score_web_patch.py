@@ -19,6 +19,8 @@ def main():
     ap.add_argument("--response",required=True)
     ap.add_argument("--model",required=True)
     ap.add_argument("--provider",required=True)
+    ap.add_argument("--track",default="web-manual")
+    ap.add_argument("--agent",default="web-model")
     ap.add_argument("--output",required=True)
     args=ap.parse_args()
 
@@ -51,8 +53,8 @@ def main():
         constraint_violation=bool(forbidden or unrequested)
         success=apply.returncode==0 and tests.returncode==0 and oracle_ok and not constraint_violation
         row={
-            "task_id":task["id"],"category":task["category"],"track":"web-manual",
-            "variant":args.variant,"agent":"web-model","provider":args.provider,"model":args.model,
+            "task_id":task["id"],"category":task["category"],"track":args.track,
+            "variant":args.variant,"agent":args.agent,"provider":args.provider,"model":args.model,
             "repetition":0,"response_sha256":hashlib.sha256(diff.encode()).hexdigest(),
             "patch_apply_exit_code":apply.returncode,"patch_apply_stderr":apply.stderr[-12000:],
             "elapsed_seconds":round(elapsed,3),
