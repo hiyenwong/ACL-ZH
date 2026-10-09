@@ -1,0 +1,100 @@
+name: Controlled v0.2 Qwen 1.5B benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/tasks/manifest-controlled-v0.2.jsonl"
+      - "benchmark/local-model/run_controlled_v02.py"
+      - "benchmark/INPUT-CONTROLLED-V0.2-AUDIT.md"
+      - ".github/workflows/controlled-v02-qwen15b.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [natural_vague, natural_matched, minimal_acl, full_acl]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install 'transformers>=4.46,<5' safetensors
+      - name: Run six real responses
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          OUT="/tmp/controlled-v02-${{ matrix.variant }}"
+          rm -rf "$OUT"
+          python benchmark/local-model/run_controlled_v02.py \
+            --model Qwen/Qwen2.5-Coder-1.5B-Instruct \
+            --manifest benchmark/tasks/manifest-controlled-v0.2.jsonl \
+            --variant "${{ matrix.variant }}" \
+            --output "$OUT" \
+            --max-new-tokens 384
+      - uses: actions/upload-artifact@v4
+        with:
+          name: controlled-v02-${{ matrix.variant }}
+          path: /tmp/controlled-v02-${{ matrix.variant }}/
+          if-no-files-found: error
+          retention-days: 30
+
+  aggregate:
+    runs-on: ubuntu-latest
+    needs: run
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: controlled-v02-*
+          path: /tmp/parts
+          merge-multiple: false
+      - name: Aggregate 24 real runs
+        run: |
+          mkdir -p benchmark/results/controlled-v0.2-qwen15b
+          cat /tmp/parts/controlled-v02-natural_vague/results.jsonl /tmp/parts/controlled-v02-natural_matched/results.jsonl /tmp/parts/controlled-v02-minimal_acl/results.jsonl /tmp/parts/controlled-v02-full_acl/results.jsonl > benchmark/results/controlled-v0.2-qwen15b/results.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('benchmark/results/controlled-v0.2-qwen15b/results.jsonl')
+          rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+          variants=['natural_vague','natural_matched','minimal_acl','full_acl']
+          summary={}
+          for v in variants:
+              rs=[r for r in rows if r['variant']==v]
+              summary[v]={
+                  'n':len(rs),
+                  'parse_success_rate':sum(r['parsed_file_count']>0 for r in rs)/len(rs),
+                  'format_compliance_rate':sum(bool(r['format_compliant']) for r in rs)/len(rs),
+                  'visible_tests_pass_rate':sum(bool(r['visible_tests_pass']) for r in rs)/len(rs),
+                  'hidden_oracle_pass_rate':sum(bool(r['hidden_oracle_pass']) for r in rs)/len(rs),
+                  'constraint_violation_rate':sum(bool(r['constraint_violation']) for r in rs)/len(rs),
+                  'task_success_rate':sum(bool(r['task_success']) for r in rs)/len(rs)
+              }
+          report={
+              'experiment_id':'controlled-v0.2-qwen15b',
+              'model':'Qwen/Qwen2.5-Coder-1.5B-Instruct',
+              'runs':len(rows),
+              'primary_controlled_contrasts':['natural_matched vs minimal_acl','natural_matched vs full_acl','minimal_acl vs full_acl'],
+              'summary':summary
+          }
+          Path('benchmark/results/controlled-v0.2-qwen15b/aggregate.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-controlled-v0.2-qwen15b-scored
+          path: benchmark/results/controlled-v0.2-qwen15b/
+          if-no-files-found: error
+          retention-days: 30
