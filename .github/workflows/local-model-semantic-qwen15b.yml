@@ -1,0 +1,90 @@
+name: Qwen 1.5B semantic benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/local-model/run_semantic_file_protocol.py"
+      - ".github/workflows/local-model-semantic-qwen15b.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [baseline, minimal, full]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install 'transformers>=4.46,<5' safetensors
+      - name: Run semantic file-replacement benchmark
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          OUT="/tmp/semantic-${{ matrix.variant }}"
+          rm -rf "$OUT"
+          python benchmark/local-model/run_semantic_file_protocol.py \
+            --model Qwen/Qwen2.5-Coder-1.5B-Instruct \
+            --manifest benchmark/tasks/manifest.jsonl \
+            --variant "${{ matrix.variant }}" \
+            --output "$OUT" \
+            --max-new-tokens 384
+      - uses: actions/upload-artifact@v4
+        with:
+          name: semantic-qwen15b-${{ matrix.variant }}
+          path: /tmp/semantic-${{ matrix.variant }}/
+          if-no-files-found: error
+          retention-days: 30
+
+  aggregate:
+    runs-on: ubuntu-latest
+    needs: run
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: semantic-qwen15b-*
+          path: /tmp/parts
+          merge-multiple: false
+      - name: Aggregate semantic results
+        run: |
+          mkdir -p benchmark/results/local-qwen25-coder-15b-semantic-v0.1
+          cat /tmp/parts/semantic-qwen15b-baseline/results.jsonl /tmp/parts/semantic-qwen15b-minimal/results.jsonl /tmp/parts/semantic-qwen15b-full/results.jsonl > benchmark/results/local-qwen25-coder-15b-semantic-v0.1/results.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('benchmark/results/local-qwen25-coder-15b-semantic-v0.1/results.jsonl')
+          rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+          summary={}
+          for v in ['baseline','minimal','full']:
+              rs=[r for r in rows if r['variant']==v]
+              summary[v]={
+                  'n':len(rs),
+                  'task_success_rate':sum(bool(r['task_success']) for r in rs)/len(rs),
+                  'hidden_oracle_pass_rate':sum(bool(r['hidden_oracle_pass']) for r in rs)/len(rs),
+                  'format_compliance_rate':sum(bool(r['format_compliant']) for r in rs)/len(rs),
+                  'constraint_violation_rate':sum(bool(r['constraint_violation']) for r in rs)/len(rs),
+                  'parse_success_rate':sum(r['parsed_file_count']>0 for r in rs)/len(rs)
+              }
+          report={'experiment_id':'local-qwen25-coder-15b-semantic-v0.1','model':'Qwen/Qwen2.5-Coder-1.5B-Instruct','runs':len(rows),'summary':summary}
+          Path('benchmark/results/local-qwen25-coder-15b-semantic-v0.1/aggregate.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-qwen15b-semantic-scored
+          path: benchmark/results/local-qwen25-coder-15b-semantic-v0.1/
+          if-no-files-found: error
+          retention-days: 30
