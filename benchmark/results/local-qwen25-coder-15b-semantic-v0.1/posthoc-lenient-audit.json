@@ -1,0 +1,39 @@
+{
+  "experiment_id": "local-qwen25-coder-15b-semantic-v0.1-posthoc-lenient",
+  "source_workflow_run": 37910311745,
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "status": "exploratory-post-hoc",
+  "parser": "explicit <<<path>>> header followed by fenced code block; no code repair or semantic rewriting",
+  "summary": {
+    "baseline": {
+      "n": 6,
+      "parse_success_rate": 0.8333333333333334,
+      "visible_tests_pass_rate": 0.8333333333333334,
+      "hidden_oracle_pass_rate": 0.3333333333333333,
+      "constraint_violation_rate": 0,
+      "task_success_rate": 0.3333333333333333
+    },
+    "minimal": {
+      "n": 6,
+      "parse_success_rate": 1,
+      "visible_tests_pass_rate": 0.8333333333333334,
+      "hidden_oracle_pass_rate": 0.6666666666666666,
+      "constraint_violation_rate": 0,
+      "task_success_rate": 0.5
+    },
+    "full": {
+      "n": 6,
+      "parse_success_rate": 1,
+      "visible_tests_pass_rate": 0.8333333333333334,
+      "hidden_oracle_pass_rate": 0.8333333333333334,
+      "constraint_violation_rate": 0,
+      "task_success_rate": 0.6666666666666666
+    }
+  },
+  "interpretation": [
+    "A monotonic exploratory signal appears from baseline to minimal to full.",
+    "This does not establish a causal ACL-ZH effect because the lenient parser was defined after inspecting outputs.",
+    "The current three prompt arms are not guaranteed information-equivalent; improved performance may reflect additional explicit facts rather than controlled-language form.",
+    "A preregistered information-matched replication is required before any performance claim."
+  ]
+}
