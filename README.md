@@ -197,6 +197,8 @@ ACL-ZH/
 - GitHub Actions scorer 自检；
 - rule-family ablation prompt matrix：已落地；
 - Ablation harness：6 tasks × 6 variants = 36 reference runs，CI PASS；
+- Zero-API `web-manual` Input Track：已落地；
+- 网页 prompt bundle exporter + raw unified-diff scorer：CI PASS；
 - Agent → Human prose-comprehension 实验规范；
 - Output 题库 v0.2：10 items / 30 variants / 20 objective questions；
 - Information Equivalence Audit v0.1：FAIL，并保留失败记录；
@@ -217,7 +219,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-真实 Agent A/B 目前仍被 GitHub 模型凭证阻塞；不过 Ablation 基础设施已经实现并通过 CI。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
+真实 Agent A/B 目前仍被 GitHub 模型凭证阻塞；不过 Ablation 基础设施已经实现并通过 CI。针对“不购买 API”的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
