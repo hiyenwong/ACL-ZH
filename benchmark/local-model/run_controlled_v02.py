@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, hashlib, importlib.util, json, re, subprocess, tempfile, time
+import argparse, hashlib, importlib.util, json, subprocess, tempfile, time
 from pathlib import Path
 
 import torch
@@ -62,7 +62,7 @@ def main():
         response=tokenizer.decode(generated[0][inputs.input_ids.shape[1]:],skip_special_tokens=True)
         (rawdir/f"{task['id']}-{args.variant}.txt").write_text(response,encoding='utf-8')
 
-        blocks=[(p.strip(),c.rstrip()+'\n') for p,c in BLOCK_RE.findall(response)]
+        blocks=file_block_parser.extract_blocks(response)
         protocol=[]; applied=[]
         for path,content in blocks:
           if path not in allowed:
@@ -75,7 +75,7 @@ def main():
         unrequested=[p for p in changed if p not in allowed]
         constraint_violation=bool(protocol or forbidden_changed or unrequested)
         success=tests.returncode==0 and oracle_ok and not constraint_violation
-        stripped=BLOCK_RE.sub('',response).strip()
+        stripped=file_block_parser.BLOCK_RE.sub('',response).strip()
         format_compliant=bool(blocks) and not stripped and not protocol
         row={
           'task_id':task['id'],'category':task['category'],'track':'controlled-v0.2-local-open-model',
