@@ -1,0 +1,79 @@
+name: Build web smoke bundle
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/web-eval/**"
+      - "benchmark/tasks/manifest.jsonl"
+      - ".github/workflows/web-smoke-bundle.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate Baseline / Minimal / Full prompt bundles
+        run: |
+          rm -rf /tmp/aclzh-web-smoke
+          mkdir -p /tmp/aclzh-web-smoke
+          for VARIANT in baseline minimal full; do
+            python benchmark/web-eval/export_web_prompts.py \
+              --manifest benchmark/tasks/manifest.jsonl \
+              --variant "$VARIANT" \
+              --output "/tmp/aclzh-web-smoke/$VARIANT"
+          done
+
+      - name: Build randomized run sheet
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('/tmp/aclzh-web-smoke')
+          exp=json.loads(Path('benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json').read_text(encoding='utf-8'))
+          lines=[
+              '# ACL-ZH web smoke run sheet',
+              '',
+              f"Experiment: {exp['experiment_id']}",
+              f"Provider: {exp['provider']}",
+              f"Model: {exp['model']}",
+              '',
+              'Rules:',
+              '- Start a fresh chat for every run.',
+              '- Paste the complete prompt file.',
+              '- Save the first response exactly as returned.',
+              '- Do not repair prose/fences around the diff.',
+              ''
+          ]
+          manifest=[]
+          for i,entry in enumerate(exp['run_order'],1):
+              task,variant=entry.split(':',1)
+              prompt=f'{variant}/{task}-{variant}.md'
+              response=f'responses/{i:02d}-{task}-{variant}.diff'
+              lines += [f'{i:02d}. {entry}', f'    prompt: {prompt}', f'    response: {response}']
+              manifest.append({'run':i,'task_id':task,'variant':variant,'prompt':prompt,'response':response})
+          (root/'RUN-SHEET.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          (root/'run-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'responses').mkdir(exist_ok=True)
+          (root/'responses'/'.gitkeep').write_text('',encoding='utf-8')
+          PY
+
+      - name: Validate experiment
+        run: |
+          python benchmark/web-eval/validate_experiment.py \
+            benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json
+
+      - name: Upload web smoke bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-web-smoke-gpt-oss-20b-v0.1
+          path: /tmp/aclzh-web-smoke/
+          if-no-files-found: error
+          retention-days: 30
