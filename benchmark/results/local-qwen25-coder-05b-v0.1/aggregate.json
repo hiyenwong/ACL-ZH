@@ -1,0 +1,10 @@
+{
+  "experiment_id": "local-qwen25-coder-05b-smoke-v0.1-parallel",
+  "model": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "runs": 18,
+  "summary": {
+    "baseline": {"n": 6, "task_success_rate": 0.0, "hidden_oracle_pass_rate": 0.0, "constraint_violation_rate": 0.0, "patch_apply_rate": 0.0},
+    "minimal": {"n": 6, "task_success_rate": 0.0, "hidden_oracle_pass_rate": 0.0, "constraint_violation_rate": 0.0, "patch_apply_rate": 0.0},
+    "full": {"n": 6, "task_success_rate": 0.0, "hidden_oracle_pass_rate": 0.0, "constraint_violation_rate": 0.0, "patch_apply_rate": 0.0}
+  }
+}
