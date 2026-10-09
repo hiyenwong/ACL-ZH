@@ -1,0 +1,47 @@
+name: Score web smoke bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: 'Workflow run id that produced the completed web bundle artifact'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download completed web bundle artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: acl-zh-web-smoke-gpt-oss-20b-v0.1
+          path: /tmp/aclzh-web-smoke
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Score all 18 browser responses
+        run: |
+          rm -rf benchmark/results/web-smoke-current
+          python benchmark/web-eval/score_bundle.py \
+            --experiment benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json \
+            --bundle /tmp/aclzh-web-smoke \
+            --manifest benchmark/tasks/manifest.jsonl \
+            --output benchmark/results/web-smoke-current
+
+      - name: Upload scored results
+        uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-web-smoke-gpt-oss-20b-v0.1-scored
+          path: benchmark/results/web-smoke-current/
+          if-no-files-found: error
+          retention-days: 30
