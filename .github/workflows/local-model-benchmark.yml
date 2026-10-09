@@ -1,0 +1,101 @@
+name: Local open-model benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/local-model/**"
+      - ".github/workflows/local-model-benchmark.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install 'transformers>=4.46,<5' safetensors
+
+      - name: Run 18 deterministic generations
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          rm -rf /tmp/aclzh-local-qwen
+          python benchmark/local-model/run_local_model.py \
+            --model Qwen/Qwen2.5-Coder-0.5B-Instruct \
+            --experiment benchmark/local-model/experiment-qwen25-coder-05b-v0.1.json \
+            --manifest benchmark/tasks/manifest.jsonl \
+            --workdir /tmp/aclzh-local-qwen \
+            --max-new-tokens 512
+
+      - name: Score all generations
+        run: |
+          rm -rf benchmark/results/local-qwen25-coder-05b-v0.1
+          mkdir -p benchmark/results/local-qwen25-coder-05b-v0.1
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          root=Path('/tmp/aclzh-local-qwen')
+          exp=json.loads(Path('benchmark/local-model/experiment-qwen25-coder-05b-v0.1.json').read_text(encoding='utf-8'))
+          runs=json.loads((root/'run-manifest.json').read_text(encoding='utf-8'))
+          out=Path('benchmark/results/local-qwen25-coder-05b-v0.1/results.jsonl')
+          for item in runs:
+              subprocess.run([
+                  sys.executable,'benchmark/web-eval/score_web_patch.py',
+                  '--manifest','benchmark/tasks/manifest.jsonl',
+                  '--task-id',item['task_id'],
+                  '--variant',item['variant'],
+                  '--provider',exp['provider'],
+                  '--model',exp['model'],
+                  '--track',exp['track'],
+                  '--agent',exp['agent'],
+                  '--response',str(root/item['response']),
+                  '--output',str(out)
+              ],check=True)
+          PY
+
+      - name: Aggregate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('benchmark/results/local-qwen25-coder-05b-v0.1/results.jsonl')
+          rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+          variants=['baseline','minimal','full']
+          summary={}
+          for v in variants:
+              rs=[r for r in rows if r['variant']==v]
+              summary[v]={
+                  'n':len(rs),
+                  'task_success_rate':sum(bool(r['task_success']) for r in rs)/len(rs),
+                  'hidden_oracle_pass_rate':sum(bool(r['hidden_oracle_pass']) for r in rs)/len(rs),
+                  'constraint_violation_rate':sum(bool(r['constraint_violation']) for r in rs)/len(rs),
+                  'patch_apply_rate':sum(r['patch_apply_exit_code']==0 for r in rs)/len(rs)
+              }
+          report={'experiment_id':'local-qwen25-coder-05b-smoke-v0.1','model':'Qwen/Qwen2.5-Coder-0.5B-Instruct','runs':len(rows),'summary':summary}
+          Path('benchmark/results/local-qwen25-coder-05b-v0.1/aggregate.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Copy raw generations
+        run: |
+          cp -R /tmp/aclzh-local-qwen benchmark/results/local-qwen25-coder-05b-v0.1/raw
+
+      - name: Upload real-data artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-local-qwen25-coder-05b-v0.1
+          path: benchmark/results/local-qwen25-coder-05b-v0.1/
+          if-no-files-found: error
+          retention-days: 30
