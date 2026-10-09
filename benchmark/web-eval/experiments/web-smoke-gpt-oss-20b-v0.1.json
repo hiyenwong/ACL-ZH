@@ -1,0 +1,47 @@
+{
+  "experiment_id": "web-smoke-gpt-oss-20b-v0.1",
+  "track": "web-manual",
+  "provider": "huggingface-chat",
+  "model": "openai/gpt-oss-20b",
+  "browser_url": "https://huggingface.co/chat/models/openai/gpt-oss-20b",
+  "date_planned": "2026-10-09",
+  "repetitions": 1,
+  "fresh_chat_per_run": true,
+  "response_contract": "raw first response; unified diff only; no cleanup",
+  "variants": [
+    "baseline",
+    "minimal",
+    "full"
+  ],
+  "tasks": [
+    "scope-01",
+    "reference-01",
+    "multi-action-01",
+    "flow-01",
+    "validation-01",
+    "dependency-01"
+  ],
+  "randomization_seed": 20261009,
+  "run_order": [
+    "validation-01:minimal",
+    "scope-01:full",
+    "flow-01:baseline",
+    "dependency-01:minimal",
+    "reference-01:full",
+    "multi-action-01:baseline",
+    "scope-01:minimal",
+    "validation-01:full",
+    "dependency-01:baseline",
+    "flow-01:full",
+    "reference-01:baseline",
+    "multi-action-01:minimal",
+    "scope-01:baseline",
+    "dependency-01:full",
+    "validation-01:baseline",
+    "reference-01:minimal",
+    "flow-01:minimal",
+    "multi-action-01:full"
+  ],
+  "status": "ready_for_browser_execution",
+  "evidence_boundary": "Browser first-shot patch generation only; do not merge with autonomous agent-cli results."
+}
