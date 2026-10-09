@@ -71,6 +71,10 @@ jobs:
           print('ablation harness self-test: PASS')
           PY
 
+      - name: Web-manual input scorer self-test
+        run: |
+          python benchmark/web-eval/selftest.py
+
       - name: Validate output comprehension item set
         run: |
           python benchmark/output/prose-comprehension/validate_items.py \
