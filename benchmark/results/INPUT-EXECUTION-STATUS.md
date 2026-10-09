@@ -76,3 +76,25 @@ Result: **PASS**
 The ablation variants preserve underlying task information and remove only the controlled-expression mechanism associated with one rule family.
 
 Real-model ablation remains gated on a meaningful Baseline / Minimal / Full signal.
+
+
+## Zero-API web-manual track
+
+Status: **implemented / self-tested / ready for browser trials**
+
+Purpose: support Input Track experiments when paid API access is unavailable.
+
+Pipeline:
+
+1. export each task + relevant source files + one prompt variant;
+2. run it in a fresh browser chat;
+3. preserve the first raw response exactly;
+4. require unified diff output;
+5. apply the raw diff to a fresh fixture;
+6. score with the same visible tests, hidden oracle, forbidden-path and unrequested-change checks.
+
+CI run: 37875494185
+
+Result: **PASS**
+
+Evidence boundary: this track measures first-shot browser model patch generation. It must remain separate from CLI/autonomous-agent results.
