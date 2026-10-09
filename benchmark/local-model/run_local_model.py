@@ -12,6 +12,7 @@ def main():
     ap.add_argument("--manifest",required=True)
     ap.add_argument("--workdir",required=True)
     ap.add_argument("--max-new-tokens",type=int,default=512)
+    ap.add_argument("--variant",default=None)
     args=ap.parse_args()
 
     exp=json.loads(Path(args.experiment).read_text(encoding='utf-8'))
@@ -19,13 +20,15 @@ def main():
     root.mkdir(parents=True,exist_ok=True)
 
     exporter=Path(__file__).resolve().parents[1]/'web-eval'/'export_web_prompts.py'
-    for variant in exp['variants']:
+    selected_variants=[args.variant] if args.variant else exp['variants']
+    for variant in selected_variants:
         subprocess.run([sys.executable,str(exporter),'--manifest',args.manifest,'--variant',variant,'--output',str(root/variant)],check=True)
 
     run_manifest=[]
     responses=root/'responses'
     responses.mkdir(exist_ok=True)
-    for i,entry in enumerate(exp['run_order'],1):
+    selected_entries=[x for x in exp['run_order'] if (not args.variant or x.endswith(':'+args.variant))]
+    for i,entry in enumerate(selected_entries,1):
         task,variant=entry.split(':',1)
         run_manifest.append({'run':i,'task_id':task,'variant':variant,'prompt':f'{variant}/{task}-{variant}.md','response':f'responses/{i:02d}-{task}-{variant}.diff'})
     (root/'run-manifest.json').write_text(json.dumps(run_manifest,ensure_ascii=False,indent=2),encoding='utf-8')
