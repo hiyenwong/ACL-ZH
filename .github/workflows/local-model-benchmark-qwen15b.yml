@@ -1,0 +1,127 @@
+name: Parallel Qwen 1.5B benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/local-model/experiment-qwen25-coder-15b-v0.1.json"
+      - ".github/workflows/local-model-benchmark-qwen15b.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [baseline, minimal, full]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install 'transformers>=4.46,<5' safetensors
+
+      - name: Generate six real responses
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          ROOT="/tmp/aclzh-qwen15b-${{ matrix.variant }}"
+          rm -rf "$ROOT"
+          python benchmark/local-model/run_local_model.py \
+            --model Qwen/Qwen2.5-Coder-1.5B-Instruct \
+            --experiment benchmark/local-model/experiment-qwen25-coder-15b-v0.1.json \
+            --manifest benchmark/tasks/manifest.jsonl \
+            --variant "${{ matrix.variant }}" \
+            --workdir "$ROOT" \
+            --max-new-tokens 256
+
+      - name: Score six responses
+        run: |
+          ROOT="/tmp/aclzh-qwen15b-${{ matrix.variant }}"
+          OUT="/tmp/qwen15b-scored-${{ matrix.variant }}"
+          mkdir -p "$OUT"
+          python - <<'PY'
+          import json, os, subprocess, sys
+          from pathlib import Path
+          variant=os.environ["MATRIX_VARIANT"]
+          root=Path(f'/tmp/aclzh-qwen15b-{variant}')
+          exp=json.loads(Path('benchmark/local-model/experiment-qwen25-coder-15b-v0.1.json').read_text(encoding='utf-8'))
+          runs=json.loads((root/'run-manifest.json').read_text(encoding='utf-8'))
+          out=Path(f'/tmp/qwen15b-scored-{variant}/results.jsonl')
+          for item in runs:
+              subprocess.run([
+                  sys.executable,'benchmark/web-eval/score_web_patch.py',
+                  '--manifest','benchmark/tasks/manifest.jsonl',
+                  '--task-id',item['task_id'],
+                  '--variant',item['variant'],
+                  '--provider',exp['provider'],
+                  '--model',exp['model'],
+                  '--track',exp['track'],
+                  '--agent',exp['agent'],
+                  '--response',str(root/item['response']),
+                  '--output',str(out)
+              ],check=True)
+          PY
+        env:
+          MATRIX_VARIANT: ${{ matrix.variant }}
+
+      - name: Copy raw outputs
+        run: |
+          cp -R "/tmp/aclzh-qwen15b-${{ matrix.variant }}" "/tmp/qwen15b-scored-${{ matrix.variant }}/raw"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qwen15b-${{ matrix.variant }}
+          path: /tmp/qwen15b-scored-${{ matrix.variant }}/
+          if-no-files-found: error
+          retention-days: 30
+
+  aggregate:
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: qwen15b-*
+          path: /tmp/parts
+          merge-multiple: false
+      - name: Aggregate 18 scored runs
+        run: |
+          mkdir -p benchmark/results/local-qwen25-coder-15b-v0.1
+          cat /tmp/parts/qwen15b-baseline/results.jsonl /tmp/parts/qwen15b-minimal/results.jsonl /tmp/parts/qwen15b-full/results.jsonl > benchmark/results/local-qwen25-coder-15b-v0.1/results.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('benchmark/results/local-qwen25-coder-15b-v0.1/results.jsonl')
+          rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+          summary={}
+          for v in ['baseline','minimal','full']:
+              rs=[r for r in rows if r['variant']==v]
+              summary[v]={
+                  'n':len(rs),
+                  'task_success_rate':sum(bool(r['task_success']) for r in rs)/len(rs),
+                  'hidden_oracle_pass_rate':sum(bool(r['hidden_oracle_pass']) for r in rs)/len(rs),
+                  'constraint_violation_rate':sum(bool(r['constraint_violation']) for r in rs)/len(rs),
+                  'patch_apply_rate':sum(r['patch_apply_exit_code']==0 for r in rs)/len(rs)
+              }
+          report={'experiment_id':'local-qwen25-coder-15b-smoke-v0.1','model':'Qwen/Qwen2.5-Coder-1.5B-Instruct','runs':len(rows),'summary':summary}
+          Path('benchmark/results/local-qwen25-coder-15b-v0.1/aggregate.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-qwen15b-scored
+          path: benchmark/results/local-qwen25-coder-15b-v0.1/
+          if-no-files-found: error
+          retention-days: 30
