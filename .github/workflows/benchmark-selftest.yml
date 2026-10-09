@@ -75,6 +75,35 @@ jobs:
         run: |
           python benchmark/web-eval/selftest.py
 
+      - name: Web bundle completeness gate must reject missing responses
+        run: |
+          rm -rf /tmp/aclzh-web-incomplete
+          mkdir -p /tmp/aclzh-web-incomplete
+          for VARIANT in baseline minimal full; do
+            python benchmark/web-eval/export_web_prompts.py               --manifest benchmark/tasks/manifest.jsonl               --variant "$VARIANT"               --output "/tmp/aclzh-web-incomplete/$VARIANT"
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exp=json.loads(Path('benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json').read_text(encoding='utf-8'))
+          root=Path('/tmp/aclzh-web-incomplete')
+          manifest=[]
+          for i,entry in enumerate(exp['run_order'],1):
+              task,variant=entry.split(':',1)
+              manifest.append({
+                  'run':i,'task_id':task,'variant':variant,
+                  'prompt':f'{variant}/{task}-{variant}.md',
+                  'response':f'responses/{i:02d}-{task}-{variant}.diff'
+              })
+          (root/'run-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'responses').mkdir(exist_ok=True)
+          PY
+          set +e
+          python benchmark/web-eval/score_bundle.py             --experiment benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json             --bundle /tmp/aclzh-web-incomplete             --manifest benchmark/tasks/manifest.jsonl             --output /tmp/aclzh-web-score
+          CODE=$?
+          set -e
+          test "$CODE" -eq 2
+
       - name: Validate pinned web smoke experiment
         run: |
           python benchmark/web-eval/validate_experiment.py \
