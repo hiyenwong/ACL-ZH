@@ -75,6 +75,11 @@ jobs:
         run: |
           python benchmark/web-eval/selftest.py
 
+      - name: Validate pinned web smoke experiment
+        run: |
+          python benchmark/web-eval/validate_experiment.py \
+            benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json
+
       - name: Validate output comprehension item set
         run: |
           python benchmark/output/prose-comprehension/validate_items.py \
