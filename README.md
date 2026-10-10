@@ -129,7 +129,7 @@ GitHub Actions 实际运行结果：
 
 首次真实 smoke workflow 已经触发，但 Codex 与 Claude 两个 job 都因仓库未配置模型凭证而跳过，没有产生模型输出。Codex 现在支持 `CODEX_ACCESS_TOKEN` 或 `OPENAI_API_KEY`；Claude 需要 `ANTHROPIC_API_KEY`。
 
-**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。已经存在真实开源模型数据，但当前 strict-diff 实验发生测量 floor collapse，不能作为 ACL-ZH 正向或负向效果证据。**
+**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验已经产生第一批信号：Qwen2.5-Coder-0.5B 与 1.5B 在 strict unified-diff 协议下均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 首次突破该 floor，在 Full ACL 条件下 1/6 task success，而 Baseline 与 Minimal ACL 均为 0/6。这个样本量过小，只能视为需要扩大实验的早期信号，不能据此宣称 Full ACL 优于其他条件。**
 
 正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
@@ -219,7 +219,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；不过零 API 的真实开源模型实验已经开始产生数据。Qwen2.5-Coder-0.5B-Instruct 与 1.5B-Instruct 各完成 18 次 Baseline / Minimal / Full 推理，共 36 次真实模型运行。两轮在 strict unified-diff 协议下均出现 0% patch-apply 的 floor effect，因此这些结果不能支持 ACL-ZH 有效或无效的结论。当前正在把格式遵循与语义任务正确性拆成独立指标。针对“不购买 API”的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
+Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；不过零 API 的真实开源模型实验已经开始产生数据。Qwen2.5-Coder-0.5B、1.5B、3B 各完成 18 次 Baseline / Minimal / Full 推理，共 54 次真实模型运行。0.5B 与 1.5B 在 strict unified-diff 协议下均出现 0% patch-apply 的 floor effect；3B 首次突破 floor：Baseline 0/6 task success、Minimal ACL 0/6、Full ACL 1/6。fence-only normalization 不改变这一结果。当前证据只能说明 3B 已进入可测区间，并出现一个值得复验的 Full ACL 成功样本；它不足以支持效果结论。下一步应扩大可测模型与重复次数，并继续把格式遵循与语义任务正确性拆成独立指标。针对“不购买 API”的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
@@ -253,7 +253,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 ## 状态
 
-**v0.3 Experimental — Input harness self-tested; Output item set audited; external blind-review package ready; ACL effects still unvalidated**
+**v0.3 Experimental — Input harness self-tested; 54 local open-model runs completed; first non-zero Full ACL signal observed at 3B; Output item set audited; ACL effects still unvalidated**
 
 ## Disclaimer
 
