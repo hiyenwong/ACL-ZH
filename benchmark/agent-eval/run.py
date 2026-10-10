@@ -25,6 +25,13 @@ def write_fixture(root: Path):
         "src/cache_service.py": "class CacheService:\n    def __init__(self, cache, query):\n        self.cache = cache\n        self.query = query\n    def get(self, key):\n        return self.query(key)\n",
         "src/names.py": "def normalize_name(value):\n    return value\n",
         "src/serializer.py": "import json\n\ndef dumps(value):\n    return json.dumps(value)\n",
+        "src/resolver.py": "def resolve(key, primary, fallback):\n    return primary(key)\n",
+        "src/safe_math.py": "def safe_divide(a, b):\n    return a / b\n",
+        "src/formatter.py": "def format_name(value, uppercase=False):\n    return value.upper() if uppercase else value\n",
+        "src/feature_gate.py": "def process(payload, enabled, transform):\n    return transform(payload)\n",
+        "src/settings.py": "def parse_timeout(value):\n    return value\n",
+        "src/client.py": "from .settings import parse_timeout\n\ndef get_timeout(config):\n    return config.get('timeout', '30')\n",
+        "src/registry.py": "DEFAULT_REGION = 'us'\n\ndef endpoint(config):\n    region = config.get('region', 'us')\n    return f'https://{region}.example.test'\n",
         "schema.json": "{\"type\":\"object\"}\n",
         "requirements.txt": "",
         "tests/test_user_service.py": "import unittest\nfrom src.user_service import get_user\nclass T(unittest.TestCase):\n def test_api(self): self.assertEqual(get_user(1)['id'],1)\n",
@@ -33,6 +40,12 @@ def write_fixture(root: Path):
         "tests/test_cache_service.py": "import unittest\nfrom src.cache_service import CacheService\nclass T(unittest.TestCase):\n def test_miss(self): self.assertEqual(CacheService({},lambda k:'db').get('x'),'db')\n",
         "tests/test_names.py": "import unittest\nfrom src.names import normalize_name\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_name('Alice'),'Alice')\n",
         "tests/test_serializer.py": "import json, unittest\nfrom src.serializer import dumps\nclass T(unittest.TestCase):\n def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})\n",
+        "tests/test_resolver.py": "import unittest\nfrom src.resolver import resolve\nclass T(unittest.TestCase):\n def test_primary(self): self.assertEqual(resolve('x',lambda k:'p',lambda k:'f'),'p')\n",
+        "tests/test_safe_math.py": "import unittest\nfrom src.safe_math import safe_divide\nclass T(unittest.TestCase):\n def test_normal(self): self.assertEqual(safe_divide(6,3),2)\n",
+        "tests/test_formatter.py": "import unittest\nfrom src.formatter import format_name\nclass T(unittest.TestCase):\n def test_upper(self): self.assertEqual(format_name('alice',True),'ALICE')\n",
+        "tests/test_feature_gate.py": "import unittest\nfrom src.feature_gate import process\nclass T(unittest.TestCase):\n def test_enabled(self): self.assertEqual(process('x',True,lambda v:v+'!'),'x!')\n",
+        "tests/test_client.py": "import unittest\nfrom src.client import get_timeout\nclass T(unittest.TestCase):\n def test_default(self): self.assertEqual(get_timeout({}),30)\n",
+        "tests/test_registry.py": "import unittest\nfrom src.registry import endpoint\nclass T(unittest.TestCase):\n def test_explicit(self): self.assertEqual(endpoint({'region':'eu'}),'https://eu.example.test')\n",
     }
     for path, content in files.items():
         p = root / path
@@ -100,6 +113,53 @@ def hidden_oracle(task_id, workspace):
         if task_id == "dependency-01":
             m = load_module(workspace, "s", "src/serializer.py")
             return m.dumps({"b": 1, "a": 2}) == '{"a":2,"b":1}'
+        if task_id == "fallback-01":
+            m = load_module(workspace, "r", "src/resolver.py")
+            calls = []
+            hit = m.resolve("x", lambda k: "primary", lambda k: (calls.append(k) or "fallback"))
+            miss = m.resolve("y", lambda k: None, lambda k: (calls.append(k) or "fallback"))
+            return hit == "primary" and miss == "fallback" and calls == ["y"]
+        if task_id == "exception-01":
+            m = load_module(workspace, "sm", "src/safe_math.py")
+            ok = m.safe_divide(8, 2) == 4
+            zero = m.safe_divide(1, 0) is None
+            type_raised = False
+            try:
+                m.safe_divide("8", 2)
+            except TypeError:
+                type_raised = True
+            return ok and zero and type_raised
+        if task_id == "compatibility-01":
+            import inspect
+            m = load_module(workspace, "fm", "src/formatter.py")
+            params = list(inspect.signature(m.format_name).parameters)
+            return (
+                params == ["value", "uppercase"]
+                and m.format_name("  Alice  ") == "Alice"
+                and m.format_name("  Alice  ", True) == "ALICE"
+            )
+        if task_id == "stop-01":
+            m = load_module(workspace, "fg", "src/feature_gate.py")
+            calls = []
+            off = m.process("x", False, lambda v: (calls.append(v) or v + "!"))
+            on = m.process("x", True, lambda v: (calls.append(v) or v + "!"))
+            return off == "x" and on == "x!" and calls == ["x"]
+        if task_id == "multi-file-02":
+            s = load_module(workspace, "st", "src/settings.py")
+            cmod = load_module(workspace, "cl", "src/client.py")
+            return (
+                s.parse_timeout("45") == 45
+                and cmod.get_timeout({"timeout": "45"}) == 45
+                and cmod.get_timeout({}) == 30
+            )
+        if task_id == "identifier-01":
+            m = load_module(workspace, "rg", "src/registry.py")
+            original = m.DEFAULT_REGION
+            try:
+                m.DEFAULT_REGION = "ap"
+                return m.endpoint({}) == "https://ap.example.test" and m.endpoint({"region": "eu"}) == "https://eu.example.test"
+            finally:
+                m.DEFAULT_REGION = original
     except Exception:
         return False
     return False
