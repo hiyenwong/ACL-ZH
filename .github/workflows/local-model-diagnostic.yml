@@ -1,0 +1,89 @@
+name: Diagnose local Qwen 0.5B output contract
+
+on:
+  push:
+    paths:
+      - "benchmark/local-model/normalize_diff_fence.py"
+      - ".github/workflows/local-model-diagnostic.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download completed Qwen 0.5B artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: acl-zh-local-qwen25-coder-05b-v0.1
+          path: /tmp/qwen05
+          run-id: 37908507569
+          github-token: ${{ github.token }}
+
+      - name: Fence-normalized rescoring
+        run: |
+          rm -rf /tmp/qwen05-normalized benchmark/results/local-qwen25-coder-05b-v0.1-normalized
+          mkdir -p /tmp/qwen05-normalized benchmark/results/local-qwen25-coder-05b-v0.1-normalized
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          src=Path('/tmp/qwen05/raw')
+          outroot=Path('/tmp/qwen05-normalized')
+          runs=json.loads((src/'run-manifest.json').read_text(encoding='utf-8'))
+          result=Path('benchmark/results/local-qwen25-coder-05b-v0.1-normalized/results.jsonl')
+          for item in runs:
+              inp=src/item['response']
+              out=outroot/item['response']
+              out.parent.mkdir(parents=True,exist_ok=True)
+              subprocess.run([sys.executable,'benchmark/local-model/normalize_diff_fence.py','--input',str(inp),'--output',str(out)],check=True)
+              subprocess.run([
+                  sys.executable,'benchmark/web-eval/score_web_patch.py',
+                  '--manifest','benchmark/tasks/manifest.jsonl',
+                  '--task-id',item['task_id'],
+                  '--variant',item['variant'],
+                  '--provider','huggingface-hub-local',
+                  '--model','Qwen/Qwen2.5-Coder-0.5B-Instruct',
+                  '--track','local-open-model-normalized',
+                  '--agent','local-causal-lm',
+                  '--response',str(out),
+                  '--output',str(result)
+              ],check=True)
+          PY
+
+      - name: Compare strict vs normalized
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          strict=[json.loads(x) for x in Path('/tmp/qwen05/results.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          norm=[json.loads(x) for x in Path('benchmark/results/local-qwen25-coder-05b-v0.1-normalized/results.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          report={}
+          for v in ['baseline','minimal','full']:
+              s=[r for r in strict if r['variant']==v]
+              n=[r for r in norm if r['variant']==v]
+              report[v]={
+                'n':len(n),
+                'strict_patch_apply':sum(r['patch_apply_exit_code']==0 for r in s),
+                'normalized_patch_apply':sum(r['patch_apply_exit_code']==0 for r in n),
+                'normalized_hidden_oracle_pass':sum(bool(r['hidden_oracle_pass']) for r in n),
+                'normalized_task_success':sum(bool(r['task_success']) for r in n)
+              }
+          out={'experiment_id':'local-qwen25-coder-05b-smoke-v0.1-fence-normalized','runs':len(norm),'summary':report}
+          Path('benchmark/results/local-qwen25-coder-05b-v0.1-normalized/aggregate.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload diagnostic artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-local-qwen25-coder-05b-v0.1-normalized
+          path: benchmark/results/local-qwen25-coder-05b-v0.1-normalized/
+          if-no-files-found: error
+          retention-days: 30
