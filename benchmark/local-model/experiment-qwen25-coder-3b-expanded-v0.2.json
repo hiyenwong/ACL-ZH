@@ -69,5 +69,6 @@
     "dependency-01:baseline"
   ],
   "status": "ready_for_local_execution",
-  "evidence_boundary": "Expanded 12-task deterministic first-shot benchmark. Separate from web-manual and autonomous agent-cli."
+  "evidence_boundary": "Expanded 12-task deterministic first-shot benchmark. Separate from web-manual and autonomous agent-cli.",
+  "fresh_chat_per_run": true
 }
