@@ -58,5 +58,39 @@ elif "JSON" in prompt or "dumps" in prompt:
         "import json\n\ndef dumps(value):\n    return json.dumps(value, sort_keys=True, separators=(',', ':'))\n",
         encoding="utf-8",
     )
+elif "fallback" in prompt or "备用查询" in prompt or "兜底" in prompt:
+    Path("src/resolver.py").write_text(
+        "def resolve(key, primary, fallback):\n    value = primary(key)\n    return fallback(key) if value is None else value\n",
+        encoding="utf-8",
+    )
+elif "safe_divide" in prompt or "除零" in prompt:
+    Path("src/safe_math.py").write_text(
+        "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None\n",
+        encoding="utf-8",
+    )
+elif "format_name" in prompt or "uppercase" in prompt:
+    Path("src/formatter.py").write_text(
+        "def format_name(value, uppercase=False):\n    value = value.strip()\n    return value.upper() if uppercase else value\n",
+        encoding="utf-8",
+    )
+elif "feature" in prompt or "enabled" in prompt or "transform" in prompt:
+    Path("src/feature_gate.py").write_text(
+        "def process(payload, enabled, transform):\n    if not enabled:\n        return payload\n    return transform(payload)\n",
+        encoding="utf-8",
+    )
+elif "parse_timeout" in prompt or "timeout" in prompt:
+    Path("src/settings.py").write_text(
+        "def parse_timeout(value):\n    return int(value)\n",
+        encoding="utf-8",
+    )
+    Path("src/client.py").write_text(
+        "from .settings import parse_timeout\n\ndef get_timeout(config):\n    return parse_timeout(config.get('timeout', 30))\n",
+        encoding="utf-8",
+    )
+elif "DEFAULT_REGION" in prompt or "默认区域" in prompt:
+    Path("src/registry.py").write_text(
+        "DEFAULT_REGION = 'us'\n\ndef endpoint(config):\n    region = config.get('region', DEFAULT_REGION)\n    return f'https://{region}.example.test'\n",
+        encoding="utf-8",
+    )
 else:
     raise SystemExit("unknown self-test prompt")
