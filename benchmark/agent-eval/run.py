@@ -145,13 +145,18 @@ def hidden_oracle(task_id, workspace):
             on = m.process("x", True, lambda v: (calls.append(v) or v + "!"))
             return off == "x" and on == "x!" and calls == ["x"]
         if task_id == "multi-file-02":
-            s = load_module(workspace, "st", "src/settings.py")
-            cmod = load_module(workspace, "cl", "src/client.py")
-            return (
-                s.parse_timeout("45") == 45
-                and cmod.get_timeout({"timeout": "45"}) == 45
-                and cmod.get_timeout({}) == 30
+            p = sh(
+                "python - <<'PY'\n"
+                "from src.settings import parse_timeout\n"
+                "from src.client import get_timeout\n"
+                "assert parse_timeout('45') == 45\n"
+                "assert get_timeout({'timeout':'45'}) == 45\n"
+                "assert get_timeout({}) == 30\n"
+                "PY",
+                workspace,
+                timeout=30,
             )
+            return p.returncode == 0
         if task_id == "identifier-01":
             m = load_module(workspace, "rg", "src/registry.py")
             original = m.DEFAULT_REGION
