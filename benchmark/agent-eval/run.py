@@ -44,7 +44,7 @@ def write_fixture(root: Path):
         "tests/test_safe_math.py": "import unittest\nfrom src.safe_math import safe_divide\nclass T(unittest.TestCase):\n def test_normal(self): self.assertEqual(safe_divide(6,3),2)\n",
         "tests/test_formatter.py": "import unittest\nfrom src.formatter import format_name\nclass T(unittest.TestCase):\n def test_upper(self): self.assertEqual(format_name('alice',True),'ALICE')\n",
         "tests/test_feature_gate.py": "import unittest\nfrom src.feature_gate import process\nclass T(unittest.TestCase):\n def test_enabled(self): self.assertEqual(process('x',True,lambda v:v+'!'),'x!')\n",
-        "tests/test_client.py": "import unittest\nfrom src.client import get_timeout\nclass T(unittest.TestCase):\n def test_default(self): self.assertEqual(get_timeout({}),30)\n",
+        "tests/test_client.py": "import unittest\nfrom src.client import get_timeout\nclass T(unittest.TestCase):\n def test_existing_numeric(self): self.assertEqual(get_timeout({'timeout':30}),30)\n",
         "tests/test_registry.py": "import unittest\nfrom src.registry import endpoint\nclass T(unittest.TestCase):\n def test_explicit(self): self.assertEqual(endpoint({'region':'eu'}),'https://eu.example.test')\n",
     }
     for path, content in files.items():
