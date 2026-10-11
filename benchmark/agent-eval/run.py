@@ -32,6 +32,15 @@ def write_fixture(root: Path):
         "src/settings.py": "def parse_timeout(value):\n    return value\n",
         "src/client.py": "from .settings import parse_timeout\n\ndef get_timeout(config):\n    return config.get('timeout', '30')\n",
         "src/registry.py": "DEFAULT_REGION = 'us'\n\ndef endpoint(config):\n    region = config.get('region', 'us')\n    return f'https://{region}.example.test'\n",
+        "src/profile.py": "def normalize_email(value):\n    return value\n",
+        "src/auth.py": "AUTH_VERSION = 1\n",
+        "src/hashutil.py": "def sha256_text(value):\n    return value\n",
+        "src/payload.py": "def compact_payload(value):\n    return dict(value)\n",
+        "src/audit.py": "def build_event(user_id, action):\n    print(action)\n    return {'user_id': user_id, 'action': action}\n",
+        "src/retry.py": "def run_with_retry(call, attempts=3):\n    return call()\n",
+        "src/options.py": "def normalize_options(options):\n    if 'mode' in options:\n        options['mode'] = str(options['mode']).lower()\n    return options\n",
+        "src/ids.py": "def parse_id(value):\n    return int(value)\n",
+        "src/token.py": "def normalize_token(token):\n    return token\n",
         "schema.json": "{\"type\":\"object\"}\n",
         "requirements.txt": "",
         "tests/test_user_service.py": "import unittest\nfrom src.user_service import get_user\nclass T(unittest.TestCase):\n def test_api(self): self.assertEqual(get_user(1)['id'],1)\n",
@@ -46,6 +55,14 @@ def write_fixture(root: Path):
         "tests/test_feature_gate.py": "import unittest\nfrom src.feature_gate import process\nclass T(unittest.TestCase):\n def test_enabled(self): self.assertEqual(process('x',True,lambda v:v+'!'),'x!')\n",
         "tests/test_client.py": "import unittest\nfrom src.client import get_timeout\nclass T(unittest.TestCase):\n def test_existing_numeric(self): self.assertEqual(get_timeout({'timeout':30}),30)\n",
         "tests/test_registry.py": "import unittest\nfrom src.registry import endpoint\nclass T(unittest.TestCase):\n def test_explicit(self): self.assertEqual(endpoint({'region':'eu'}),'https://eu.example.test')\n",
+        "tests/test_profile.py": "import unittest\nfrom src.profile import normalize_email\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_email('a@b.com'),'a@b.com')\n",
+        "tests/test_hashutil.py": "import unittest\nfrom src.hashutil import sha256_text\nclass T(unittest.TestCase):\n def test_callable(self): self.assertTrue(callable(sha256_text))\n",
+        "tests/test_payload.py": "import unittest\nfrom src.payload import compact_payload\nclass T(unittest.TestCase):\n def test_copy(self): self.assertEqual(compact_payload({'a':1}),{'a':1})\n",
+        "tests/test_audit.py": "import unittest\nfrom src.audit import build_event\nclass T(unittest.TestCase):\n def test_shape(self): self.assertEqual(build_event(1,'login')['user_id'],1)\n",
+        "tests/test_retry.py": "import unittest\nfrom src.retry import run_with_retry\nclass T(unittest.TestCase):\n def test_success(self): self.assertEqual(run_with_retry(lambda:'ok'),'ok')\n",
+        "tests/test_options.py": "import unittest\nfrom src.options import normalize_options\nclass T(unittest.TestCase):\n def test_result(self): self.assertEqual(normalize_options({'mode':'FAST'})['mode'],'fast')\n",
+        "tests/test_ids.py": "import unittest\nfrom src.ids import parse_id\nclass T(unittest.TestCase):\n def test_int(self): self.assertEqual(parse_id('7'),7)\n",
+        "tests/test_token.py": "import unittest\nfrom src.token import normalize_token\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_token('abc'),'abc')\n",
     }
     for path, content in files.items():
         p = root / path
@@ -165,6 +182,63 @@ def hidden_oracle(task_id, workspace):
                 return m.endpoint({}) == "https://ap.example.test" and m.endpoint({"region": "eu"}) == "https://eu.example.test"
             finally:
                 m.DEFAULT_REGION = original
+        if task_id == "constraint-path-01":
+            m = load_module(workspace, "pr", "src/profile.py")
+            return m.normalize_email("  Alice@EXAMPLE.COM  ") == "alice@example.com"
+        if task_id == "constraint-stdlib-01":
+            import hashlib
+            m = load_module(workspace, "hu", "src/hashutil.py")
+            return m.sha256_text("abc") == hashlib.sha256(b"abc").hexdigest()
+        if task_id == "constraint-schema-01":
+            m = load_module(workspace, "pl", "src/payload.py")
+            return m.compact_payload({"a": 1, "b": None, "c": 0}) == {"a": 1, "c": 0}
+        if task_id == "constraint-side-effect-01":
+            p = sh(
+                "python - <<'PY'\n"
+                "import contextlib, io\n"
+                "from src.audit import build_event\n"
+                "buf=io.StringIO()\n"
+                "with contextlib.redirect_stdout(buf):\n"
+                "    out=build_event(3,'login')\n"
+                "assert buf.getvalue()==''\n"
+                "assert out=={'user_id':3,'action':'login'}\n"
+                "PY",
+                workspace,
+                timeout=30,
+            )
+            return p.returncode == 0
+        if task_id == "constraint-retry-01":
+            m = load_module(workspace, "rt", "src/retry.py")
+            calls = []
+            def flaky():
+                calls.append(1)
+                if len(calls) < 3:
+                    raise ValueError("retry")
+                return "ok"
+            ok = m.run_with_retry(flaky, attempts=3) == "ok" and len(calls) == 3
+            calls2 = []
+            def fail():
+                calls2.append(1)
+                raise ValueError("fail")
+            raised = False
+            try:
+                m.run_with_retry(fail, attempts=2)
+            except ValueError:
+                raised = True
+            return ok and raised and len(calls2) == 2
+        if task_id == "constraint-immutable-01":
+            m = load_module(workspace, "op", "src/options.py")
+            original = {"mode": "FAST"}
+            out = m.normalize_options(original)
+            return original == {"mode": "FAST"} and out == {"mode": "fast"} and out is not original
+        if task_id == "constraint-return-01":
+            import inspect
+            m = load_module(workspace, "ids", "src/ids.py")
+            return list(inspect.signature(m.parse_id).parameters) == ["value"] and m.parse_id(" 42 ") == 42 and isinstance(m.parse_id("42"), int)
+        if task_id == "constraint-api-01":
+            import inspect
+            m = load_module(workspace, "tk", "src/token.py")
+            return list(inspect.signature(m.normalize_token).parameters) == ["token"] and m.normalize_token("  abc  ") == "abc" and isinstance(m.normalize_token("abc"), str)
     except Exception:
         return False
     return False
