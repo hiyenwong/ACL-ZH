@@ -157,6 +157,12 @@ jobs:
           python benchmark/web-eval/validate_experiment.py \
             benchmark/web-eval/experiments/web-smoke-gpt-oss-20b-v0.1.json
 
+      - name: Validate LM Studio local runner scripts
+        run: |
+          python -m py_compile \
+            benchmark/local-model/run_lm_studio.py \
+            benchmark/local-model/score_lm_studio_run.py
+
       - name: Validate output comprehension item set
         run: |
           python benchmark/output/prose-comprehension/validate_items.py \
