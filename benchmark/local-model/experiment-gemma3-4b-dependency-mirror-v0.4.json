@@ -1,0 +1,42 @@
+{
+  "experiment_id": "local-gemma3-4b-dependency-mirror-v0.4",
+  "track": "local-open-model",
+  "provider": "lm-studio-local",
+  "agent": "openai-compatible-chat-completions",
+  "model": "google/gemma-3-4b",
+  "model_variant": "google/gemma-3-4b@4bit",
+  "quantization": "4bit",
+  "date_planned": "2026-10-11",
+  "repetitions": 1,
+  "decoding": {
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20261011,
+    "max_tokens": 256
+  },
+  "variants": ["baseline", "minimal", "full"],
+  "tasks": [
+    "dependency-anchor-01",
+    "dependency-no-file-ban-01",
+    "dependency-no-target-file-01",
+    "dependency-verbose-01"
+  ],
+  "randomization_seed": 20261011,
+  "run_order": [
+    "dependency-no-target-file-01:minimal",
+    "dependency-anchor-01:full",
+    "dependency-verbose-01:baseline",
+    "dependency-no-file-ban-01:full",
+    "dependency-anchor-01:baseline",
+    "dependency-verbose-01:minimal",
+    "dependency-no-target-file-01:full",
+    "dependency-no-file-ban-01:baseline",
+    "dependency-anchor-01:minimal",
+    "dependency-verbose-01:full",
+    "dependency-no-target-file-01:baseline",
+    "dependency-no-file-ban-01:minimal"
+  ],
+  "status": "executed",
+  "results": "benchmark/results/local/2026-10-11-gemma3-4b-dependency-mirror-v0.4/",
+  "evidence_boundary": "New model condition, NOT comparable with the Qwen2.5-Coder-3B series: different model family (Gemma 3 4B, not coder-tuned), different quantization (4bit), different inference backend (LM Studio OpenAI-compatible server vs HF transformers). Same tasks, prompt variants, run order, and scorer as experiment-qwen25-coder-3b-dependency-mirror-v0.4. Purpose: tool-path validation for the LM Studio track plus a first non-Qwen data point on the dependency-mirror task family."
+}

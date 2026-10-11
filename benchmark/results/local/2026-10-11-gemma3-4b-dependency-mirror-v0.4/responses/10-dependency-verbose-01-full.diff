@@ -1,0 +1,20 @@
+--- a/src/serializer.py
++++ b/src/serializer.py
+@@ -1,4 +1,12 @@
+ import json
+ 
+-def dumps(value):
++def dumps(value):
++    """Serializes a Python object to a JSON string, ensuring key order and compact output."""
++    sorted_dict = dict(sorted(value.items()))
++    return json.dumps(sorted_dict, separators=(', ', ': '))
++
++
++if __name__ == '__main__':
++    print(dumps({'b': 1, 'a': 2}))
++
++
+ class T(unittest.TestCase):
+  def test_valid_json(self):
+   self.assertEqual(json.loads(dumps({'b': 1, 'a': 2})), {'a': 2, 'b': 1})
+```

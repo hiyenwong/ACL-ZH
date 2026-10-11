@@ -1,0 +1,19 @@
+```diff
+--- a/src/serializer.py
++++ b/src/serializer.py
+@@ -1,4 +1,4 @@
+ import json
+
+-def dumps(value):
++    return json.dumps(value, separators=(',', ':'))
+```
+
+--- a/tests/test_serializer.py
++++ b/tests/test_serializer.py
+@@ -1,4 +1,4 @@
+ import json, unittest
+ from src.serializer import dumps
+ class T(unittest.TestCase):
+- def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})
++ def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})), {'a': 2, 'b': 1})
+```

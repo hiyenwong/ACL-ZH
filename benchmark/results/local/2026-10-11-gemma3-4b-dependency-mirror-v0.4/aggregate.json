@@ -1,0 +1,57 @@
+{
+  "experiment_id": "local-gemma3-4b-dependency-mirror-v0.4",
+  "provider": "lm-studio-local",
+  "model": "google/gemma-3-4b",
+  "runs": 12,
+  "summary": {
+    "baseline": {
+      "n": 4,
+      "strict_patch_apply": 0,
+      "strict_hidden_oracle_pass": 0,
+      "strict_task_success": 0,
+      "normalized_patch_apply": 0,
+      "normalized_hidden_oracle_pass": 0,
+      "normalized_task_success": 0
+    },
+    "minimal": {
+      "n": 4,
+      "strict_patch_apply": 0,
+      "strict_hidden_oracle_pass": 0,
+      "strict_task_success": 0,
+      "normalized_patch_apply": 0,
+      "normalized_hidden_oracle_pass": 0,
+      "normalized_task_success": 0
+    },
+    "full": {
+      "n": 4,
+      "strict_patch_apply": 0,
+      "strict_hidden_oracle_pass": 0,
+      "strict_task_success": 0,
+      "normalized_patch_apply": 0,
+      "normalized_hidden_oracle_pass": 0,
+      "normalized_task_success": 0
+    }
+  },
+  "normalized_task_matrix": {
+    "dependency-no-target-file-01": {
+      "minimal": false,
+      "full": false,
+      "baseline": false
+    },
+    "dependency-anchor-01": {
+      "full": false,
+      "baseline": false,
+      "minimal": false
+    },
+    "dependency-verbose-01": {
+      "baseline": false,
+      "minimal": false,
+      "full": false
+    },
+    "dependency-no-file-ban-01": {
+      "full": false,
+      "baseline": false,
+      "minimal": false
+    }
+  }
+}

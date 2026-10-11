@@ -1,0 +1,12 @@
+--- a/src/serializer.py
++++ b/src/serializer.py
+@@ -1,4 +1,5 @@
+ import json
+
+-def dumps(value):
++    sorted_keys = sorted(value.keys())
++    result = {}
++    for key in sorted_keys:
++        result[key] = value[key]
+     return json.dumps(result)
+```
