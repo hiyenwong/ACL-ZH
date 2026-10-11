@@ -72,6 +72,28 @@ jobs:
           print('expanded 12-task controls: PASS')
           PY
 
+      - name: Constraint-focused 12-task controls
+        run: |
+          rm -rf /tmp/aclzh-constraint-noop /tmp/aclzh-constraint-reference
+          python benchmark/agent-eval/run.py             --manifest benchmark/tasks/manifest-constraint-v0.3.jsonl             --variant full             --agent noop             --agent-command 'true'             --repetitions 1             --output /tmp/aclzh-constraint-noop
+          python benchmark/agent-eval/run.py             --manifest benchmark/tasks/manifest-constraint-v0.3.jsonl             --variant full             --agent reference             --agent-command 'python "$GITHUB_WORKSPACE/benchmark/agent-eval/reference_agent.py" "{prompt_file}"'             --repetitions 1             --output /tmp/aclzh-constraint-reference
+          python - <<'PY'
+          import glob, json
+          def rows(path):
+              out=[]
+              for f in glob.glob(path):
+                  out += [json.loads(x) for x in open(f, encoding='utf-8') if x.strip()]
+              return out
+          noop=rows('/tmp/aclzh-constraint-noop/*.jsonl')
+          ref=rows('/tmp/aclzh-constraint-reference/*.jsonl')
+          assert len(noop)==12, len(noop)
+          assert len(ref)==12, len(ref)
+          assert sum(r['task_success'] for r in noop)==0, noop
+          failed=[r for r in ref if not r['task_success']]
+          assert not failed, failed
+          print('constraint-focused 12-task controls: PASS')
+          PY
+
       - name: Aggregate smoke test
         run: |
           python benchmark/agent-eval/aggregate.py /tmp/aclzh-reference/*.jsonl
