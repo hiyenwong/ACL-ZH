@@ -244,6 +244,16 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 之后再单独扩展 Diagram-first 和 Interactive HTML。Diagram、HTML、Video 属于输出模态研究，必须和纯语言控制效果分开报告。
 
+## 本地模型测试（LM Studio）
+
+仓库现在提供可复现的本地模型测试协议，并将 **LM Studio** 作为正式支持路径。推荐先使用 Dependency Mirror 12-run，再执行 Constraint-focused 36-run。
+
+- 测试规则与计划：[benchmark/local-model/LM-STUDIO-TEST-PLAN.md](benchmark/local-model/LM-STUDIO-TEST-PLAN.md)
+- LM Studio runner：[benchmark/local-model/run_lm_studio.py](benchmark/local-model/run_lm_studio.py)
+- 本地评分脚本：[benchmark/local-model/score_lm_studio_run.py](benchmark/local-model/score_lm_studio_run.py)
+
+本地实验必须保存首答原始响应；strict unified-diff score 为主评分，fence-only normalized score 只能作为诊断指标。模型、量化、LM Studio 版本、硬件与 decoding 参数必须一并记录，不能把不同运行条件混为同一实验。
+
 ## Agent 适配
 
 - Claude Code：`adapters/claude-code/CLAUDE.md`
