@@ -234,7 +234,7 @@ def hidden_oracle(task_id, workspace):
         if task_id == "constraint-return-01":
             import inspect
             m = load_module(workspace, "ids", "src/ids.py")
-            return list(inspect.signature(m.parse_id).parameters) == ["value"] and m.parse_id(" 42 ") == 42 and isinstance(m.parse_id("42"), int)
+            return list(inspect.signature(m.parse_id).parameters) == ["value"] and m.parse_id(" ID-42 ") == 42 and isinstance(m.parse_id("42"), int)
         if task_id == "constraint-api-01":
             import inspect
             m = load_module(workspace, "tk", "src/token.py")
