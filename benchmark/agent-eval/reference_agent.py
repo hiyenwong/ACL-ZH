@@ -124,7 +124,7 @@ elif "normalize_options" in prompt or "不要修改输入" in prompt:
     )
 elif "parse_id" in prompt or "返回 int" in prompt:
     Path("src/ids.py").write_text(
-        "def parse_id(value):\n    return int(str(value).strip())\n",
+        "def parse_id(value):\n    text = str(value).strip()\n    if text.startswith('ID-'):\n        text = text[3:]\n    return int(text)\n",
         encoding="utf-8",
     )
 elif "normalize_token" in prompt or "token" in prompt:
