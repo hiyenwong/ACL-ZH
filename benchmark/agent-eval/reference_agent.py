@@ -92,5 +92,45 @@ elif "DEFAULT_REGION" in prompt or "默认区域" in prompt:
         "DEFAULT_REGION = 'us'\n\ndef endpoint(config):\n    region = config.get('region', DEFAULT_REGION)\n    return f'https://{region}.example.test'\n",
         encoding="utf-8",
     )
+elif "normalize_email" in prompt or "邮箱" in prompt:
+    Path("src/profile.py").write_text(
+        "def normalize_email(value):\n    return value.strip().lower()\n",
+        encoding="utf-8",
+    )
+elif "sha256_text" in prompt or "SHA-256" in prompt or "标准库" in prompt:
+    Path("src/hashutil.py").write_text(
+        "import hashlib\n\ndef sha256_text(value):\n    return hashlib.sha256(value.encode()).hexdigest()\n",
+        encoding="utf-8",
+    )
+elif "compact_payload" in prompt or "None" in prompt:
+    Path("src/payload.py").write_text(
+        "def compact_payload(value):\n    return {k:v for k,v in value.items() if v is not None}\n",
+        encoding="utf-8",
+    )
+elif "build_event" in prompt or "副作用" in prompt or "打印" in prompt:
+    Path("src/audit.py").write_text(
+        "def build_event(user_id, action):\n    return {'user_id': user_id, 'action': action}\n",
+        encoding="utf-8",
+    )
+elif "run_with_retry" in prompt or "重试" in prompt:
+    Path("src/retry.py").write_text(
+        "def run_with_retry(call, attempts=3):\n    last=None\n    for _ in range(attempts):\n        try:\n            return call()\n        except ValueError as e:\n            last=e\n    raise last\n",
+        encoding="utf-8",
+    )
+elif "normalize_options" in prompt or "不要修改输入" in prompt:
+    Path("src/options.py").write_text(
+        "def normalize_options(options):\n    out = dict(options)\n    if 'mode' in out:\n        out['mode'] = str(out['mode']).lower()\n    return out\n",
+        encoding="utf-8",
+    )
+elif "parse_id" in prompt or "返回 int" in prompt:
+    Path("src/ids.py").write_text(
+        "def parse_id(value):\n    return int(str(value).strip())\n",
+        encoding="utf-8",
+    )
+elif "normalize_token" in prompt or "token" in prompt:
+    Path("src/token.py").write_text(
+        "def normalize_token(token):\n    return token.strip()\n",
+        encoding="utf-8",
+    )
 else:
     raise SystemExit("unknown self-test prompt")
