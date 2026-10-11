@@ -1,0 +1,139 @@
+name: Dependency mirror local open-model benchmark 3B
+
+on:
+  push:
+    paths:
+      - ".github/workflows/local-model-benchmark-3b-dependency-mirror.yml"
+      - "benchmark/local-model/experiment-qwen25-coder-3b-dependency-mirror-v0.4.json"
+      - "benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl"
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install 'transformers>=4.46,<5' safetensors
+
+      - name: Validate mirror experiment
+        run: |
+          python benchmark/web-eval/validate_experiment.py benchmark/local-model/experiment-qwen25-coder-3b-dependency-mirror-v0.4.json
+
+      - name: Run 12 deterministic generations
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          rm -rf /tmp/aclzh-local-qwen3b-dependency-mirror
+          python benchmark/local-model/run_local_model.py             --model Qwen/Qwen2.5-Coder-3B-Instruct             --experiment benchmark/local-model/experiment-qwen25-coder-3b-dependency-mirror-v0.4.json             --manifest benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl             --workdir /tmp/aclzh-local-qwen3b-dependency-mirror             --max-new-tokens 256
+
+      - name: Score strict outputs
+        run: |
+          rm -rf benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4
+          mkdir -p benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          root=Path('/tmp/aclzh-local-qwen3b-dependency-mirror')
+          exp=json.loads(Path('benchmark/local-model/experiment-qwen25-coder-3b-dependency-mirror-v0.4.json').read_text(encoding='utf-8'))
+          runs=json.loads((root/'run-manifest.json').read_text(encoding='utf-8'))
+          out=Path('benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/results-strict.jsonl')
+          for item in runs:
+              subprocess.run([
+                  sys.executable,'benchmark/web-eval/score_web_patch.py',
+                  '--manifest','benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl',
+                  '--task-id',item['task_id'],
+                  '--variant',item['variant'],
+                  '--provider',exp['provider'],
+                  '--model',exp['model'],
+                  '--track',exp['track'],
+                  '--agent',exp['agent'],
+                  '--response',str(root/item['response']),
+                  '--output',str(out)
+              ],check=True)
+          PY
+
+      - name: Score fence-normalized outputs
+        run: |
+          mkdir -p /tmp/aclzh-local-qwen3b-dependency-mirror-normalized
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          root=Path('/tmp/aclzh-local-qwen3b-dependency-mirror')
+          norm=Path('/tmp/aclzh-local-qwen3b-dependency-mirror-normalized')
+          exp=json.loads(Path('benchmark/local-model/experiment-qwen25-coder-3b-dependency-mirror-v0.4.json').read_text(encoding='utf-8'))
+          runs=json.loads((root/'run-manifest.json').read_text(encoding='utf-8'))
+          out=Path('benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/results-normalized.jsonl')
+          for item in runs:
+              inp=root/item['response']
+              rsp=norm/item['response']
+              rsp.parent.mkdir(parents=True,exist_ok=True)
+              subprocess.run([sys.executable,'benchmark/local-model/normalize_diff_fence.py','--input',str(inp),'--output',str(rsp)],check=True)
+              subprocess.run([
+                  sys.executable,'benchmark/web-eval/score_web_patch.py',
+                  '--manifest','benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl',
+                  '--task-id',item['task_id'],
+                  '--variant',item['variant'],
+                  '--provider',exp['provider'],
+                  '--model',exp['model'],
+                  '--track','local-open-model-normalized',
+                  '--agent',exp['agent'],
+                  '--response',str(rsp),
+                  '--output',str(out)
+              ],check=True)
+          PY
+
+      - name: Aggregate strict vs normalized
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          s=[json.loads(x) for x in Path('benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/results-strict.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          n=[json.loads(x) for x in Path('benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/results-normalized.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          summary={}
+          for v in ['baseline','minimal','full']:
+              ss=[r for r in s if r['variant']==v]
+              nn=[r for r in n if r['variant']==v]
+              summary[v]={
+                  'n':len(nn),
+                  'strict_patch_apply':sum(r['patch_apply_exit_code']==0 for r in ss),
+                  'strict_task_success':sum(bool(r['task_success']) for r in ss),
+                  'normalized_patch_apply':sum(r['patch_apply_exit_code']==0 for r in nn),
+                  'normalized_hidden_oracle_pass':sum(bool(r['hidden_oracle_pass']) for r in nn),
+                  'normalized_task_success':sum(bool(r['task_success']) for r in nn)
+              }
+          by_task={}
+          for r in n:
+              by_task.setdefault(r['task_id'],{})[r['variant']]=bool(r['task_success'])
+          out={
+              'experiment_id':'local-qwen25-coder-3b-dependency-mirror-v0.4',
+              'model':'Qwen/Qwen2.5-Coder-3B-Instruct',
+              'runs':len(n),
+              'summary':summary,
+              'normalized_task_matrix':by_task
+          }
+          Path('benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/aggregate.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Copy raw generations
+        run: cp -R /tmp/aclzh-local-qwen3b-dependency-mirror benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/raw
+
+      - name: Upload real-data artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: acl-zh-local-qwen25-coder-3b-dependency-mirror-v0.4
+          path: benchmark/results/local-qwen25-coder-3b-dependency-mirror-v0.4/
+          if-no-files-found: error
+          retention-days: 30
