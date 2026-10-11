@@ -129,7 +129,7 @@ GitHub Actions 实际运行结果：
 
 首次真实 smoke workflow 已经触发，但 Codex 与 Claude 两个 job 都因仓库未配置模型凭证而跳过，没有产生模型输出。Codex 现在支持 `CODEX_ACCESS_TOKEN` 或 `OPENAI_API_KEY`；Claude 需要 `ANTHROPIC_API_KEY`。
 
-**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 90 次真实推理：Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。随后将任务扩展到 12 个并完成 36-run 复验，结果为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12；唯一成功任务仍是 dependency-01。这个结果说明 Full ACL 的非零信号可在扩样后重现，但它没有扩展为普遍优势，更像是与依赖/约束表达相关的局部信号。当前证据仍不足以宣称 ACL-ZH 有效。**
+**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 126 次真实推理。Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持“Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。当前证据仍不足以宣称 ACL-ZH 有效。**
 
 正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
@@ -219,7 +219,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；不过零 API 的真实开源模型实验已经完成 90 次真实推理。Qwen2.5-Coder-0.5B 与 1.5B 各完成 18-run smoke，均出现 0% patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中得到 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。随后 benchmark 扩展到 12 tasks，并通过 No-op 0/12、Reference 12/12 的控制校验；3B 的 36-run expanded experiment 得到 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12。成功任务仍然是 dependency-01，fence-only normalization 不改变该结论。当前最合理的解释不是“Full ACL 普遍更强”，而是“完整约束表达可能在 dependency/constraint 类任务上产生局部收益”。下一阶段因此转向 Constraint-focused benchmark，用更多独立约束任务检验这个假设，同时继续把格式遵循与语义任务正确性拆成独立指标。针对“不购买 API”的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
+Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验目前累计完成 126 次真实推理。0.5B 与 1.5B 的 smoke 均处于 strict-diff floor。3B 的 6-task smoke 与 12-task expanded experiment 都只在 Full ACL 的 dependency-01 上出现 task success。为检验这是否属于 Constraint family 效应，仓库进一步构建了 12-task Constraint-focused v0.3；该任务集通过 No-op 0/12、Reference 12/12 控制后完成 36-run，结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，而且成功项仍是 dependency-01。这个负向复验削弱了“Constraint family 普遍受益”的解释。下一步更应该区分 dependency-01 的具体任务结构与其他任务的差异，并降低 unified-diff 序列化对语义正确性的遮蔽，而不是继续把单一成功样本外推为规则族效应。针对“不购买 API”的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
@@ -253,7 +253,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 ## 状态
 
-**v0.3 Experimental — Input harness self-tested; 90 local open-model runs completed; 12-task expansion reproduced a single Full ACL dependency-task success; Constraint-focused validation next; ACL effects still unvalidated**
+**v0.3 Experimental — Input harness self-tested; 126 local open-model runs completed; Constraint-focused replication did not generalize beyond dependency-01; ACL effects still unvalidated**
 
 ## Disclaimer
 
