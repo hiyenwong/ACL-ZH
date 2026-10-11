@@ -1,0 +1,37 @@
+{
+  "experiment_id": "local-qwen25-coder-3b-dependency-mirror-v0.4",
+  "track": "local-open-model",
+  "provider": "huggingface-hub-local",
+  "agent": "local-causal-lm",
+  "model": "Qwen/Qwen2.5-Coder-3B-Instruct",
+  "date_planned": "2026-10-11",
+  "repetitions": 1,
+  "decoding": {
+    "do_sample": false,
+    "max_new_tokens": 256
+  },
+  "variants": ["baseline","minimal","full"],
+  "tasks": [
+    "dependency-anchor-01",
+    "dependency-no-file-ban-01",
+    "dependency-no-target-file-01",
+    "dependency-verbose-01"
+  ],
+  "randomization_seed": 20261011,
+  "run_order": [
+    "dependency-no-target-file-01:minimal",
+    "dependency-anchor-01:full",
+    "dependency-verbose-01:baseline",
+    "dependency-no-file-ban-01:full",
+    "dependency-anchor-01:baseline",
+    "dependency-verbose-01:minimal",
+    "dependency-no-target-file-01:full",
+    "dependency-no-file-ban-01:baseline",
+    "dependency-anchor-01:minimal",
+    "dependency-verbose-01:full",
+    "dependency-no-target-file-01:baseline",
+    "dependency-no-file-ban-01:minimal"
+  ],
+  "status": "ready_for_local_execution",
+  "evidence_boundary": "Targeted deterministic mirror experiment around dependency-01. Same fixture/oracle/model; prompt structure factors varied one at a time."
+}
