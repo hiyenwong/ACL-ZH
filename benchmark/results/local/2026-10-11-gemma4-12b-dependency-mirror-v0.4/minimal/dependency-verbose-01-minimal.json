@@ -1,0 +1,20 @@
+{
+  "task_id": "dependency-verbose-01",
+  "category": "dependency-mirror",
+  "track": "web-manual",
+  "variant": "minimal",
+  "instruction": "修改 dumps() 的 JSON 输出格式：按 key 排序，并使用紧凑分隔符去掉非必要空格。保持现有调用方式。不要新增第三方依赖，也不要改 requirements.txt。",
+  "files": {
+    "requirements.txt": "",
+    "src/serializer.py": "import json\n\ndef dumps(value):\n    return json.dumps(value)\n",
+    "tests/test_serializer.py": "import json, unittest\nfrom src.serializer import dumps\nclass T(unittest.TestCase):\n def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})\n"
+  },
+  "allowed_paths": [
+    "src/serializer.py",
+    "tests/test_serializer.py"
+  ],
+  "forbidden_paths": [
+    "requirements.txt"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

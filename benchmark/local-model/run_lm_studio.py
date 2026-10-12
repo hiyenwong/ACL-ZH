@@ -31,6 +31,10 @@ def main():
     ap.add_argument("--top-p", type=float, default=1.0)
     ap.add_argument("--seed", type=int, default=20261011)
     ap.add_argument("--max-tokens", type=int, default=256)
+    ap.add_argument("--reasoning-effort", default=None,
+                    help="Optional reasoning effort passed to the server (e.g. 'none' "
+                         "to disable reasoning on hybrid models). Omit to leave the "
+                         "server default; record it in the experiment file when set.")
     ap.add_argument("--timeout", type=int, default=600)
     ap.add_argument("--api-token", default=os.environ.get("LM_STUDIO_API_TOKEN"))
     args = ap.parse_args()
@@ -84,6 +88,8 @@ def main():
             "max_tokens": args.max_tokens,
             "stream": False,
         }
+        if args.reasoning_effort is not None:
+            payload["reasoning_effort"] = args.reasoning_effort
         started = time.time()
         result = http_json(endpoint, payload=payload, token=args.api_token, timeout=args.timeout)
         elapsed = time.time() - started
@@ -113,6 +119,7 @@ def main():
         "top_p": args.top_p,
         "seed": args.seed,
         "max_tokens": args.max_tokens,
+        "reasoning_effort": args.reasoning_effort,
         "experiment": args.experiment,
         "manifest": args.manifest,
         "python": sys.version,

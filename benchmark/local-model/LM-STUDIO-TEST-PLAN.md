@@ -61,6 +61,15 @@ If the model/runtime does not honor a parameter, record that fact.
 
 Changing any decoding parameter creates a different experiment.
 
+Hybrid-reasoning models: some models spend completion tokens on
+`reasoning_content` before producing visible content. If an experiment
+returns empty responses with `reasoning_tokens` near `max_tokens`, the
+run measured budget exhaustion, not the task. Abort it, discard the
+partial outputs, and rerun with `--reasoning-effort none` (supported by
+`run_lm_studio.py`), recording `reasoning_effort` in the experiment
+file's decoding block. This is a decoding change: it makes the run a
+different experiment from one that leaves the server default.
+
 ### R5 — Fixed prompt source
 
 Prompts must be generated from the committed task manifest with

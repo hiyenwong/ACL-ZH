@@ -1,0 +1,20 @@
+{
+  "task_id": "dependency-no-target-file-01",
+  "category": "dependency-mirror",
+  "track": "web-manual",
+  "variant": "full",
+  "instruction": "目标：让 dumps() 输出稳定、紧凑的 JSON。\n任务：让 dumps() 的 key 按字母排序，并移除非必要空格。\n约束：不得新增第三方依赖。不得修改 requirements.txt。\n验证：运行 python -m unittest discover -s tests。",
+  "files": {
+    "requirements.txt": "",
+    "src/serializer.py": "import json\n\ndef dumps(value):\n    return json.dumps(value)\n",
+    "tests/test_serializer.py": "import json, unittest\nfrom src.serializer import dumps\nclass T(unittest.TestCase):\n def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})\n"
+  },
+  "allowed_paths": [
+    "src/serializer.py",
+    "tests/test_serializer.py"
+  ],
+  "forbidden_paths": [
+    "requirements.txt"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}
