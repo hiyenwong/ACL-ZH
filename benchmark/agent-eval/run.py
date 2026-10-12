@@ -102,7 +102,18 @@ def load_module(workspace, name, rel):
     return mod
 
 
+# Dependency-mirror tasks (manifest-dependency-mirror-v0.4) reuse the
+# dependency-01 fixture and oracle while varying only prompt structure.
+MIRROR_ORACLE_ALIASES = {
+    "dependency-anchor-01": "dependency-01",
+    "dependency-no-file-ban-01": "dependency-01",
+    "dependency-no-target-file-01": "dependency-01",
+    "dependency-verbose-01": "dependency-01",
+}
+
+
 def hidden_oracle(task_id, workspace):
+    task_id = MIRROR_ORACLE_ALIASES.get(task_id, task_id)
     try:
         if task_id == "scope-01":
             import inspect
