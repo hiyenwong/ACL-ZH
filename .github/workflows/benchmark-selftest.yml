@@ -141,6 +141,10 @@ jobs:
         run: |
           python benchmark/local-model/selftest_file_block_parser.py
 
+      - name: Edit-content diagnostic parser and scorer self-test
+        run: |
+          python benchmark/local-model/selftest_edit_content.py
+
       - name: Web-manual input scorer self-test
         run: |
           python benchmark/web-eval/selftest.py
@@ -183,7 +187,16 @@ jobs:
         run: |
           python -m py_compile \
             benchmark/local-model/run_lm_studio.py \
-            benchmark/local-model/score_lm_studio_run.py
+            benchmark/local-model/score_lm_studio_run.py \
+            benchmark/local-model/edit_content_parser.py \
+            benchmark/local-model/export_edit_content_prompts.py \
+            benchmark/local-model/score_edit_content_run.py \
+            benchmark/local-model/selftest_edit_content.py
+
+      - name: Validate pinned edit-content diagnostic experiment
+        run: |
+          python benchmark/web-eval/validate_experiment.py \
+            benchmark/local-model/experiment-gemma4-12b-dependency-mirror-edit-content-v0.4.json
 
       - name: Validate output comprehension item set
         run: |

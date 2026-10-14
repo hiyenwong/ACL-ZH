@@ -1,0 +1,44 @@
+{
+  "experiment_id": "local-gemma4-12b-dependency-mirror-edit-content-v0.4",
+  "track": "local-open-model-edit-content",
+  "provider": "lm-studio-local",
+  "agent": "openai-compatible-chat-completions",
+  "model": "google/gemma-4-12b-qat",
+  "model_variant": "google/gemma-4-12b-qat@q4_0",
+  "quantization": "Q4_0 (QAT)",
+  "date_planned": "2026-10-14",
+  "repetitions": 1,
+  "decoding": {
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20261011,
+    "max_tokens": 256,
+    "reasoning_effort": "none"
+  },
+  "response_contract": "<<<FILE:path>>>\\n<complete final file content>\\n<<<END>>> (frozen parser: benchmark/local-model/edit_content_parser.py)",
+  "variants": ["baseline", "minimal", "full"],
+  "tasks": [
+    "dependency-anchor-01",
+    "dependency-no-file-ban-01",
+    "dependency-no-target-file-01",
+    "dependency-verbose-01"
+  ],
+  "randomization_seed": 20261011,
+  "run_order": [
+    "dependency-no-target-file-01:minimal",
+    "dependency-anchor-01:full",
+    "dependency-verbose-01:baseline",
+    "dependency-no-file-ban-01:full",
+    "dependency-anchor-01:baseline",
+    "dependency-verbose-01:minimal",
+    "dependency-no-target-file-01:full",
+    "dependency-no-file-ban-01:baseline",
+    "dependency-anchor-01:minimal",
+    "dependency-verbose-01:full",
+    "dependency-no-target-file-01:baseline",
+    "dependency-no-file-ban-01:minimal"
+  ],
+  "status": "executed",
+  "results": "benchmark/results/local/2026-10-14-gemma4-12b-dependency-mirror-edit-content/",
+  "evidence_boundary": "DIAGNOSTIC track. Evaluates requested file content independently of unified-diff serialization, using a frozen preregistered parser (lesson from the 1.5B post-hoc audit: the parser is fixed before execution, no leniency pass exists). Results carry the track label local-lm-studio-edit-content and must never be merged with strict unified-diff task-success counts. Same model, quantization, decoding, tasks, and run order as local-gemma4-12b-dependency-mirror-v0.4, but the prompt response contract differs (file blocks instead of diff), so the prompt text itself is not identical to the diff-track run."
+}

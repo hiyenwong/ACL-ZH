@@ -101,6 +101,26 @@ Secondary diagnostics may include:
 
 Never merge diagnostic scores into primary task-success counts.
 
+### R7a — Edit-content diagnostic track
+
+The edit-content track evaluates requested file content independently
+of unified-diff serialization:
+
+- exporter: `benchmark/local-model/export_edit_content_prompts.py`
+  (pass to `run_lm_studio.py` via `--exporter`);
+- scorer: `benchmark/local-model/score_edit_content_run.py`;
+- parser: `benchmark/local-model/edit_content_parser.py`, contract
+  `<<<FILE:path>>> ... <<<END>>>`, **frozen before execution**.
+
+The parser freeze is the lesson of the 1.5B post-hoc audit: a lenient
+parser introduced after inspecting model output is a confound. This
+track has no normalized variant. Models that emit fences, unified
+diffs, or missing `<<<END>>>` markers fail `format_compliant`, and
+that failure is part of the measurement.
+
+Rows from this track carry `track: local-lm-studio-edit-content` and
+must never be merged with strict unified-diff task-success counts.
+
 ### R8 — Record environment metadata
 
 Every experiment must record at least:

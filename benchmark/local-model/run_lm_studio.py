@@ -37,13 +37,19 @@ def main():
                          "server default; record it in the experiment file when set.")
     ap.add_argument("--timeout", type=int, default=600)
     ap.add_argument("--api-token", default=os.environ.get("LM_STUDIO_API_TOKEN"))
+    ap.add_argument("--exporter", default=None,
+                    help="Prompt exporter script (default: web-eval unified-diff "
+                         "exporter). Use local-model/export_edit_content_prompts.py "
+                         "for the edit-content diagnostic track.")
     args = ap.parse_args()
 
     exp = json.loads(Path(args.experiment).read_text(encoding="utf-8"))
     root = Path(args.workdir)
     root.mkdir(parents=True, exist_ok=True)
 
-    exporter = Path(__file__).resolve().parents[1] / "web-eval" / "export_web_prompts.py"
+    exporter = Path(args.exporter) if args.exporter else (
+        Path(__file__).resolve().parents[1] / "web-eval" / "export_web_prompts.py"
+    )
     for variant in exp["variants"]:
         subprocess.run(
             [sys.executable, str(exporter), "--manifest", args.manifest,
@@ -122,6 +128,7 @@ def main():
         "reasoning_effort": args.reasoning_effort,
         "experiment": args.experiment,
         "manifest": args.manifest,
+        "exporter": str(exporter),
         "python": sys.version,
         "platform": platform.platform(),
         "machine": platform.machine(),
