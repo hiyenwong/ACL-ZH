@@ -1,0 +1,20 @@
+{
+  "task_id": "constraint-schema-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "修改 compact_payload()：返回一个新 dict，移除值为 None 的字段。不要修改 schema.json。",
+  "files": {
+    "schema.json": "{\"type\":\"object\"}\n",
+    "src/payload.py": "def compact_payload(value):\n    return dict(value)\n",
+    "tests/test_payload.py": "import unittest\nfrom src.payload import compact_payload\nclass T(unittest.TestCase):\n def test_copy(self): self.assertEqual(compact_payload({'a':1}),{'a':1})\n"
+  },
+  "allowed_paths": [
+    "src/payload.py",
+    "tests/test_payload.py"
+  ],
+  "forbidden_paths": [
+    "schema.json"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

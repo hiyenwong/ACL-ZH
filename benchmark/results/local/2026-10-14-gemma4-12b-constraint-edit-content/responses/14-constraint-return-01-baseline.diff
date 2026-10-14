@@ -1,0 +1,6 @@
+<<<FILE:src/ids.py>>>
+def parse_id(value):
+    if isinstance(value, str) and value.startswith("ID-"):
+        value = value.replace("ID-", "")
+    return int(value)
+<<<END>>>

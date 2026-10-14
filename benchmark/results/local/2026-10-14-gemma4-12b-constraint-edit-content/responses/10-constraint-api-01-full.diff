@@ -1,0 +1,4 @@
+<<<FILE:src/token.py>>>
+def normalize_token(token):
+    return token.strip()
+<<<END>>>

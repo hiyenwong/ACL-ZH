@@ -1,0 +1,22 @@
+{
+  "task_id": "scope-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "baseline",
+  "instruction": "用户服务里把名字处理一下，去掉名字前后的空格，其他地方尽量别动，也别影响 get_user 的用法。",
+  "files": {
+    "src/order.py": "def create_order(user_id):\n    return {'user_id': user_id}\n",
+    "src/payment.py": "def charge(amount):\n    return amount > 0\n",
+    "src/user_service.py": "def get_user(user_id):\n    return {'id': user_id, 'name': '  Alice  '}\n",
+    "tests/test_user_service.py": "import unittest\nfrom src.user_service import get_user\nclass T(unittest.TestCase):\n def test_api(self): self.assertEqual(get_user(1)['id'],1)\n"
+  },
+  "allowed_paths": [
+    "src/user_service.py",
+    "tests/test_user_service.py"
+  ],
+  "forbidden_paths": [
+    "src/payment.py",
+    "src/order.py"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

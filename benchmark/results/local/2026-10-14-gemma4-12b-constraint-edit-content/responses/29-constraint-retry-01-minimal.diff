@@ -1,0 +1,11 @@
+<<<FILE:src/retry.py>>>
+def run_with_retry(call, attempts=3):
+    last_exception = None
+    for _ in range(attempts):
+        try:
+            return call()
+        except ValueError as e:
+            last_exception = e
+    if last_exception:
+        raise last_exception
+<<<END>>>

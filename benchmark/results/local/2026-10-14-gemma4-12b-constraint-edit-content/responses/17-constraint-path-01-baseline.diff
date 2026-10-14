@@ -1,0 +1,4 @@
+<<<FILE:src/profile.py>>>
+def normalize_email(value):
+    return value.strip().lower()
+<<<END>>>

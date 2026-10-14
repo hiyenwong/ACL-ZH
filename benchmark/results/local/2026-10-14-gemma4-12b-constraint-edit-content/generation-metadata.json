@@ -1,0 +1,558 @@
+{
+  "runner": "lm-studio-openai-compatible",
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "google/gemma-4-12b-qat",
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "seed": 20261011,
+  "max_tokens": 256,
+  "reasoning_effort": "none",
+  "experiment": "benchmark/local-model/experiment-gemma4-12b-constraint-edit-content-v0.3.json",
+  "manifest": "benchmark/tasks/manifest-constraint-v0.3.jsonl",
+  "exporter": "benchmark/local-model/export_edit_content_prompts.py",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "runs": [
+    {
+      "run": 1,
+      "task_id": "scope-01",
+      "variant": "baseline",
+      "response_chars": 107,
+      "elapsed_seconds": 3.905,
+      "usage": {
+        "prompt_tokens": 318,
+        "completion_tokens": 42,
+        "total_tokens": 360,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 2,
+      "task_id": "compatibility-01",
+      "variant": "minimal",
+      "response_chars": 153,
+      "elapsed_seconds": 1.01,
+      "usage": {
+        "prompt_tokens": 249,
+        "completion_tokens": 45,
+        "total_tokens": 294,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 3,
+      "task_id": "constraint-api-01",
+      "variant": "minimal",
+      "response_chars": 86,
+      "elapsed_seconds": 0.696,
+      "usage": {
+        "prompt_tokens": 227,
+        "completion_tokens": 29,
+        "total_tokens": 256,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 4,
+      "task_id": "constraint-immutable-01",
+      "variant": "minimal",
+      "response_chars": 216,
+      "elapsed_seconds": 1.39,
+      "usage": {
+        "prompt_tokens": 256,
+        "completion_tokens": 68,
+        "total_tokens": 324,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 5,
+      "task_id": "constraint-schema-01",
+      "variant": "minimal",
+      "response_chars": 124,
+      "elapsed_seconds": 0.974,
+      "usage": {
+        "prompt_tokens": 253,
+        "completion_tokens": 44,
+        "total_tokens": 297,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 6,
+      "task_id": "constraint-path-01",
+      "variant": "minimal",
+      "response_chars": 96,
+      "elapsed_seconds": 0.745,
+      "usage": {
+        "prompt_tokens": 258,
+        "completion_tokens": 31,
+        "total_tokens": 289,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 7,
+      "task_id": "scope-01",
+      "variant": "full",
+      "response_chars": 119,
+      "elapsed_seconds": 1.103,
+      "usage": {
+        "prompt_tokens": 382,
+        "completion_tokens": 46,
+        "total_tokens": 428,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 8,
+      "task_id": "dependency-01",
+      "variant": "full",
+      "response_chars": 137,
+      "elapsed_seconds": 1.048,
+      "usage": {
+        "prompt_tokens": 302,
+        "completion_tokens": 44,
+        "total_tokens": 346,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 9,
+      "task_id": "scope-01",
+      "variant": "minimal",
+      "response_chars": 119,
+      "elapsed_seconds": 1.057,
+      "usage": {
+        "prompt_tokens": 325,
+        "completion_tokens": 46,
+        "total_tokens": 371,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 10,
+      "task_id": "constraint-api-01",
+      "variant": "full",
+      "response_chars": 86,
+      "elapsed_seconds": 0.776,
+      "usage": {
+        "prompt_tokens": 272,
+        "completion_tokens": 29,
+        "total_tokens": 301,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 11,
+      "task_id": "constraint-immutable-01",
+      "variant": "baseline",
+      "response_chars": 216,
+      "elapsed_seconds": 1.38,
+      "usage": {
+        "prompt_tokens": 253,
+        "completion_tokens": 68,
+        "total_tokens": 321,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 12,
+      "task_id": "constraint-path-01",
+      "variant": "full",
+      "response_chars": 388,
+      "elapsed_seconds": 2.474,
+      "usage": {
+        "prompt_tokens": 309,
+        "completion_tokens": 127,
+        "total_tokens": 436,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 13,
+      "task_id": "exception-01",
+      "variant": "baseline",
+      "response_chars": 112,
+      "elapsed_seconds": 1.025,
+      "usage": {
+        "prompt_tokens": 238,
+        "completion_tokens": 44,
+        "total_tokens": 282,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 14,
+      "task_id": "constraint-return-01",
+      "variant": "baseline",
+      "response_chars": 174,
+      "elapsed_seconds": 1.213,
+      "usage": {
+        "prompt_tokens": 234,
+        "completion_tokens": 58,
+        "total_tokens": 292,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 15,
+      "task_id": "constraint-retry-01",
+      "variant": "baseline",
+      "response_chars": 253,
+      "elapsed_seconds": 1.459,
+      "usage": {
+        "prompt_tokens": 242,
+        "completion_tokens": 73,
+        "total_tokens": 315,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 16,
+      "task_id": "constraint-side-effect-01",
+      "variant": "full",
+      "response_chars": 117,
+      "elapsed_seconds": 1.039,
+      "usage": {
+        "prompt_tokens": 306,
+        "completion_tokens": 43,
+        "total_tokens": 349,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 17,
+      "task_id": "constraint-path-01",
+      "variant": "baseline",
+      "response_chars": 96,
+      "elapsed_seconds": 0.749,
+      "usage": {
+        "prompt_tokens": 255,
+        "completion_tokens": 31,
+        "total_tokens": 286,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 18,
+      "task_id": "exception-01",
+      "variant": "minimal",
+      "response_chars": 140,
+      "elapsed_seconds": 1.015,
+      "usage": {
+        "prompt_tokens": 242,
+        "completion_tokens": 47,
+        "total_tokens": 289,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 19,
+      "task_id": "constraint-return-01",
+      "variant": "minimal",
+      "response_chars": 178,
+      "elapsed_seconds": 1.222,
+      "usage": {
+        "prompt_tokens": 238,
+        "completion_tokens": 59,
+        "total_tokens": 297,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 20,
+      "task_id": "constraint-stdlib-01",
+      "variant": "full",
+      "response_chars": 137,
+      "elapsed_seconds": 1.165,
+      "usage": {
+        "prompt_tokens": 307,
+        "completion_tokens": 51,
+        "total_tokens": 358,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 21,
+      "task_id": "constraint-schema-01",
+      "variant": "full",
+      "response_chars": 124,
+      "elapsed_seconds": 1.049,
+      "usage": {
+        "prompt_tokens": 294,
+        "completion_tokens": 44,
+        "total_tokens": 338,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 22,
+      "task_id": "exception-01",
+      "variant": "full",
+      "response_chars": 140,
+      "elapsed_seconds": 1.088,
+      "usage": {
+        "prompt_tokens": 272,
+        "completion_tokens": 47,
+        "total_tokens": 319,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 23,
+      "task_id": "dependency-01",
+      "variant": "minimal",
+      "response_chars": 137,
+      "elapsed_seconds": 0.972,
+      "usage": {
+        "prompt_tokens": 258,
+        "completion_tokens": 44,
+        "total_tokens": 302,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 24,
+      "task_id": "constraint-return-01",
+      "variant": "full",
+      "response_chars": 163,
+      "elapsed_seconds": 1.244,
+      "usage": {
+        "prompt_tokens": 288,
+        "completion_tokens": 55,
+        "total_tokens": 343,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 25,
+      "task_id": "constraint-stdlib-01",
+      "variant": "minimal",
+      "response_chars": 137,
+      "elapsed_seconds": 1.099,
+      "usage": {
+        "prompt_tokens": 259,
+        "completion_tokens": 51,
+        "total_tokens": 310,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 26,
+      "task_id": "constraint-retry-01",
+      "variant": "full",
+      "response_chars": 254,
+      "elapsed_seconds": 1.561,
+      "usage": {
+        "prompt_tokens": 294,
+        "completion_tokens": 73,
+        "total_tokens": 367,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 27,
+      "task_id": "dependency-01",
+      "variant": "baseline",
+      "response_chars": 137,
+      "elapsed_seconds": 1.056,
+      "usage": {
+        "prompt_tokens": 263,
+        "completion_tokens": 44,
+        "total_tokens": 307,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 28,
+      "task_id": "constraint-immutable-01",
+      "variant": "full",
+      "response_chars": 216,
+      "elapsed_seconds": 1.475,
+      "usage": {
+        "prompt_tokens": 301,
+        "completion_tokens": 68,
+        "total_tokens": 369,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 29,
+      "task_id": "constraint-retry-01",
+      "variant": "minimal",
+      "response_chars": 281,
+      "elapsed_seconds": 1.634,
+      "usage": {
+        "prompt_tokens": 248,
+        "completion_tokens": 80,
+        "total_tokens": 328,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 30,
+      "task_id": "compatibility-01",
+      "variant": "full",
+      "response_chars": 153,
+      "elapsed_seconds": 1.095,
+      "usage": {
+        "prompt_tokens": 270,
+        "completion_tokens": 45,
+        "total_tokens": 315,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 31,
+      "task_id": "constraint-api-01",
+      "variant": "baseline",
+      "response_chars": 86,
+      "elapsed_seconds": 0.735,
+      "usage": {
+        "prompt_tokens": 225,
+        "completion_tokens": 29,
+        "total_tokens": 254,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 32,
+      "task_id": "constraint-schema-01",
+      "variant": "baseline",
+      "response_chars": 124,
+      "elapsed_seconds": 0.996,
+      "usage": {
+        "prompt_tokens": 247,
+        "completion_tokens": 44,
+        "total_tokens": 291,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 33,
+      "task_id": "constraint-side-effect-01",
+      "variant": "baseline",
+      "response_chars": 117,
+      "elapsed_seconds": 0.983,
+      "usage": {
+        "prompt_tokens": 253,
+        "completion_tokens": 43,
+        "total_tokens": 296,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 34,
+      "task_id": "constraint-side-effect-01",
+      "variant": "minimal",
+      "response_chars": 117,
+      "elapsed_seconds": 0.99,
+      "usage": {
+        "prompt_tokens": 261,
+        "completion_tokens": 43,
+        "total_tokens": 304,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 35,
+      "task_id": "compatibility-01",
+      "variant": "baseline",
+      "response_chars": 153,
+      "elapsed_seconds": 1.028,
+      "usage": {
+        "prompt_tokens": 239,
+        "completion_tokens": 45,
+        "total_tokens": 284,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 36,
+      "task_id": "constraint-stdlib-01",
+      "variant": "baseline",
+      "response_chars": 137,
+      "elapsed_seconds": 1.153,
+      "usage": {
+        "prompt_tokens": 247,
+        "completion_tokens": 51,
+        "total_tokens": 298,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    }
+  ]
+}

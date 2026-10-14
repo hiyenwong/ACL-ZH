@@ -1,0 +1,20 @@
+{
+  "task_id": "constraint-stdlib-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "实现 sha256_text()：返回输入字符串的 SHA-256 十六进制摘要。只使用 Python 标准库，不要新增依赖。",
+  "files": {
+    "requirements.txt": "",
+    "src/hashutil.py": "def sha256_text(value):\n    return value\n",
+    "tests/test_hashutil.py": "import unittest\nfrom src.hashutil import sha256_text\nclass T(unittest.TestCase):\n def test_callable(self): self.assertTrue(callable(sha256_text))\n"
+  },
+  "allowed_paths": [
+    "src/hashutil.py",
+    "tests/test_hashutil.py"
+  ],
+  "forbidden_paths": [
+    "requirements.txt"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

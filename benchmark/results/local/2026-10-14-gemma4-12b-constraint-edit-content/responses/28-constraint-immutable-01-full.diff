@@ -1,0 +1,7 @@
+<<<FILE:src/options.py>>>
+def normalize_options(options):
+    new_options = options.copy()
+    if 'mode' in new_options:
+        new_options['mode'] = str(new_options['mode']).lower()
+    return new_options
+<<<END>>>

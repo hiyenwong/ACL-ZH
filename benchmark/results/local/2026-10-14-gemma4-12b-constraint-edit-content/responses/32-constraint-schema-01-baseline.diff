@@ -1,0 +1,4 @@
+<<<FILE:src/payload.py>>>
+def compact_payload(value):
+    return {k: v for k, v in value.items() if v is not None}
+<<<END>>>

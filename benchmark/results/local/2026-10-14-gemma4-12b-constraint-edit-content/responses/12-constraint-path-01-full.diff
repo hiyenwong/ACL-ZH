@@ -1,0 +1,11 @@
+<<<FILE:src/profile.py>>>
+def normalize_email(value):
+    return value.strip().lower()
+<<<END>>>
+<<<FILE:tests/test_profile.py>>>
+import unittest
+from src.profile import normalize_email
+class T(unittest.TestCase):
+ def test_plain(self): self.assertEqual(normalize_email('a@b.com'),'a@b.com')
+ def test_whitespace(self): self.assertEqual(normalize_email('  A@B.com  '),'a@b.com')
+<<<END>>>

@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-return-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "修改 parse_id(value)：支持 ID-42 形式和普通数字字符串；返回值保持 int；保持单参数函数签名。",
+  "files": {
+    "src/ids.py": "def parse_id(value):\n    return int(value)\n",
+    "tests/test_ids.py": "import unittest\nfrom src.ids import parse_id\nclass T(unittest.TestCase):\n def test_int(self): self.assertEqual(parse_id('7'),7)\n"
+  },
+  "allowed_paths": [
+    "src/ids.py",
+    "tests/test_ids.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

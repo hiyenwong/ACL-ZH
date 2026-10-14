@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-immutable-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "baseline",
+  "instruction": "normalize_options 继续做 mode 小写，但别直接改传进来的 dict。",
+  "files": {
+    "src/options.py": "def normalize_options(options):\n    if 'mode' in options:\n        options['mode'] = str(options['mode']).lower()\n    return options\n",
+    "tests/test_options.py": "import unittest\nfrom src.options import normalize_options\nclass T(unittest.TestCase):\n def test_result(self): self.assertEqual(normalize_options({'mode':'FAST'})['mode'],'fast')\n"
+  },
+  "allowed_paths": [
+    "src/options.py",
+    "tests/test_options.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

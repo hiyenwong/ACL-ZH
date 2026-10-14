@@ -1,0 +1,20 @@
+{
+  "task_id": "constraint-stdlib-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "目标：实现稳定的 SHA-256 文本摘要。\n任务：修改 src/hashutil.py 的 sha256_text()，返回 UTF-8 输入的 SHA-256 十六进制字符串。\n约束：只能使用 Python 标准库。不得新增第三方依赖。不得修改 requirements.txt。\n验证：运行 python -m unittest discover -s tests。",
+  "files": {
+    "requirements.txt": "",
+    "src/hashutil.py": "def sha256_text(value):\n    return value\n",
+    "tests/test_hashutil.py": "import unittest\nfrom src.hashutil import sha256_text\nclass T(unittest.TestCase):\n def test_callable(self): self.assertTrue(callable(sha256_text))\n"
+  },
+  "allowed_paths": [
+    "src/hashutil.py",
+    "tests/test_hashutil.py"
+  ],
+  "forbidden_paths": [
+    "requirements.txt"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

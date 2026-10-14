@@ -1,0 +1,34 @@
+# ACL-ZH Edit-Content Diagnostic Benchmark
+
+Treat this as a fresh isolated coding task. Do not ask clarifying questions.
+
+## Instruction
+修改 safe_divide()：只捕获 ZeroDivisionError 并返回 None；其他异常保持原样抛出。
+
+## Workspace files
+
+### src/safe_math.py
+```python
+def safe_divide(a, b):
+    return a / b
+```
+
+### tests/test_safe_math.py
+```python
+import unittest
+from src.safe_math import safe_divide
+class T(unittest.TestCase):
+ def test_normal(self): self.assertEqual(safe_divide(6,3),2)
+```
+
+## Response contract
+
+Return every changed file using this exact form, and nothing else:
+
+<<<FILE:path/to/file>>>
+<complete final file content>
+<<<END>>>
+
+Return only files you changed. Do not use unified diff. Do not wrap file
+content in Markdown fences. Do not omit unchanged lines inside a changed file.
+Do not modify files outside the requested task.

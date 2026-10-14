@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-api-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "目标：规范 token 空白。\n任务：修改 src/token.py 的 normalize_token(token)，去掉首尾空白。\n约束：不得修改公开函数签名。返回类型必须保持 str。不得增加额外编码或大小写转换。\n验证：运行 python -m unittest discover -s tests。",
+  "files": {
+    "src/token.py": "def normalize_token(token):\n    return token\n",
+    "tests/test_token.py": "import unittest\nfrom src.token import normalize_token\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_token('abc'),'abc')\n"
+  },
+  "allowed_paths": [
+    "src/token.py",
+    "tests/test_token.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}
