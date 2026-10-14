@@ -1,0 +1,47 @@
+{
+  "experiment_id": "local-gemma3-4b-dependency-mirror-edit-content-v0.4",
+  "track": "local-open-model-edit-content",
+  "provider": "lm-studio-local",
+  "agent": "openai-compatible-chat-completions",
+  "model": "google/gemma-3-4b",
+  "model_variant": "google/gemma-3-4b@4bit",
+  "quantization": "4bit",
+  "date_planned": "2026-10-14",
+  "repetitions": 1,
+  "decoding": {
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20261011,
+    "max_tokens": 256
+  },
+  "response_contract": "<<<FILE:path>>>\\n<complete final file content>\\n<<<END>>> (frozen parser: benchmark/local-model/edit_content_parser.py)",
+  "variants": [
+    "baseline",
+    "minimal",
+    "full"
+  ],
+  "tasks": [
+    "dependency-anchor-01",
+    "dependency-no-file-ban-01",
+    "dependency-no-target-file-01",
+    "dependency-verbose-01"
+  ],
+  "randomization_seed": 20261011,
+  "run_order": [
+    "dependency-no-target-file-01:minimal",
+    "dependency-anchor-01:full",
+    "dependency-verbose-01:baseline",
+    "dependency-no-file-ban-01:full",
+    "dependency-anchor-01:baseline",
+    "dependency-verbose-01:minimal",
+    "dependency-no-target-file-01:full",
+    "dependency-no-file-ban-01:baseline",
+    "dependency-anchor-01:minimal",
+    "dependency-verbose-01:full",
+    "dependency-no-target-file-01:baseline",
+    "dependency-no-file-ban-01:minimal"
+  ],
+  "status": "executed",
+  "evidence_boundary": "DIAGNOSTIC track (local-lm-studio-edit-content); never merge with strict unified-diff counts. Weaker-model counterpart of local-gemma4-12b-dependency-mirror-edit-content-v0.4: gemma-3-4b failed semantically even on the diff track, so this run tests whether the dependency-mirror tasks sit near this model's ability margin, where variant separation could appear. Same decoding as the gemma-3-4b diff-track run (no reasoning_effort; this model emits no reasoning tokens). Prompt text differs from the diff track (file-content contract).",
+  "results": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/"
+}

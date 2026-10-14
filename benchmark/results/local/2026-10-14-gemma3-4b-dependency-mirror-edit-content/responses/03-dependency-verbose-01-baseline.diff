@@ -1,0 +1,8 @@
+<<<FILE:src/serializer.py>>>
+```python
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True)
+```
+<<<END>>>

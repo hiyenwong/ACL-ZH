@@ -1,0 +1,198 @@
+{
+  "runner": "lm-studio-openai-compatible",
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "google/gemma-3-4b",
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "seed": 20261011,
+  "max_tokens": 256,
+  "reasoning_effort": null,
+  "experiment": "benchmark/local-model/experiment-gemma3-4b-dependency-mirror-edit-content-v0.4.json",
+  "manifest": "benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl",
+  "exporter": "benchmark/local-model/export_edit_content_prompts.py",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "runs": [
+    {
+      "run": 1,
+      "task_id": "dependency-no-target-file-01",
+      "variant": "minimal",
+      "response_chars": 123,
+      "elapsed_seconds": 6.088,
+      "usage": {
+        "prompt_tokens": 254,
+        "completion_tokens": 41,
+        "total_tokens": 295,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 2,
+      "task_id": "dependency-anchor-01",
+      "variant": "full",
+      "response_chars": 151,
+      "elapsed_seconds": 0.366,
+      "usage": {
+        "prompt_tokens": 298,
+        "completion_tokens": 49,
+        "total_tokens": 347,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 3,
+      "task_id": "dependency-verbose-01",
+      "variant": "baseline",
+      "response_chars": 128,
+      "elapsed_seconds": 0.331,
+      "usage": {
+        "prompt_tokens": 294,
+        "completion_tokens": 43,
+        "total_tokens": 337,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 4,
+      "task_id": "dependency-no-file-ban-01",
+      "variant": "full",
+      "response_chars": 151,
+      "elapsed_seconds": 0.363,
+      "usage": {
+        "prompt_tokens": 292,
+        "completion_tokens": 49,
+        "total_tokens": 341,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 5,
+      "task_id": "dependency-anchor-01",
+      "variant": "baseline",
+      "response_chars": 123,
+      "elapsed_seconds": 0.307,
+      "usage": {
+        "prompt_tokens": 259,
+        "completion_tokens": 41,
+        "total_tokens": 300,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 6,
+      "task_id": "dependency-verbose-01",
+      "variant": "minimal",
+      "response_chars": 135,
+      "elapsed_seconds": 0.337,
+      "usage": {
+        "prompt_tokens": 277,
+        "completion_tokens": 43,
+        "total_tokens": 320,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 7,
+      "task_id": "dependency-no-target-file-01",
+      "variant": "full",
+      "response_chars": 151,
+      "elapsed_seconds": 0.359,
+      "usage": {
+        "prompt_tokens": 294,
+        "completion_tokens": 49,
+        "total_tokens": 343,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 8,
+      "task_id": "dependency-no-file-ban-01",
+      "variant": "baseline",
+      "response_chars": 123,
+      "elapsed_seconds": 0.332,
+      "usage": {
+        "prompt_tokens": 259,
+        "completion_tokens": 41,
+        "total_tokens": 300,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 9,
+      "task_id": "dependency-anchor-01",
+      "variant": "minimal",
+      "response_chars": 123,
+      "elapsed_seconds": 0.313,
+      "usage": {
+        "prompt_tokens": 254,
+        "completion_tokens": 41,
+        "total_tokens": 295,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 10,
+      "task_id": "dependency-verbose-01",
+      "variant": "full",
+      "response_chars": 151,
+      "elapsed_seconds": 0.377,
+      "usage": {
+        "prompt_tokens": 383,
+        "completion_tokens": 49,
+        "total_tokens": 432,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 11,
+      "task_id": "dependency-no-target-file-01",
+      "variant": "baseline",
+      "response_chars": 123,
+      "elapsed_seconds": 0.272,
+      "usage": {
+        "prompt_tokens": 259,
+        "completion_tokens": 41,
+        "total_tokens": 300,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "run": 12,
+      "task_id": "dependency-no-file-ban-01",
+      "variant": "minimal",
+      "response_chars": 123,
+      "elapsed_seconds": 0.315,
+      "usage": {
+        "prompt_tokens": 254,
+        "completion_tokens": 41,
+        "total_tokens": 295,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    }
+  ]
+}

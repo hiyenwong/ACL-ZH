@@ -1,0 +1,86 @@
+[
+  {
+    "run": 1,
+    "task_id": "dependency-no-target-file-01",
+    "variant": "minimal",
+    "prompt": "minimal/dependency-no-target-file-01-minimal.md",
+    "response": "responses/01-dependency-no-target-file-01-minimal.diff"
+  },
+  {
+    "run": 2,
+    "task_id": "dependency-anchor-01",
+    "variant": "full",
+    "prompt": "full/dependency-anchor-01-full.md",
+    "response": "responses/02-dependency-anchor-01-full.diff"
+  },
+  {
+    "run": 3,
+    "task_id": "dependency-verbose-01",
+    "variant": "baseline",
+    "prompt": "baseline/dependency-verbose-01-baseline.md",
+    "response": "responses/03-dependency-verbose-01-baseline.diff"
+  },
+  {
+    "run": 4,
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "full",
+    "prompt": "full/dependency-no-file-ban-01-full.md",
+    "response": "responses/04-dependency-no-file-ban-01-full.diff"
+  },
+  {
+    "run": 5,
+    "task_id": "dependency-anchor-01",
+    "variant": "baseline",
+    "prompt": "baseline/dependency-anchor-01-baseline.md",
+    "response": "responses/05-dependency-anchor-01-baseline.diff"
+  },
+  {
+    "run": 6,
+    "task_id": "dependency-verbose-01",
+    "variant": "minimal",
+    "prompt": "minimal/dependency-verbose-01-minimal.md",
+    "response": "responses/06-dependency-verbose-01-minimal.diff"
+  },
+  {
+    "run": 7,
+    "task_id": "dependency-no-target-file-01",
+    "variant": "full",
+    "prompt": "full/dependency-no-target-file-01-full.md",
+    "response": "responses/07-dependency-no-target-file-01-full.diff"
+  },
+  {
+    "run": 8,
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "baseline",
+    "prompt": "baseline/dependency-no-file-ban-01-baseline.md",
+    "response": "responses/08-dependency-no-file-ban-01-baseline.diff"
+  },
+  {
+    "run": 9,
+    "task_id": "dependency-anchor-01",
+    "variant": "minimal",
+    "prompt": "minimal/dependency-anchor-01-minimal.md",
+    "response": "responses/09-dependency-anchor-01-minimal.diff"
+  },
+  {
+    "run": 10,
+    "task_id": "dependency-verbose-01",
+    "variant": "full",
+    "prompt": "full/dependency-verbose-01-full.md",
+    "response": "responses/10-dependency-verbose-01-full.diff"
+  },
+  {
+    "run": 11,
+    "task_id": "dependency-no-target-file-01",
+    "variant": "baseline",
+    "prompt": "baseline/dependency-no-target-file-01-baseline.md",
+    "response": "responses/11-dependency-no-target-file-01-baseline.diff"
+  },
+  {
+    "run": 12,
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "minimal",
+    "prompt": "minimal/dependency-no-file-ban-01-minimal.md",
+    "response": "responses/12-dependency-no-file-ban-01-minimal.diff"
+  }
+]

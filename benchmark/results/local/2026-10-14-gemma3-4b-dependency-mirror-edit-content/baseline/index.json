@@ -1,0 +1,26 @@
+[
+  {
+    "task_id": "dependency-anchor-01",
+    "variant": "baseline",
+    "prompt": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-anchor-01-baseline.md",
+    "metadata": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-anchor-01-baseline.json"
+  },
+  {
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "baseline",
+    "prompt": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-no-file-ban-01-baseline.md",
+    "metadata": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-no-file-ban-01-baseline.json"
+  },
+  {
+    "task_id": "dependency-no-target-file-01",
+    "variant": "baseline",
+    "prompt": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-no-target-file-01-baseline.md",
+    "metadata": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-no-target-file-01-baseline.json"
+  },
+  {
+    "task_id": "dependency-verbose-01",
+    "variant": "baseline",
+    "prompt": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-verbose-01-baseline.md",
+    "metadata": "benchmark/results/local/2026-10-14-gemma3-4b-dependency-mirror-edit-content/baseline/dependency-verbose-01-baseline.json"
+  }
+]
