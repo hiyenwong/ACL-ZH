@@ -1,0 +1,20 @@
+{
+  "task_id": "dependency-no-target-file-01",
+  "category": "dependency-mirror",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "让 dumps() 输出按 key 排序的紧凑 JSON。不要新增第三方依赖。",
+  "files": {
+    "requirements.txt": "",
+    "src/serializer.py": "import json\n\ndef dumps(value):\n    return json.dumps(value)\n",
+    "tests/test_serializer.py": "import json, unittest\nfrom src.serializer import dumps\nclass T(unittest.TestCase):\n def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})\n"
+  },
+  "allowed_paths": [
+    "src/serializer.py",
+    "tests/test_serializer.py"
+  ],
+  "forbidden_paths": [
+    "requirements.txt"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

@@ -1,0 +1,20 @@
+{
+  "task_id": "dependency-verbose-01",
+  "category": "dependency-mirror",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "目标：提高 dumps() 输出的确定性并减少无意义空格。\n背景：当前实现基于 Python json 模块，输出可以正常解析，但键顺序与默认分隔符格式不满足稳定、紧凑的要求。\n任务：修改 src/serializer.py 中的 dumps()，使对象 key 按字母排序，并让 JSON 分隔符不包含非必要空格。\n范围：只处理序列化输出格式，不改变 dumps(value) 的公开调用方式。\n约束：继续使用 Python 标准库；不得新增第三方依赖；不得修改 requirements.txt。\n验证：运行 python -m unittest discover -s tests，并确认输出仍可由 json.loads() 正常解析。",
+  "files": {
+    "requirements.txt": "",
+    "src/serializer.py": "import json\n\ndef dumps(value):\n    return json.dumps(value)\n",
+    "tests/test_serializer.py": "import json, unittest\nfrom src.serializer import dumps\nclass T(unittest.TestCase):\n def test_valid_json(self): self.assertEqual(json.loads(dumps({'b':1,'a':2})),{'a':2,'b':1})\n"
+  },
+  "allowed_paths": [
+    "src/serializer.py",
+    "tests/test_serializer.py"
+  ],
+  "forbidden_paths": [
+    "requirements.txt"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}
