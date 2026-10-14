@@ -119,6 +119,8 @@ GitHub Actions 实际运行结果：
 
 - 原始 6-task control：No-op **0 / 6**，Reference **6 / 6**
 - 扩展 12-task control：No-op **0 / 12**，Reference **12 / 12**
+- Constraint-focused 12-task control：No-op **0 / 12**，Reference **12 / 12**
+- Dependency-mirror 4-task control：No-op **0 / 4**，Reference **4 / 4**
 - Aggregate smoke test：**PASS**
 
 这证明当前 scorer 至少能够区分“什么都没做”和“已知正确实现”，避免了“现有测试本来就通过，因此空操作被误判为成功”的假阳性。
@@ -129,7 +131,9 @@ GitHub Actions 实际运行结果：
 
 首次真实 smoke workflow 已经触发，但 Codex 与 Claude 两个 job 都因仓库未配置模型凭证而跳过，没有产生模型输出。Codex 现在支持 `CODEX_ACCESS_TOKEN` 或 `OPENAI_API_KEY`；Claude 需要 `ANTHROPIC_API_KEY`。
 
-**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 126 次真实推理。Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持“Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。当前证据仍不足以宣称 ACL-ZH 有效。**
+**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 150 次 strict-diff 推理与 48 次 edit-content 诊断推理（两轨分别计数，从不合并）。Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持”Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。**
+
+**2026-10 月新增的 LM Studio 本地轨道进一步拆分了失败层次。gemma-3-4b 与 gemma-4-12b-qat 在 dependency-mirror v0.4 任务族上的 strict-diff 运行均为 0/12；事后诊断显示 gemma-4-12b 的编辑内容 12/12 语义正确、仅因缺 `a/`/`b/` 前缀和末尾换行导致 `git apply` 全挂，即该地板纯属 unified-diff 序列化问题。诊断过程中还发现并修复了一个 harness 缺陷：v0.4 镜像任务 id 在 hidden oracle 中无分支（恒定 False），且该 manifest 从未跑过 No-op/Reference 控制；修复后控制为 No-op 0/4、Reference 4/4，已记录结果不受影响（所有 run 都失败在更早的 patch-apply 环节）。为把序列化与语义解耦，仓库新增 edit-content 诊断轨（冻结 parser、`<<<FILE:…>>>` 契约、绝不并入 strict 成绩）：gemma-4-12b 在该轨上 dependency-mirror 12/12、constraint-focused 33/36（唯一失败 constraint-return-01 三个变体一致未过 oracle），变体全部饱和、无分离；gemma-3-4b 在该轨上仍为 0/12 task success，但 Full ACL 的响应契约遵从率为 4/4，高于 Baseline/Minimal 的各 1/4——这是迄今本地实验中唯一观察到的变体差异，且仅存在于格式遵从层面，不构成任务成功率证据。当前证据仍不足以宣称 ACL-ZH 有效。**
 
 正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
@@ -219,7 +223,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验目前累计完成 126 次真实推理。0.5B 与 1.5B 的 smoke 均处于 strict-diff floor。3B 的 6-task smoke 与 12-task expanded experiment 都只在 Full ACL 的 dependency-01 上出现 task success。为检验这是否属于 Constraint family 效应，仓库进一步构建了 12-task Constraint-focused v0.3；该任务集通过 No-op 0/12、Reference 12/12 控制后完成 36-run，结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，而且成功项仍是 dependency-01。这个负向复验削弱了“Constraint family 普遍受益”的解释。下一步更应该区分 dependency-01 的具体任务结构与其他任务的差异，并降低 unified-diff 序列化对语义正确性的遮蔽，而不是继续把单一成功样本外推为规则族效应。针对“不购买 API”的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
+Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验目前累计完成 150 次 strict-diff 推理与 48 次 edit-content 诊断推理。0.5B 与 1.5B 的 smoke 均处于 strict-diff floor。3B 的 6-task smoke、12-task expanded 与 constraint-focused 复验都只在 Full ACL 的 dependency-01 上出现 task success。dependency-mirror v0.4 镜像实验（同一 fixture/oracle、逐因子改变 prompt 结构）已在 LM Studio 轨道用 gemma-3-4b 与 gemma-4-12b-qat 执行：strict-diff 均 0/12，诊断确认 12B 模型的失败纯属 diff 序列化而非语义错误。edit-content 诊断轨进一步显示：12B 模型在 dependency-mirror 与 constraint-focused 任务上饱和（12/12 与 33/36，变体无分离），4B 模型全部失败但呈现 Full ACL 的格式遵从优势（4/4 vs 1/4）。当前最合理的结论是：现有任务集对 ≤4B 模型太难、对 ≥12B 模型太容易，任务成功率层面的变体效应需要"能力边缘"的模型档位（约 7B）或更难的任务集才能判别。针对"不购买 API"的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
@@ -251,8 +255,9 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 - 测试规则与计划：[benchmark/local-model/LM-STUDIO-TEST-PLAN.md](benchmark/local-model/LM-STUDIO-TEST-PLAN.md)
 - LM Studio runner：[benchmark/local-model/run_lm_studio.py](benchmark/local-model/run_lm_studio.py)
 - 本地评分脚本：[benchmark/local-model/score_lm_studio_run.py](benchmark/local-model/score_lm_studio_run.py)
+- edit-content 诊断轨（冻结 parser，成绩不并入 strict）：[export_edit_content_prompts.py](benchmark/local-model/export_edit_content_prompts.py) / [score_edit_content_run.py](benchmark/local-model/score_edit_content_run.py) / [edit_content_parser.py](benchmark/local-model/edit_content_parser.py)
 
-本地实验必须保存首答原始响应；strict unified-diff score 为主评分，fence-only normalized score 只能作为诊断指标。模型、量化、LM Studio 版本、硬件与 decoding 参数必须一并记录，不能把不同运行条件混为同一实验。
+本地实验必须保存首答原始响应；strict unified-diff score 为主评分，fence-only normalized score 只能作为诊断指标。模型、量化、LM Studio 版本、硬件与 decoding 参数必须一并记录，不能把不同运行条件混为同一实验。混合推理模型（如 gemma-4 系列）可能把全部 token 预算消耗在 reasoning_content 上；遇到空响应应按协议中止并用 `--reasoning-effort none` 重跑，且在实验文件中记录该解码变更。
 
 ## Agent 适配
 
@@ -263,7 +268,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 ## 状态
 
-**v0.3 Experimental — Input harness self-tested; 126 local open-model runs completed; Constraint-focused replication did not generalize beyond dependency-01; ACL effects still unvalidated**
+**v0.3 Experimental — Input harness self-tested (incl. dependency-mirror controls); 150 strict-diff + 48 edit-content local runs completed; only variant signal so far is Full ACL's format-compliance advantage on a 4B model; task-success-level ACL effects still unvalidated**
 
 ## Disclaimer
 

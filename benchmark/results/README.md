@@ -40,6 +40,20 @@ No task-success, constraint-violation, or token-efficiency claim for ACL-ZH is c
 
 The next publishable result must contain Baseline, Minimal ACL, and Full ACL runs under the same model/environment controls.
 
+## Local LM Studio runs
+
+Diagnostic-grade local runs (LM Studio, deterministic decoding). Each directory has a RESULT-REPORT.md with the full environment record and evidence boundary. Edit-content rows are a separate diagnostic track and are never merged with strict unified-diff counts.
+
+| Date | Model | Manifest | Track | Result |
+| --- | --- | --- | --- | --- |
+| 2026-10-11 | gemma-3-4b @4bit | dependency-mirror v0.4 | strict diff | 0/12 (serialization + semantic floor) |
+| 2026-10-11 | gemma-4-12b-qat @q4_0 | dependency-mirror v0.4 | strict diff | 0/12 patch apply; edit content 12/12 correct on post-hoc inspection |
+| 2026-10-14 | gemma-4-12b-qat @q4_0 | dependency-mirror v0.4 | edit-content | 12/12, all variants saturated |
+| 2026-10-14 | gemma-3-4b @4bit | dependency-mirror v0.4 | edit-content | 0/12; Full ACL format compliance 4/4 vs 1/4 (first variant signal, format-level only) |
+| 2026-10-14 | gemma-4-12b-qat @q4_0 | constraint v0.3 | edit-content | 33/36; constraint-return-01 fails in all variants; no variant separation |
+
+Harness note: during these runs a latent defect was found and fixed — the v0.4 mirror task ids had no hidden-oracle branch (always False) and no No-op/Reference control. Fixed in `f0693a6`; controls now pass (0/4 and 4/4) and no recorded result was affected.
+
 ## Publication rule
 
 README claims must point to a committed result or a reproducible CI run. Predictions and intuitions must remain labeled as hypotheses.
