@@ -12,35 +12,51 @@ Manifest: benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl
 Git commit at run time: 716b39a
 Temperature: 0 / Top-p: 1 / Seed: 20261011 / Max tokens: 256
 
-Baseline: parsed 1/4, format compliant 1/4, task success 0/4
-Minimal:  parsed 1/4, format compliant 1/4, task success 0/4
-Full:     parsed 4/4, format compliant 4/4, task success 0/4
+Baseline: parsed 1/4, format compliant 0/4, tests 3/4*, oracle 0/4, semantic success 0/4, task success 0/4
+Minimal:  parsed 1/4, format compliant 0/4, tests 3/4*, oracle 0/4, semantic success 0/4, task success 0/4
+Full:     parsed 4/4, format compliant 0/4, tests 0/4, oracle 0/4, semantic success 0/4, task success 0/4
+
+*Unparseable responses write nothing, so visible tests run against the
+unmodified fixture and pass for 3 of 4 tasks; the hidden oracle catches
+the no-op (0/12 everywhere). tests-pass here must not be read as
+progress toward success.
+
+Re-scored 2026-10-15 with the remediated format_compliant detector
+(any Markdown fence line — ``` or ~~~ — in block content, duplicate
+file paths, and empty paths are now contract violations; parser itself
+untouched, raw responses unchanged). Metric definitions:
+semantic_task_success = visible tests AND hidden oracle AND no
+constraint violation; task_success = semantic_task_success AND
+format_compliant.
 
 Evidence boundary: diagnostic track; never merge with strict diff counts.
 ```
 
-## Variant separation in format compliance (not in task success)
+## No variant separation after format_compliant remediation
 
-This is the first local run with ANY variant separation:
+The originally reported "Full ACL format compliance 4/4 vs 1/4" does
+NOT survive the corrected contract detection and has been removed as a
+conclusion:
 
-- Full ACL prompts produced a parseable, contract-shaped response in
-  4/4 runs; Baseline and Minimal did so in only 1/4 each.
-- However, Full's blocks wrap the file content in ```python fences.
-  The frozen parser captures the fences as content, the written file
-  is invalid Python, and visible tests fail (0/4 under Full).
-- Baseline/Minimal mostly emit the post-hoc shape `<<<path>>>` +
-  fenced block (missing the `FILE:` marker), which the frozen parser
-  correctly rejects.
-- Hidden oracle: 0/12 in all variants. Even the correctly-headed Full
-  blocks would need fence-free content to be scored semantically; the
-  one inspected Full response had the intended edit inside the fences.
+- All 4 Full responses wrap the file content in ```python fences. The
+  frozen parser captures the fences as content; content wrapped in a
+  Markdown fence is not "complete final file content", so every Full
+  response is a contract violation (format_compliant 0/4).
+- The single parsed Baseline and Minimal responses have the same
+  fence-wrapped content defect, so Baseline/Minimal are also 0/4
+  compliant (previously mis-scored 1/4).
+- What remains observable is only header-shape separation: Full prompts
+  produced a well-formed `<<<FILE:...>>>` block header in 4/4 runs vs
+  1/4 for Baseline/Minimal (the rest use the post-hoc `<<<path>>>`
+  shape). A well-formed header with non-compliant content is still a
+  contract failure, so this is NOT a format-compliance variant effect
+  and not evidence of any ACL benefit.
+- Hidden oracle: 0/12 in all variants; semantic_task_success 0/12;
+  task_success 0/12.
 
-Interpretation, within the evidence boundary: for this weak model the
-structured Full prompt measurably improves response-contract
-*following* (header shape), but the model still violates the contract
-in content (fences), and no semantic correctness signal is observable
-at this ability level. This is a format-compliance variant effect, not
-a task-success effect.
+Interpretation, within the evidence boundary: for this weak model, no
+variant produces a single contract-compliant or semantically correct
+response. There is no variant signal of any kind in this run.
 
 ## Comparison boundary
 

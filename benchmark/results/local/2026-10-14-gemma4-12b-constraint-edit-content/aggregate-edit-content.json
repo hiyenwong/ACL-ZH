@@ -11,6 +11,7 @@
       "format_compliant": 12,
       "visible_tests_pass": 12,
       "hidden_oracle_pass": 11,
+      "semantic_task_success": 11,
       "task_success": 11
     },
     "minimal": {
@@ -19,6 +20,7 @@
       "format_compliant": 12,
       "visible_tests_pass": 12,
       "hidden_oracle_pass": 11,
+      "semantic_task_success": 11,
       "task_success": 11
     },
     "full": {
@@ -27,6 +29,7 @@
       "format_compliant": 12,
       "visible_tests_pass": 12,
       "hidden_oracle_pass": 11,
+      "semantic_task_success": 11,
       "task_success": 11
     }
   },
@@ -91,6 +94,11 @@
       "minimal": true,
       "baseline": true
     }
+  },
+  "metric_definitions": {
+    "semantic_task_success": "visible_tests_pass AND hidden_oracle_pass AND NOT constraint_violation",
+    "task_success": "semantic_task_success AND format_compliant",
+    "format_compliant": "well-formed blocks only: no residual text, no protocol violation, no duplicate or empty file path, no Markdown fence (``` or ~~~) in block content"
   },
   "evidence_boundary": "Diagnostic edit-content track; not comparable with strict unified-diff task-success counts."
 }

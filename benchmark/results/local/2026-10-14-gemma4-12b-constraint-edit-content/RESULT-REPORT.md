@@ -13,9 +13,21 @@ Git commit at run time: 716b39a
 Temperature: 0 / Top-p: 1 / Seed: 20261011 / Max tokens: 256
 Reasoning effort: none
 
-Baseline: parsed 12/12, format compliant 12/12, tests 12/12, oracle 11/12, task success 11/12
-Minimal:  parsed 12/12, format compliant 12/12, tests 12/12, oracle 11/12, task success 11/12
-Full:     parsed 12/12, format compliant 12/12, tests 12/12, oracle 11/12, task success 11/12
+Baseline: parsed 12/12, format compliant 12/12, tests 12/12, oracle 11/12, semantic success 11/12, task success 11/12
+Minimal:  parsed 12/12, format compliant 12/12, tests 12/12, oracle 11/12, semantic success 11/12, task success 11/12
+Full:     parsed 12/12, format compliant 12/12, tests 12/12, oracle 11/12, semantic success 11/12, task success 11/12
+
+Metric definitions (remediated scorer, 2026-10-15):
+semantic_task_success = visible tests AND hidden oracle AND no
+constraint violation; task_success = semantic_task_success AND
+format_compliant, where format_compliant now also rejects Markdown
+fence lines (``` or ~~~) in block content, duplicate file paths, and
+empty paths.
+
+Re-scored 2026-10-15 with the remediated format_compliant detector on
+the unchanged raw responses: no count changed. One response
+(constraint-path-01, full) emits two blocks, but they target the two
+distinct allowed paths, so it is compliant.
 
 Evidence boundary: diagnostic track; never merge with strict diff counts.
 ```

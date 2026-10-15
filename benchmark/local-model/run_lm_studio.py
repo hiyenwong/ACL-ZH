@@ -7,7 +7,34 @@ import subprocess
 import sys
 import time
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
+
+
+def capture(cmd, timeout=15):
+    """Best-effort command capture; returns None on any failure."""
+    try:
+        out = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        return (out.stdout or out.stderr).strip() or None
+    except Exception:
+        return None
+
+
+def detect_lm_studio_version():
+    return capture(["lms", "--version"]) or capture(["lms", "version"])
+
+
+def total_ram_bytes():
+    if sys.platform == "darwin":
+        value = capture(["sysctl", "-n", "hw.memsize"])
+        return int(value) if value and value.isdigit() else None
+    try:
+        for line in Path("/proc/meminfo").read_text().splitlines():
+            if line.startswith("MemTotal:"):
+                return int(line.split()[1]) * 1024
+    except Exception:
+        pass
+    return None
 
 
 def http_json(url, payload=None, token=None, timeout=600):
@@ -37,6 +64,16 @@ def main():
                          "server default; record it in the experiment file when set.")
     ap.add_argument("--timeout", type=int, default=600)
     ap.add_argument("--api-token", default=os.environ.get("LM_STUDIO_API_TOKEN"))
+    ap.add_argument("--lm-studio-version", default=None,
+                    help="LM Studio version string. Default: best-effort `lms` CLI "
+                         "detection; recorded as null when undetectable.")
+    ap.add_argument("--quantization", default=None,
+                    help="Quantization label of the loaded model (e.g. 'Q4_0 (QAT)'). "
+                         "Recorded verbatim; not auto-detected.")
+    ap.add_argument("--context-length", type=int, default=None,
+                    help="Configured context length of the loaded model, if known.")
+    ap.add_argument("--hardware-note", default=None,
+                    help="Free-form hardware note (e.g. 'Mac17,6, 128 GB RAM').")
     ap.add_argument("--exporter", default=None,
                     help="Prompt exporter script (default: web-eval unified-diff "
                          "exporter). Use local-model/export_edit_content_prompts.py "
@@ -119,6 +156,13 @@ def main():
 
     env = {
         "runner": "lm-studio-openai-compatible",
+        "recorded_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "git_sha": capture(["git", "rev-parse", "HEAD"]),
+        "lm_studio_version": args.lm_studio_version or detect_lm_studio_version(),
+        "quantization": args.quantization,
+        "context_length": args.context_length,
+        "hardware_note": args.hardware_note,
+        "ram_bytes": total_ram_bytes(),
         "base_url": args.base_url,
         "model": args.model,
         "temperature": args.temperature,

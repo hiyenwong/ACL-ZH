@@ -139,6 +139,14 @@ Every experiment must record at least:
 - experiment file;
 - manifest file.
 
+`run_lm_studio.py` writes these into `generation-metadata.json`: git SHA,
+UTC timestamp, OS/machine/RAM, and decoding parameters are captured
+automatically; LM Studio version is auto-detected from the `lms` CLI
+(override with `--lm-studio-version`); quantization, context length, and
+a hardware note are recorded verbatim from `--quantization`,
+`--context-length`, and `--hardware-note`. Fields that cannot be
+detected are recorded as `null` rather than guessed.
+
 ### R9 — Deterministic repeats
 
 If temperature=0 and a fixed seed/runtime produce identical output, repeating the exact same run is not independent evidence.

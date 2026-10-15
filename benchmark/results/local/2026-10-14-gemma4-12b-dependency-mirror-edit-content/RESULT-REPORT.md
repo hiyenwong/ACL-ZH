@@ -16,9 +16,20 @@ Seed: 20261011
 Max tokens: 256
 Reasoning effort: none
 
-Baseline: parsed 4/4, format compliant 4/4, tests 4/4, oracle 4/4, task success 4/4
-Minimal:  parsed 4/4, format compliant 4/4, tests 4/4, oracle 4/4, task success 4/4
-Full:     parsed 4/4, format compliant 4/4, tests 4/4, oracle 4/4, task success 4/4
+Baseline: parsed 4/4, format compliant 4/4, tests 4/4, oracle 4/4, semantic success 4/4, task success 4/4
+Minimal:  parsed 4/4, format compliant 4/4, tests 4/4, oracle 4/4, semantic success 4/4, task success 4/4
+Full:     parsed 4/4, format compliant 4/4, tests 4/4, oracle 4/4, semantic success 4/4, task success 4/4
+
+Metric definitions (remediated scorer, 2026-10-15):
+semantic_task_success = visible tests AND hidden oracle AND no
+constraint violation; task_success = semantic_task_success AND
+format_compliant, where format_compliant now also rejects Markdown
+fence lines (``` or ~~~) in block content, duplicate file paths, and
+empty paths.
+
+Re-scored 2026-10-15 with the remediated format_compliant detector on
+the unchanged raw responses: no count changed (no response contains
+fences, duplicates, residual text, or protocol violations).
 
 Notable: all 12 responses are byte-identical (deterministic decoding);
 the emitted content is the intended edit in the exact frozen contract
