@@ -1,0 +1,51 @@
+{
+  "experiment_id": "local-deepseek-r1-8b-dependency-mirror-edit-content-v0.4",
+  "track": "local-open-model-edit-content",
+  "provider": "lm-studio-local",
+  "agent": "openai-compatible-chat-completions",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "model_variant": "deepseek/deepseek-r1-0528-qwen3-8b@4bit",
+  "quantization": "4bit",
+  "context_length": 131072,
+  "date_planned": "2026-10-19",
+  "repetitions": 1,
+  "decoding": {
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20261011,
+    "max_tokens": 4096,
+    "reasoning_effort": "none"
+  },
+  "response_contract": "<<<FILE:path>>>\\n<complete final file content>\\n<<<END>>> (frozen parser: benchmark/local-model/edit_content_parser.py; contract edit-content-contract-v0.1)",
+  "variants": [
+    "baseline",
+    "minimal",
+    "full"
+  ],
+  "randomization_seed": 20261011,
+  "run_order_algorithm": "sorted('task:variant') shuffled by random.Random(20261011)",
+  "preregistration": "benchmark/local-model/PREREG-NEXT-DISCRIMINATING-V0.1.md (incl. Amendment A1)",
+  "status": "preregistered",
+  "tasks": [
+    "dependency-anchor-01",
+    "dependency-no-file-ban-01",
+    "dependency-no-target-file-01",
+    "dependency-verbose-01"
+  ],
+  "run_order": [
+    "dependency-anchor-01:full",
+    "dependency-verbose-01:baseline",
+    "dependency-no-target-file-01:minimal",
+    "dependency-no-file-ban-01:baseline",
+    "dependency-anchor-01:minimal",
+    "dependency-no-target-file-01:baseline",
+    "dependency-anchor-01:baseline",
+    "dependency-no-file-ban-01:full",
+    "dependency-verbose-01:full",
+    "dependency-verbose-01:minimal",
+    "dependency-no-file-ban-01:minimal",
+    "dependency-no-target-file-01:full"
+  ],
+  "evidence_boundary": "DIAGNOSTIC track (local-lm-studio-edit-content); never merge with strict unified-diff counts. Intermediate-capability point (~8B) under prereg PREREG-NEXT-DISCRIMINATING-V0.1 Amendment A1: forced-reasoning model, max_tokens 4096 (vs 256 for the 4B/12B runs) — cross-model decoding difference; within-model paired variant comparison is the primary analysis.",
+  "results": null
+}

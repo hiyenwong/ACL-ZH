@@ -151,6 +151,7 @@ def main():
             "variant": item["variant"],
             "response_chars": len(response),
             "elapsed_seconds": round(elapsed, 3),
+            "finish_reason": result["choices"][0].get("finish_reason"),
             "usage": result.get("usage"),
         }
         metadata.append(row)

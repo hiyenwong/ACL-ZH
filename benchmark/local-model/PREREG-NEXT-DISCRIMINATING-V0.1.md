@@ -47,6 +47,7 @@ outcomes; a null result will be labeled a null result.
 - Decoding: temperature 0, top_p 1, seed 20261011, max_tokens 256,
   reasoning effort pinned in the experiment file (`none` unless the
   model does not support it — pinned explicitly either way).
+  **Amended by A1 below before any inference.**
 - Fresh chat per run (stateless calls; the runner never carries
   context between runs).
 - Repetitions: 1 per task×variant. Identical deterministic generations
@@ -55,11 +56,38 @@ outcomes; a null result will be labeled a null result.
   committed experiment JSON **before** inference. Quantization and
   context length are recorded verbatim, never inferred from the model
   name. Unknown fields stay `null`.
-- Run order: randomized with seed 20261011, recorded in the experiment
+- Run order: sorted `task:variant` strings shuffled with
+  `random.Random(20261011)` (Python 3), recorded in the experiment
   JSON.
 - Provenance: generation metadata carries the full provenance block;
   scoring runs fail closed on any hash mismatch (no override for a
   promotion-grade run).
+
+## 3A. Amendment A1 (2026-10-19, before any scored inference)
+
+**Model pinning.** The only intermediate-size model available on the
+local LM Studio endpoint is `deepseek/deepseek-r1-0528-qwen3-8b`
+(quantization `4bit`, context length 131072, both recorded verbatim
+from the LM Studio native API). All other local models are ~4B or
+≥12B, or non-text models. The ~7B hypothesis is therefore tested with
+this 8B model; "8B chosen as the available intermediate point" must be
+stated wherever the run is reported.
+
+**Decoding amendment.** Smoke checks on a non-benchmark toy prompt
+(no manifest content) showed this forced-reasoning model consumes the
+entire 256-token budget on reasoning tokens and returns empty content
+(`finish_reason: length`), with both `reasoning_effort: none` and
+`low`. A 256-token run would floor by truncation without measuring
+anything. Therefore, **for this model condition only**,
+`max_tokens = 4096` with `reasoning_effort: none` is pinned. This is a
+cross-model decoding-condition difference versus the 4B/12B runs
+(max_tokens 256) and must be stated alongside any comparison;
+within-model variant comparison (the primary analysis) is unaffected
+because all variants share decoding. Per-run `finish_reason` and
+`usage` are recorded so truncation remains detectable.
+
+This amendment was made before any scored inference under this
+protocol and changes no historical result.
 
 ## 4. Predefined failure categories
 
