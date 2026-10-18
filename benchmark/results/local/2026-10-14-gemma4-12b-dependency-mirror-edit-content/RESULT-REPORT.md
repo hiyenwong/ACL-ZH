@@ -74,3 +74,12 @@ model, or both.
   under the file-content contract, with no variant difference."
 - Not allowed: any ACL-ZH effectiveness claim (ceiling effect), and
   any comparison against the Qwen2.5-Coder-3B diff-track numbers.
+
+## Provenance hardening re-score (2026-10-18)
+
+Re-scored with the P2-02 provenance-aware scorer on the unchanged raw
+responses. The aggregate now records the exact scoring implementation
+(`scorer_sha256`, `oracle_sha256`, `parser_sha256`) and the actual input
+hashes. This run predates generation-time provenance capture, so the
+aggregate is labeled `status: unpinned_baseline`, `score_kind: rescore`.
+No count changed; the interpretation above is unaffected.

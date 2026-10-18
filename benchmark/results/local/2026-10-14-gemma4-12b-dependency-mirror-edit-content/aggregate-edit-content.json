@@ -55,6 +55,34 @@
       "minimal": true
     }
   },
+  "provenance": {
+    "status": "unpinned_baseline",
+    "score_kind": "rescore",
+    "actual": {
+      "git_sha": "b8aec461a31d5045930ccbd20318886535ccecd3",
+      "git_dirty": true,
+      "manifest_sha256": "175a706f2f0409bc5e83f068b9b940290a719a9c8300b2e16c1696791e8c2f4f",
+      "experiment_sha256": "d33f683f41265c678a57f4ad6156cbf4dcfbdafd0bbb9d7b15abbb46e7ace0eb",
+      "run_manifest_sha256": "7d17563da0701c1a06276468fb38d02a8ebe3ecc7da97b2c5717f63ba2463e80",
+      "prompt_bundle_sha256": "70ffbf518754cd70b7e122b939323e3b0a9d09baa2e79a89f13e941dc80732af",
+      "scorer_sha256": "27239458e58379afe9d40ff835d8686ac867bb051a822222b3fce8e589e5f411",
+      "oracle_sha256": "907b7b6e735bcd11c4ece3200b2970dccf0abd9c20d68e15977ec835c5e9e21c",
+      "parser_sha256": "cd8a3b84429694ffd7941c0bd4bf16d25ba53dfecad621984084d1e1b33620e3"
+    },
+    "recorded": {
+      "manifest_sha256": null,
+      "experiment_sha256": null,
+      "run_manifest_sha256": null,
+      "prompt_bundle_sha256": null
+    },
+    "mismatches": {},
+    "missing_baseline": [
+      "manifest_sha256",
+      "experiment_sha256",
+      "run_manifest_sha256",
+      "prompt_bundle_sha256"
+    ]
+  },
   "metric_definitions": {
     "semantic_task_success": "visible_tests_pass AND hidden_oracle_pass AND NOT constraint_violation",
     "task_success": "semantic_task_success AND format_compliant",

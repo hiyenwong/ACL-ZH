@@ -145,7 +145,38 @@ automatically; LM Studio version is auto-detected from the `lms` CLI
 (override with `--lm-studio-version`); quantization, context length, and
 a hardware note are recorded verbatim from `--quantization`,
 `--context-length`, and `--hardware-note`. Fields that cannot be
-detected are recorded as `null` rather than guessed.
+detected are recorded as `null` rather than guessed. Quantization and
+context length are never inferred from the model name.
+
+### R8a — Provenance hashes (P2-02)
+
+`generation-metadata.json` also carries a `provenance` block so that
+later rescoring is auditable:
+
+- `git_sha`, `git_dirty` (dirty-worktree flag; null when undeterminable);
+- `manifest_sha256`, `experiment_sha256`, `exporter_sha256`,
+  `run_manifest_sha256`;
+- `prompt_bundle_sha256`: SHA-256 over the concatenation, in
+  run-manifest order, of `<prompt relpath> NUL <exact file bytes> NUL`.
+  A missing prompt file aborts hashing (FileNotFoundError) rather than
+  producing a partial hash; a missing file passed to `sha256_file`
+  hashes to `null` and is recorded as such.
+
+At scoring time both scorers (`score_lm_studio_run.py`,
+`score_edit_content_run.py`) recompute the hashes of the inputs actually
+used — including `scorer_sha256`, `oracle_sha256` (the agent-eval
+runner), `parser_sha256` (edit-content track), and the strict track's
+`patch_scorer_sha256` / `normalizer_sha256` — and compare them against
+the recorded baseline:
+
+- all compared keys equal → aggregate provenance `status: "verified"`,
+  `score_kind: "initial"`;
+- generation metadata without a provenance block (runs generated before
+  this rule) → `status: "unpinned_baseline"`, `score_kind: "rescore"`;
+- any mismatch → the scorer **fails closed**. Re-run with
+  `--allow-version-mismatch` to score anyway: the aggregate then carries
+  `status: "mismatch_overridden"`, `score_kind: "rescore"`, and both the
+  recorded and actual hash sets. Never accept a version skew silently.
 
 ### R9 — Deterministic repeats
 

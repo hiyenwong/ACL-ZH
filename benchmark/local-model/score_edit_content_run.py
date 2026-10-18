@@ -29,9 +29,13 @@ import hashlib
 import importlib.util
 import json
 import subprocess
+import sys
 import tempfile
 import time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import provenance
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "agent-eval" / "run.py"
@@ -151,6 +155,12 @@ def main():
     ap.add_argument("--workdir", required=True)
     ap.add_argument("--experiment", required=True)
     ap.add_argument("--manifest", required=True)
+    ap.add_argument("--allow-version-mismatch", action="store_true",
+                    help="Score even when the hashes of the actual scoring inputs "
+                         "(manifest, experiment, run manifest, prompt bundle) differ "
+                         "from the generation-time baseline. The mismatch is recorded "
+                         "in the aggregate with both hash sets and the score is "
+                         "labeled a rescore. Without this flag a mismatch fails closed.")
     args = ap.parse_args()
 
     root = Path(args.workdir)
@@ -160,6 +170,34 @@ def main():
     model = meta["model"]
     tasks = {t["id"]: t for t in
              (json.loads(x) for x in Path(args.manifest).read_text(encoding="utf-8").splitlines() if x.strip())}
+
+    actual_prov = provenance.scoring_provenance(
+        workdir=root, run_manifest=runs,
+        manifest=args.manifest, experiment=args.experiment,
+        extra={
+            "scorer_sha256": provenance.sha256_file(__file__),
+            "oracle_sha256": provenance.sha256_file(RUNNER),
+            "parser_sha256": provenance.sha256_file(
+                Path(__file__).with_name("edit_content_parser.py")),
+        },
+    )
+    recorded_prov = meta.get("provenance") or {}
+    status, mismatches, missing = provenance.verify_provenance(recorded_prov, actual_prov)
+    if status == "mismatch" and not args.allow_version_mismatch:
+        raise SystemExit(
+            "Provenance mismatch between generation-time baseline and the actual "
+            "scoring inputs (fail-closed). Re-run with --allow-version-mismatch to "
+            "score anyway; the mismatch will be recorded and labeled a rescore.\n"
+            + json.dumps(mismatches, indent=2)
+        )
+    prov_block = {
+        "status": "mismatch_overridden" if status == "mismatch" else status,
+        "score_kind": "initial" if status == "verified" else "rescore",
+        "actual": actual_prov,
+        "recorded": {k: recorded_prov.get(k) for k in provenance.COMPARE_KEYS},
+        "mismatches": mismatches,
+        "missing_baseline": missing,
+    }
 
     out = root / "results-edit-content.jsonl"
     out.unlink(missing_ok=True)
@@ -201,6 +239,7 @@ def main():
         "runs": len(rows),
         "summary": summary,
         "task_matrix": matrix,
+        "provenance": prov_block,
         "metric_definitions": {
             "semantic_task_success": "visible_tests_pass AND hidden_oracle_pass "
                                      "AND NOT constraint_violation",

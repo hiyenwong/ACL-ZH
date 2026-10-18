@@ -64,3 +64,12 @@ response. There is no variant signal of any kind in this run.
 - Pairs with the gemma-4-12b edit-content run on the same tasks:
   4B fails everywhere, 12B succeeds 12/12 — the task family sits
   between these two models' abilities under this contract.
+
+## Provenance hardening re-score (2026-10-18)
+
+Re-scored with the P2-02 provenance-aware scorer on the unchanged raw
+responses. The aggregate now records the exact scoring implementation
+(`scorer_sha256`, `oracle_sha256`, `parser_sha256`) and the actual input
+hashes. This run predates generation-time provenance capture, so the
+aggregate is labeled `status: unpinned_baseline`, `score_kind: rescore`.
+No count changed; the interpretation above is unaffected.

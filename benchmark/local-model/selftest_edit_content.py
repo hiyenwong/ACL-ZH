@@ -116,12 +116,15 @@ EXP = {
 with tempfile.TemporaryDirectory(prefix="aclzh-edit-content-selftest-") as td:
     wd = Path(td)
     (wd / "responses").mkdir()
+    (wd / "full").mkdir()
     run_manifest = []
     for i, (name, text, _) in enumerate(CASES, 1):
         rel = f"responses/{i:02d}-{name}.txt"
         (wd / rel).write_text(text, encoding="utf-8")
+        prompt_rel = f"full/{name}.md"
+        (wd / prompt_rel).write_text(f"prompt for {name}", encoding="utf-8")
         run_manifest.append({"run": i, "task_id": "dependency-anchor-01",
-                             "variant": "full", "prompt": "-", "response": rel})
+                             "variant": "full", "prompt": prompt_rel, "response": rel})
     (wd / "run-manifest.json").write_text(json.dumps(run_manifest), encoding="utf-8")
     (wd / "generation-metadata.json").write_text(json.dumps({"model": "selftest"}), encoding="utf-8")
     exp_path = wd / "experiment.json"

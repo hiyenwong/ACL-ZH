@@ -10,6 +10,8 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+import provenance
+
 
 def capture(cmd, timeout=15):
     """Best-effort command capture; returns None on any failure."""
@@ -154,15 +156,20 @@ def main():
         metadata.append(row)
         print(json.dumps(row, ensure_ascii=False), flush=True)
 
+    prov = provenance.generation_provenance(
+        manifest=args.manifest, experiment=args.experiment,
+        exporter=exporter, workdir=root, run_manifest=run_manifest,
+    )
     env = {
         "runner": "lm-studio-openai-compatible",
         "recorded_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "git_sha": capture(["git", "rev-parse", "HEAD"]),
+        "git_sha": prov["git_sha"],
         "lm_studio_version": args.lm_studio_version or detect_lm_studio_version(),
         "quantization": args.quantization,
         "context_length": args.context_length,
         "hardware_note": args.hardware_note,
         "ram_bytes": total_ram_bytes(),
+        "provenance": prov,
         "base_url": args.base_url,
         "model": args.model,
         "temperature": args.temperature,

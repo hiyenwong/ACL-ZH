@@ -61,3 +61,12 @@ the prompt variant made no observable difference for this model.
 - Not comparable with the Qwen 3B constraint v0.3 diff-track counts
   (different model, backend, contract) and never mergeable with
   strict unified-diff results.
+
+## Provenance hardening re-score (2026-10-18)
+
+Re-scored with the P2-02 provenance-aware scorer on the unchanged raw
+responses. The aggregate now records the exact scoring implementation
+(`scorer_sha256`, `oracle_sha256`, `parser_sha256`) and the actual input
+hashes. This run predates generation-time provenance capture, so the
+aggregate is labeled `status: unpinned_baseline`, `score_kind: rescore`.
+No count changed; the interpretation above is unaffected.
