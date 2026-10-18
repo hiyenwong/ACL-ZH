@@ -1,9 +1,11 @@
 # Task: Edit-Content Scoring Contract Remediation
 
 Task ID: `review-remediation-edit-content-v0.1`  
-Status: **ready_for_execution**  
+Status: **completed / accepted**  
 Priority: **P1 — benchmark correctness**  
-Date: 2026-10-15
+Date: 2026-10-15  
+Completed by: `a75b6bceabdf764dda28fc8f550d9809d653bfa0`  
+Post-review: [POST-REMEDIATION-REVIEW-EDIT-CONTENT-V0.1.md](POST-REMEDIATION-REVIEW-EDIT-CONTENT-V0.1.md)
 
 ## 1. Objective
 
