@@ -118,6 +118,14 @@ track has no normalized variant. Models that emit fences, unified
 diffs, or missing `<<<END>>>` markers fail `format_compliant`, and
 that failure is part of the measurement.
 
+Fence semantics were preregistered by the P2-01 decision: contract
+v0.1 prohibits every fence-looking content line (``` or ~~~ at line
+start), including fence lines inside string literals. See
+[EDIT-CONTENT-CONTRACT.md](EDIT-CONTENT-CONTRACT.md) for the decision,
+examples, the known limitation, and the versioning escape hatch.
+Aggregates carry `contract_version`; all published edit-content results
+are v0.1.
+
 Rows from this track carry `track: local-lm-studio-edit-content` and
 must never be merged with strict unified-diff task-success counts.
 

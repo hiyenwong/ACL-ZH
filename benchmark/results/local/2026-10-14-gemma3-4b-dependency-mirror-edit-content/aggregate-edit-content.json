@@ -2,6 +2,7 @@
   "experiment_id": "local-gemma3-4b-dependency-mirror-edit-content-v0.4",
   "provider": "lm-studio-local",
   "track": "local-lm-studio-edit-content",
+  "contract_version": "edit-content-contract-v0.1",
   "model": "google/gemma-3-4b",
   "runs": 12,
   "summary": {
@@ -59,13 +60,13 @@
     "status": "unpinned_baseline",
     "score_kind": "rescore",
     "actual": {
-      "git_sha": "b8aec461a31d5045930ccbd20318886535ccecd3",
+      "git_sha": "57a1ce1f613a632beee9cb7375f33bffc012f9d1",
       "git_dirty": true,
       "manifest_sha256": "175a706f2f0409bc5e83f068b9b940290a719a9c8300b2e16c1696791e8c2f4f",
       "experiment_sha256": "8ca165fd7bcf135db586cf52fd0852adc3abe47d521dc3ca65d4c5c62ad191af",
       "run_manifest_sha256": "7d17563da0701c1a06276468fb38d02a8ebe3ecc7da97b2c5717f63ba2463e80",
       "prompt_bundle_sha256": "70ffbf518754cd70b7e122b939323e3b0a9d09baa2e79a89f13e941dc80732af",
-      "scorer_sha256": "27239458e58379afe9d40ff835d8686ac867bb051a822222b3fce8e589e5f411",
+      "scorer_sha256": "07b3557c6a8c70b514776cd6e8e51dff4fd6feab0f859c28afcf98fec17b2e00",
       "oracle_sha256": "907b7b6e735bcd11c4ece3200b2970dccf0abd9c20d68e15977ec835c5e9e21c",
       "parser_sha256": "cd8a3b84429694ffd7941c0bd4bf16d25ba53dfecad621984084d1e1b33620e3"
     },

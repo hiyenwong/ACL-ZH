@@ -51,6 +51,12 @@ PARSER_SPEC.loader.exec_module(parser)
 
 TRACK = "local-lm-studio-edit-content"
 
+# Contract semantics version, see EDIT-CONTENT-CONTRACT.md. v0.1 = strict
+# total prohibition of fence lines in block content. Changing detection
+# semantics requires a new contract version; v0.1 results are never
+# reclassified.
+CONTRACT_VERSION = "edit-content-contract-v0.1"
+
 FENCE_PREFIXES = ("```", "~~~")
 
 
@@ -235,6 +241,7 @@ def main():
         "experiment_id": exp["experiment_id"],
         "provider": "lm-studio-local",
         "track": TRACK,
+        "contract_version": CONTRACT_VERSION,
         "model": model,
         "runs": len(rows),
         "summary": summary,

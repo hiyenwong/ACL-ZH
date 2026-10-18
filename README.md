@@ -256,6 +256,9 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 - LM Studio runner：[benchmark/local-model/run_lm_studio.py](benchmark/local-model/run_lm_studio.py)
 - 本地评分脚本：[benchmark/local-model/score_lm_studio_run.py](benchmark/local-model/score_lm_studio_run.py)
 - edit-content 诊断轨（冻结 parser，成绩不并入 strict）：[export_edit_content_prompts.py](benchmark/local-model/export_edit_content_prompts.py) / [score_edit_content_run.py](benchmark/local-model/score_edit_content_run.py) / [edit_content_parser.py](benchmark/local-model/edit_content_parser.py)
+- edit-content 响应契约 v0.1（fence 语义已由 P2-01 预注册决策固定）：[EDIT-CONTENT-CONTRACT.md](benchmark/local-model/EDIT-CONTENT-CONTRACT.md)
+- 评分 provenance（输入哈希 + fail-closed 版本校验，P2-02）：[provenance.py](benchmark/local-model/provenance.py)
+- 下一个判别性实验（约 7B 假设）的预注册协议（P2-03，尚未执行任何推理）：[PREREG-NEXT-DISCRIMINATING-V0.1.md](benchmark/local-model/PREREG-NEXT-DISCRIMINATING-V0.1.md)
 
 本地实验必须保存首答原始响应；strict unified-diff score 为主评分，fence-only normalized score 只能作为诊断指标。模型、量化、LM Studio 版本、硬件与 decoding 参数必须一并记录，不能把不同运行条件混为同一实验。混合推理模型（如 gemma-4 系列）可能把全部 token 预算消耗在 reasoning_content 上；遇到空响应应按协议中止并用 `--reasoning-effort none` 重跑，且在实验文件中记录该解码变更。
 

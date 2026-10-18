@@ -89,6 +89,32 @@ CASES = [
      "<<<FILE:src/serializer.py>>>\nimport json\n```\n" + CORRECT_BODY + "\n<<<END>>>",
      {"task_success": False, "semantic_task_success": False,
       "visible_tests_pass": False, "format_compliant": False}),
+    # Contract v0.1 semantics (EDIT-CONTENT-CONTRACT.md): a fence line
+    # inside a string literal is STILL a violation, even though the
+    # written file is valid Python and passes everything semantically.
+    # This is the sharpest v0.1 regression: semantic True, contract False.
+    ("fence-in-string-literal",
+     "<<<FILE:src/serializer.py>>>\nimport json\n\nDOC = \"\"\"\n```python\nusage\n```\n\"\"\"\n\n"
+     "def dumps(value):\n"
+     "    return json.dumps(value, sort_keys=True, separators=(',', ':'))\n<<<END>>>",
+     {"task_success": False, "semantic_task_success": True,
+      "visible_tests_pass": True, "hidden_oracle_pass": True,
+      "format_compliant": False}),
+    # Multi-file response where only one block carries a fence: the
+    # violation names that file; the clean block does not rescue compliance.
+    ("multi-file-one-fenced",
+     "<<<FILE:src/serializer.py>>>\n" + CORRECT_BODY + "\n<<<END>>>\n"
+     "<<<FILE:tests/test_serializer.py>>>\n```python\nimport unittest\n```\n<<<END>>>",
+     {"task_success": False, "semantic_task_success": False,
+      "format_compliant": False, "parsed_file_count": 2}),
+    # Positive control: inline backticks and a two-backtick string are
+    # not fence lines; fully compliant.
+    ("inline-backticks",
+     "<<<FILE:src/serializer.py>>>\nimport json\n\n"
+     "# Usage: `dumps(x)` returns compact JSON\nTICKS = \"``\"\n\n"
+     "def dumps(value):\n"
+     "    return json.dumps(value, sort_keys=True, separators=(',', ':'))\n<<<END>>>",
+     {"task_success": True, "semantic_task_success": True, "format_compliant": True}),
     # Residual prose around a correct block: semantically successful but
     # a contract failure, so task_success must be False.
     ("residual-prose", "Here is the corrected file:\n" + CORRECT,
@@ -104,6 +130,8 @@ FORMAT_VIOLATION_MARKERS = {
     "fenced-content": "markdown_fence_in_content:src/serializer.py",
     "tilde-fenced-content": "markdown_fence_in_content:src/serializer.py",
     "interior-fence": "markdown_fence_in_content:src/serializer.py",
+    "fence-in-string-literal": "markdown_fence_in_content:src/serializer.py",
+    "multi-file-one-fenced": "markdown_fence_in_content:tests/test_serializer.py",
     "residual-prose": "residual_text",
     "duplicate-path": "duplicate_file_path:src/serializer.py",
 }
@@ -148,12 +176,13 @@ with tempfile.TemporaryDirectory(prefix="aclzh-edit-content-selftest-") as td:
     forbidden_row = by_name["forbidden-write"]
     assert forbidden_row["protocol_violations"] == ["requirements.txt"], forbidden_row
     assert forbidden_row["forbidden_path_changes"] == [], forbidden_row
-    # The "good" case is the only fully compliant row.
-    assert [r["format_violations"] for r in rows if r["format_compliant"]] == [[]]
+    # Only "good" and "inline-backticks" are fully compliant.
+    assert [r["format_violations"] for r in rows if r["format_compliant"]] == [[], []]
 
     aggregate = json.loads((wd / "aggregate-edit-content.json").read_text(encoding="utf-8"))
-    assert aggregate["summary"]["full"]["semantic_task_success"] == 3, aggregate["summary"]
-    assert aggregate["summary"]["full"]["task_success"] == 1, aggregate["summary"]
-    assert aggregate["summary"]["full"]["format_compliant"] == 1, aggregate["summary"]
+    assert aggregate["contract_version"] == "edit-content-contract-v0.1", aggregate
+    assert aggregate["summary"]["full"]["semantic_task_success"] == 5, aggregate["summary"]
+    assert aggregate["summary"]["full"]["task_success"] == 2, aggregate["summary"]
+    assert aggregate["summary"]["full"]["format_compliant"] == 2, aggregate["summary"]
 
 print("edit-content parser+scorer self-test: PASS")

@@ -52,6 +52,8 @@ Diagnostic-grade local runs (LM Studio, deterministic decoding). Each directory 
 | 2026-10-14 | gemma-3-4b @4bit | dependency-mirror v0.4 | edit-content | 0/12; format compliance 0/12 after remediation (re-scored 2026-10-15: all parsed blocks wrap content in fences — contract violations); no variant signal |
 | 2026-10-14 | gemma-4-12b-qat @q4_0 | constraint v0.3 | edit-content | 33/36; constraint-return-01 fails in all variants; no variant separation |
 
+All edit-content results above are scored under `edit-content-contract-v0.1` (strict fence prohibition; see `benchmark/local-model/EDIT-CONTENT-CONTRACT.md`). Aggregates carry `contract_version` plus a provenance block identifying the exact scorer/oracle/parser hashes.
+
 Harness note: during these runs a latent defect was found and fixed — the v0.4 mirror task ids had no hidden-oracle branch (always False) and no No-op/Reference control. Fixed in `f0693a6`; controls now pass (0/4 and 4/4) and no recorded result was affected.
 
 Scorer remediation (2026-10-15): the edit-content scorer's `format_compliant` previously missed contract violations — Markdown fence lines (``` or ~~~) inside block content and duplicate file paths. The scorer now detects both (frozen parser unchanged), and distinguishes `semantic_task_success` (tests + oracle + no constraint violation) from `task_success` (semantic + format compliant). All three edit-content runs were re-scored from their unchanged raw responses (response SHAs, run manifests, and generation metadata verified invariant). The gemma-3-4b "Full ACL format compliance 4/4 vs 1/4" claim did not survive re-scoring (0/4 vs 0/4) and has been removed; the two gemma-4-12b runs are unchanged.
