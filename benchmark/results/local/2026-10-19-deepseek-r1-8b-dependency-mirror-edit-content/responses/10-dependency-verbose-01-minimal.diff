@@ -1,0 +1,8 @@
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    sorted_dict = dict(sorted(value.items(), key=lambda item: (item[0], item[1])))
+    return json.dumps(sorted_dict)
+<<<END>>>

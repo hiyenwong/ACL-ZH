@@ -25,7 +25,7 @@
   "randomization_seed": 20261011,
   "run_order_algorithm": "sorted('task:variant') shuffled by random.Random(20261011)",
   "preregistration": "benchmark/local-model/PREREG-NEXT-DISCRIMINATING-V0.1.md (incl. Amendment A1)",
-  "status": "preregistered",
+  "status": "executed",
   "tasks": [
     "dependency-anchor-01",
     "dependency-no-file-ban-01",
@@ -47,5 +47,6 @@
     "dependency-no-target-file-01:full"
   ],
   "evidence_boundary": "DIAGNOSTIC track (local-lm-studio-edit-content); never merge with strict unified-diff counts. Intermediate-capability point (~8B) under prereg PREREG-NEXT-DISCRIMINATING-V0.1 Amendment A1: forced-reasoning model, max_tokens 4096 (vs 256 for the 4B/12B runs) — cross-model decoding difference; within-model paired variant comparison is the primary analysis.",
-  "results": null
+  "results": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/",
+  "date_executed": "2026-10-19"
 }

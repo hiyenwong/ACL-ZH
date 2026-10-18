@@ -1,0 +1,74 @@
+[
+  {
+    "task_id": "scope-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/scope-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/scope-01-minimal.json"
+  },
+  {
+    "task_id": "dependency-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/dependency-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/dependency-01-minimal.json"
+  },
+  {
+    "task_id": "exception-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/exception-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/exception-01-minimal.json"
+  },
+  {
+    "task_id": "compatibility-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/compatibility-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/compatibility-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-path-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-path-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-path-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-stdlib-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-stdlib-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-stdlib-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-schema-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-schema-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-schema-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-side-effect-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-side-effect-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-side-effect-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-retry-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-retry-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-retry-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-immutable-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-immutable-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-immutable-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-return-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-return-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-return-01-minimal.json"
+  },
+  {
+    "task_id": "constraint-api-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-api-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/minimal/constraint-api-01-minimal.json"
+  }
+]

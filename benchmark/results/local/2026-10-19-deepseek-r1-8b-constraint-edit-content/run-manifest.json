@@ -1,0 +1,254 @@
+[
+  {
+    "run": 1,
+    "task_id": "constraint-schema-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-schema-01-minimal.md",
+    "response": "responses/01-constraint-schema-01-minimal.diff"
+  },
+  {
+    "run": 2,
+    "task_id": "constraint-path-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-path-01-baseline.md",
+    "response": "responses/02-constraint-path-01-baseline.diff"
+  },
+  {
+    "run": 3,
+    "task_id": "constraint-immutable-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-immutable-01-minimal.md",
+    "response": "responses/03-constraint-immutable-01-minimal.diff"
+  },
+  {
+    "run": 4,
+    "task_id": "constraint-path-01",
+    "variant": "full",
+    "prompt": "full/constraint-path-01-full.md",
+    "response": "responses/04-constraint-path-01-full.diff"
+  },
+  {
+    "run": 5,
+    "task_id": "constraint-side-effect-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-side-effect-01-minimal.md",
+    "response": "responses/05-constraint-side-effect-01-minimal.diff"
+  },
+  {
+    "run": 6,
+    "task_id": "constraint-stdlib-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-stdlib-01-minimal.md",
+    "response": "responses/06-constraint-stdlib-01-minimal.diff"
+  },
+  {
+    "run": 7,
+    "task_id": "constraint-retry-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-retry-01-minimal.md",
+    "response": "responses/07-constraint-retry-01-minimal.diff"
+  },
+  {
+    "run": 8,
+    "task_id": "scope-01",
+    "variant": "baseline",
+    "prompt": "baseline/scope-01-baseline.md",
+    "response": "responses/08-scope-01-baseline.diff"
+  },
+  {
+    "run": 9,
+    "task_id": "constraint-immutable-01",
+    "variant": "full",
+    "prompt": "full/constraint-immutable-01-full.md",
+    "response": "responses/09-constraint-immutable-01-full.diff"
+  },
+  {
+    "run": 10,
+    "task_id": "constraint-api-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-api-01-minimal.md",
+    "response": "responses/10-constraint-api-01-minimal.diff"
+  },
+  {
+    "run": 11,
+    "task_id": "constraint-retry-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-retry-01-baseline.md",
+    "response": "responses/11-constraint-retry-01-baseline.diff"
+  },
+  {
+    "run": 12,
+    "task_id": "compatibility-01",
+    "variant": "minimal",
+    "prompt": "minimal/compatibility-01-minimal.md",
+    "response": "responses/12-compatibility-01-minimal.diff"
+  },
+  {
+    "run": 13,
+    "task_id": "constraint-retry-01",
+    "variant": "full",
+    "prompt": "full/constraint-retry-01-full.md",
+    "response": "responses/13-constraint-retry-01-full.diff"
+  },
+  {
+    "run": 14,
+    "task_id": "constraint-api-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-api-01-baseline.md",
+    "response": "responses/14-constraint-api-01-baseline.diff"
+  },
+  {
+    "run": 15,
+    "task_id": "constraint-schema-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-schema-01-baseline.md",
+    "response": "responses/15-constraint-schema-01-baseline.diff"
+  },
+  {
+    "run": 16,
+    "task_id": "constraint-stdlib-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-stdlib-01-baseline.md",
+    "response": "responses/16-constraint-stdlib-01-baseline.diff"
+  },
+  {
+    "run": 17,
+    "task_id": "dependency-01",
+    "variant": "baseline",
+    "prompt": "baseline/dependency-01-baseline.md",
+    "response": "responses/17-dependency-01-baseline.diff"
+  },
+  {
+    "run": 18,
+    "task_id": "constraint-api-01",
+    "variant": "full",
+    "prompt": "full/constraint-api-01-full.md",
+    "response": "responses/18-constraint-api-01-full.diff"
+  },
+  {
+    "run": 19,
+    "task_id": "constraint-return-01",
+    "variant": "full",
+    "prompt": "full/constraint-return-01-full.md",
+    "response": "responses/19-constraint-return-01-full.diff"
+  },
+  {
+    "run": 20,
+    "task_id": "constraint-schema-01",
+    "variant": "full",
+    "prompt": "full/constraint-schema-01-full.md",
+    "response": "responses/20-constraint-schema-01-full.diff"
+  },
+  {
+    "run": 21,
+    "task_id": "constraint-immutable-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-immutable-01-baseline.md",
+    "response": "responses/21-constraint-immutable-01-baseline.diff"
+  },
+  {
+    "run": 22,
+    "task_id": "dependency-01",
+    "variant": "full",
+    "prompt": "full/dependency-01-full.md",
+    "response": "responses/22-dependency-01-full.diff"
+  },
+  {
+    "run": 23,
+    "task_id": "exception-01",
+    "variant": "minimal",
+    "prompt": "minimal/exception-01-minimal.md",
+    "response": "responses/23-exception-01-minimal.diff"
+  },
+  {
+    "run": 24,
+    "task_id": "constraint-stdlib-01",
+    "variant": "full",
+    "prompt": "full/constraint-stdlib-01-full.md",
+    "response": "responses/24-constraint-stdlib-01-full.diff"
+  },
+  {
+    "run": 25,
+    "task_id": "compatibility-01",
+    "variant": "baseline",
+    "prompt": "baseline/compatibility-01-baseline.md",
+    "response": "responses/25-compatibility-01-baseline.diff"
+  },
+  {
+    "run": 26,
+    "task_id": "scope-01",
+    "variant": "full",
+    "prompt": "full/scope-01-full.md",
+    "response": "responses/26-scope-01-full.diff"
+  },
+  {
+    "run": 27,
+    "task_id": "dependency-01",
+    "variant": "minimal",
+    "prompt": "minimal/dependency-01-minimal.md",
+    "response": "responses/27-dependency-01-minimal.diff"
+  },
+  {
+    "run": 28,
+    "task_id": "constraint-return-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-return-01-baseline.md",
+    "response": "responses/28-constraint-return-01-baseline.diff"
+  },
+  {
+    "run": 29,
+    "task_id": "constraint-path-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-path-01-minimal.md",
+    "response": "responses/29-constraint-path-01-minimal.diff"
+  },
+  {
+    "run": 30,
+    "task_id": "exception-01",
+    "variant": "baseline",
+    "prompt": "baseline/exception-01-baseline.md",
+    "response": "responses/30-exception-01-baseline.diff"
+  },
+  {
+    "run": 31,
+    "task_id": "compatibility-01",
+    "variant": "full",
+    "prompt": "full/compatibility-01-full.md",
+    "response": "responses/31-compatibility-01-full.diff"
+  },
+  {
+    "run": 32,
+    "task_id": "constraint-return-01",
+    "variant": "minimal",
+    "prompt": "minimal/constraint-return-01-minimal.md",
+    "response": "responses/32-constraint-return-01-minimal.diff"
+  },
+  {
+    "run": 33,
+    "task_id": "constraint-side-effect-01",
+    "variant": "baseline",
+    "prompt": "baseline/constraint-side-effect-01-baseline.md",
+    "response": "responses/33-constraint-side-effect-01-baseline.diff"
+  },
+  {
+    "run": 34,
+    "task_id": "scope-01",
+    "variant": "minimal",
+    "prompt": "minimal/scope-01-minimal.md",
+    "response": "responses/34-scope-01-minimal.diff"
+  },
+  {
+    "run": 35,
+    "task_id": "constraint-side-effect-01",
+    "variant": "full",
+    "prompt": "full/constraint-side-effect-01-full.md",
+    "response": "responses/35-constraint-side-effect-01-full.diff"
+  },
+  {
+    "run": 36,
+    "task_id": "exception-01",
+    "variant": "full",
+    "prompt": "full/exception-01-full.md",
+    "response": "responses/36-exception-01-full.diff"
+  }
+]

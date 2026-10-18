@@ -1,0 +1,26 @@
+[
+  {
+    "task_id": "dependency-anchor-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-anchor-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-anchor-01-minimal.json"
+  },
+  {
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-no-file-ban-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-no-file-ban-01-minimal.json"
+  },
+  {
+    "task_id": "dependency-no-target-file-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-no-target-file-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-no-target-file-01-minimal.json"
+  },
+  {
+    "task_id": "dependency-verbose-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-verbose-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/minimal/dependency-verbose-01-minimal.json"
+  }
+]

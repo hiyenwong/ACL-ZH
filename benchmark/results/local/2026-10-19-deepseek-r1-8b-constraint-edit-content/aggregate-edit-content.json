@@ -1,0 +1,128 @@
+{
+  "experiment_id": "local-deepseek-r1-8b-constraint-edit-content-v0.3",
+  "provider": "lm-studio-local",
+  "track": "local-lm-studio-edit-content",
+  "contract_version": "edit-content-contract-v0.1",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "runs": 36,
+  "summary": {
+    "baseline": {
+      "n": 12,
+      "parsed": 1,
+      "format_compliant": 0,
+      "visible_tests_pass": 11,
+      "hidden_oracle_pass": 0,
+      "semantic_task_success": 0,
+      "task_success": 0
+    },
+    "minimal": {
+      "n": 12,
+      "parsed": 4,
+      "format_compliant": 2,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 1,
+      "semantic_task_success": 1,
+      "task_success": 1
+    },
+    "full": {
+      "n": 12,
+      "parsed": 3,
+      "format_compliant": 0,
+      "visible_tests_pass": 9,
+      "hidden_oracle_pass": 1,
+      "semantic_task_success": 0,
+      "task_success": 0
+    }
+  },
+  "task_matrix": {
+    "constraint-schema-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    },
+    "constraint-path-01": {
+      "baseline": false,
+      "full": false,
+      "minimal": false
+    },
+    "constraint-immutable-01": {
+      "minimal": false,
+      "full": false,
+      "baseline": false
+    },
+    "constraint-side-effect-01": {
+      "minimal": true,
+      "baseline": false,
+      "full": false
+    },
+    "constraint-stdlib-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    },
+    "constraint-retry-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    },
+    "scope-01": {
+      "baseline": false,
+      "full": false,
+      "minimal": false
+    },
+    "constraint-api-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    },
+    "compatibility-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    },
+    "dependency-01": {
+      "baseline": false,
+      "full": false,
+      "minimal": false
+    },
+    "constraint-return-01": {
+      "full": false,
+      "baseline": false,
+      "minimal": false
+    },
+    "exception-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    }
+  },
+  "provenance": {
+    "status": "verified",
+    "score_kind": "initial",
+    "actual": {
+      "git_sha": "a5427db476430e17a4c0a5f1ef184540efb0ffed",
+      "git_dirty": true,
+      "manifest_sha256": "90b1ecf048fb7648becb9a21469655d8883d589fa8dd8d9ae1604162344c8b3a",
+      "experiment_sha256": "2880908bc0f98073f4fb1cc090ade02e982371d5dabdcaa12e6125e72f49ebf4",
+      "run_manifest_sha256": "fe9fca82183a3c782e78d76251ff108ca7a586214361aa1337c7d1cccc75fae0",
+      "prompt_bundle_sha256": "d1632c0c7d66b7e2487c5aae3a6fa72fa670f64dbc8af688e0bdbc2476a9946d",
+      "scorer_sha256": "07b3557c6a8c70b514776cd6e8e51dff4fd6feab0f859c28afcf98fec17b2e00",
+      "oracle_sha256": "907b7b6e735bcd11c4ece3200b2970dccf0abd9c20d68e15977ec835c5e9e21c",
+      "parser_sha256": "cd8a3b84429694ffd7941c0bd4bf16d25ba53dfecad621984084d1e1b33620e3"
+    },
+    "recorded": {
+      "manifest_sha256": "90b1ecf048fb7648becb9a21469655d8883d589fa8dd8d9ae1604162344c8b3a",
+      "experiment_sha256": "2880908bc0f98073f4fb1cc090ade02e982371d5dabdcaa12e6125e72f49ebf4",
+      "run_manifest_sha256": "fe9fca82183a3c782e78d76251ff108ca7a586214361aa1337c7d1cccc75fae0",
+      "prompt_bundle_sha256": "d1632c0c7d66b7e2487c5aae3a6fa72fa670f64dbc8af688e0bdbc2476a9946d"
+    },
+    "mismatches": {},
+    "missing_baseline": []
+  },
+  "metric_definitions": {
+    "semantic_task_success": "visible_tests_pass AND hidden_oracle_pass AND NOT constraint_violation",
+    "task_success": "semantic_task_success AND format_compliant",
+    "format_compliant": "well-formed blocks only: no residual text, no protocol violation, no duplicate or empty file path, no Markdown fence (``` or ~~~) in block content"
+  },
+  "evidence_boundary": "Diagnostic edit-content track; not comparable with strict unified-diff task-success counts."
+}

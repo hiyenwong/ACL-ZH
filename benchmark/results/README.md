@@ -51,12 +51,16 @@ Diagnostic-grade local runs (LM Studio, deterministic decoding). Each directory 
 | 2026-10-14 | gemma-4-12b-qat @q4_0 | dependency-mirror v0.4 | edit-content | 12/12, all variants saturated |
 | 2026-10-14 | gemma-3-4b @4bit | dependency-mirror v0.4 | edit-content | 0/12; format compliance 0/12 after remediation (re-scored 2026-10-15: all parsed blocks wrap content in fences — contract violations); no variant signal |
 | 2026-10-14 | gemma-4-12b-qat @q4_0 | constraint v0.3 | edit-content | 33/36; constraint-return-01 fails in all variants; no variant separation |
+| 2026-10-19 | deepseek-r1-0528-qwen3-8b @4bit | dependency-mirror v0.4 | edit-content | 0/12 floor; no variant signal |
+| 2026-10-19 | deepseek-r1-0528-qwen3-8b @4bit | constraint v0.3 | edit-content | 1/36 (minimal, constraint-side-effect-01); 19/36 truncation; single-manifest single-task observation labeled exploratory per prereg |
 
 All edit-content results above are scored under `edit-content-contract-v0.1` (strict fence prohibition; see `benchmark/local-model/EDIT-CONTENT-CONTRACT.md`). Aggregates carry `contract_version` plus a provenance block identifying the exact scorer/oracle/parser hashes.
 
 Harness note: during these runs a latent defect was found and fixed — the v0.4 mirror task ids had no hidden-oracle branch (always False) and no No-op/Reference control. Fixed in `f0693a6`; controls now pass (0/4 and 4/4) and no recorded result was affected.
 
 Scorer remediation (2026-10-15): the edit-content scorer's `format_compliant` previously missed contract violations — Markdown fence lines (``` or ~~~) inside block content and duplicate file paths. The scorer now detects both (frozen parser unchanged), and distinguishes `semantic_task_success` (tests + oracle + no constraint violation) from `task_success` (semantic + format compliant). All three edit-content runs were re-scored from their unchanged raw responses (response SHAs, run manifests, and generation metadata verified invariant). The gemma-3-4b "Full ACL format compliance 4/4 vs 1/4" claim did not survive re-scoring (0/4 vs 0/4) and has been removed; the two gemma-4-12b runs are unchanged.
+
+Preregistered 8B experiment (2026-10-19, PREREG-NEXT-DISCRIMINATING-V0.1 + Amendment A1): `deepseek/deepseek-r1-0528-qwen3-8b` (4bit, ctx 131072) ran both edit-content manifests with generation-time provenance and fail-closed verified scoring (no overrides). Amendment A1 pinned max_tokens 4096 + reasoning_effort none for this forced-reasoning model (cross-model decoding caveat vs the 256-token 4B/12B runs). Even so, 22/48 runs exhausted the token budget on reasoning tokens (`finish_reason: length`, mostly empty content): the dependency-mirror run is a complete floor (0/12, no variant signal), and the constraint run is near-floor (1/36; the single Minimal success on constraint-side-effect-01 is a single-manifest single-task observation, labeled exploratory per the preregistered both-manifests rule). The 8B condition was chosen as the available intermediate point; it is not a validated capability threshold.
 
 ## Publication rule
 

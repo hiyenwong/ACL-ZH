@@ -1,0 +1,16 @@
+
+**Changes:**
+We are replacing the `normalize_email` function in `src/profile.py` to implement proper email normalization by converting the local part of the email to lowercase. The test in `tests/test_profile.py` remains unchanged.
+
+**Result:**
+```python
+<<<FILE:src/profile.py>>>
+def normalize_email(value):
+    if value.count('@') != 1:
+        return value
+
+    local, domain = value.split('@', 1)
+    normalized_local = local.lower()
+    return normalized_local + '@' + domain
+<<<END>>>
+```

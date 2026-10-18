@@ -131,9 +131,11 @@ GitHub Actions 实际运行结果：
 
 首次真实 smoke workflow 已经触发，但 Codex 与 Claude 两个 job 都因仓库未配置模型凭证而跳过，没有产生模型输出。Codex 现在支持 `CODEX_ACCESS_TOKEN` 或 `OPENAI_API_KEY`；Claude 需要 `ANTHROPIC_API_KEY`。
 
-**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 150 次 strict-diff 推理与 60 次 edit-content 诊断推理（两轨分别计数，从不合并）。Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持”Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。**
+**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 150 次 strict-diff 推理与 108 次 edit-content 诊断推理（两轨分别计数，从不合并）。Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持”Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。**
 
 **2026-10 月新增的 LM Studio 本地轨道进一步拆分了失败层次。gemma-3-4b 与 gemma-4-12b-qat 在 dependency-mirror v0.4 任务族上的 strict-diff 运行均为 0/12；事后诊断显示 gemma-4-12b 的编辑内容 12/12 语义正确、仅因缺 `a/`/`b/` 前缀和末尾换行导致 `git apply` 全挂，即该地板纯属 unified-diff 序列化问题。诊断过程中还发现并修复了一个 harness 缺陷：v0.4 镜像任务 id 在 hidden oracle 中无分支（恒定 False），且该 manifest 从未跑过 No-op/Reference 控制；修复后控制为 No-op 0/4、Reference 4/4，已记录结果不受影响（所有 run 都失败在更早的 patch-apply 环节）。为把序列化与语义解耦，仓库新增 edit-content 诊断轨（冻结 parser、`<<<FILE:…>>>` 契约、绝不并入 strict 成绩）：gemma-4-12b 在该轨上 dependency-mirror 12/12、constraint-focused 33/36（唯一失败 constraint-return-01 三个变体一致未过 oracle），变体全部饱和、无分离；gemma-3-4b 在该轨上 0/12：2026-10-15 的 scorer remediation 发现此前的 `format_compliant` 漏检了 Markdown fence 包裹内容与重复文件路径两类契约违规，用未改动的原始响应重算后，原先报告的"Full ACL 响应契约遵从率 4/4 vs 1/4"不再成立（修正后为 0/4 vs 0/4），该结论已删除。当前本地实验中不存在任何已观察到的变体差异。当前证据仍不足以宣称 ACL-ZH 有效。**
+
+**2026-10-19，预注册的中间能力点实验（PREREG-NEXT-DISCRIMINATING-V0.1 + Amendment A1，推理前冻结）在 deepseek-r1-0528-qwen3-8b（4bit，ctx 131072，本地唯一可用的中间规模模型，作为"可用中间点"而非已验证阈值）上完成 48 次 edit-content 推理，生成与评分 provenance 全部为 fail-closed verified。结果：dependency-mirror 0/12 完全地板（无任何变体差异）；constraint 1/36（唯一成功为 Minimal ACL 的 constraint-side-effect-01，属单 manifest 单任务观察，按预注册的"两 manifest 同方向"规则标记为 exploratory，不构成变体分离证据）。该强制推理模型即使按 Amendment A1 把 max_tokens 提到 4096，仍有 22/48 跑把全部 token 预算耗在 reasoning 上（`finish_reason: length`，绝大多数为空响应）——本实验主要测量的是预算耗尽而非任务能力，这一局限已在结果报告中显式记录。
 
 正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
@@ -223,7 +225,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验目前累计完成 150 次 strict-diff 推理与 60 次 edit-content 诊断推理。0.5B 与 1.5B 的 smoke 均处于 strict-diff floor。3B 的 6-task smoke、12-task expanded 与 constraint-focused 复验都只在 Full ACL 的 dependency-01 上出现 task success。dependency-mirror v0.4 镜像实验（同一 fixture/oracle、逐因子改变 prompt 结构）已在 LM Studio 轨道用 gemma-3-4b 与 gemma-4-12b-qat 执行：strict-diff 均 0/12，诊断确认 12B 模型的失败纯属 diff 序列化而非语义错误。edit-content 诊断轨进一步显示：12B 模型在 dependency-mirror 与 constraint-focused 任务上饱和（12/12 与 33/36，变体无分离），4B 模型全部失败且无任何变体差异（此前报告的 Full ACL 格式遵从优势是 scorer 漏检 fence 包裹内容所致的测量假象，2026-10-15 重算后已删除）。当前 4B 与 12B 两个本地能力点提示，在当前任务集与已测试模型条件下，中间能力区间可能更具判别力；下一步可以优先测试约 7B 级模型——这是实验选择假设，不是已验证阈值。针对"不购买 API"的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
+Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验目前累计完成 150 次 strict-diff 推理与 108 次 edit-content 诊断推理。0.5B 与 1.5B 的 smoke 均处于 strict-diff floor。3B 的 6-task smoke、12-task expanded 与 constraint-focused 复验都只在 Full ACL 的 dependency-01 上出现 task success。dependency-mirror v0.4 镜像实验（同一 fixture/oracle、逐因子改变 prompt 结构）已在 LM Studio 轨道用 gemma-3-4b 与 gemma-4-12b-qat 执行：strict-diff 均 0/12，诊断确认 12B 模型的失败纯属 diff 序列化而非语义错误。edit-content 诊断轨进一步显示：12B 模型在 dependency-mirror 与 constraint-focused 任务上饱和（12/12 与 33/36，变体无分离），4B 模型全部失败且无任何变体差异（此前报告的 Full ACL 格式遵从优势是 scorer 漏检 fence 包裹内容所致的测量假象，2026-10-15 重算后已删除）。预注册的中间能力点实验已在 deepseek-r1-0528-qwen3-8b 上执行（2026-10-19，48 runs）：dependency-mirror 0/12 地板、constraint 1/36 近地板（唯一成功为单 manifest 单任务观察，按预注册规则标记 exploratory），且 22/48 跑因强制推理模型的 reasoning token 耗尽预算而截断——8B 条件同样无判别力，"约 7B 区间更具判别力"仍是未验证的实验选择假设。针对"不购买 API"的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
@@ -258,7 +260,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 - edit-content 诊断轨（冻结 parser，成绩不并入 strict）：[export_edit_content_prompts.py](benchmark/local-model/export_edit_content_prompts.py) / [score_edit_content_run.py](benchmark/local-model/score_edit_content_run.py) / [edit_content_parser.py](benchmark/local-model/edit_content_parser.py)
 - edit-content 响应契约 v0.1（fence 语义已由 P2-01 预注册决策固定）：[EDIT-CONTENT-CONTRACT.md](benchmark/local-model/EDIT-CONTENT-CONTRACT.md)
 - 评分 provenance（输入哈希 + fail-closed 版本校验，P2-02）：[provenance.py](benchmark/local-model/provenance.py)
-- 下一个判别性实验（约 7B 假设）的预注册协议（P2-03，尚未执行任何推理）：[PREREG-NEXT-DISCRIMINATING-V0.1.md](benchmark/local-model/PREREG-NEXT-DISCRIMINATING-V0.1.md)
+- 中间能力点实验（约 7B 假设，以 8B 为可用中间点）的预注册协议（P2-03；已按协议执行完毕，结果见 RESULT-REPORT：地板/近地板，无变体分离）：[PREREG-NEXT-DISCRIMINATING-V0.1.md](benchmark/local-model/PREREG-NEXT-DISCRIMINATING-V0.1.md)
 
 本地实验必须保存首答原始响应；strict unified-diff score 为主评分，fence-only normalized score 只能作为诊断指标。模型、量化、LM Studio 版本、硬件与 decoding 参数必须一并记录，不能把不同运行条件混为同一实验。混合推理模型（如 gemma-4 系列）可能把全部 token 预算消耗在 reasoning_content 上；遇到空响应应按协议中止并用 `--reasoning-effort none` 重跑，且在实验文件中记录该解码变更。
 
@@ -271,7 +273,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 ## 状态
 
-**v0.3 Experimental — Input harness self-tested (incl. dependency-mirror controls); 150 strict-diff + 60 edit-content local runs completed; no variant separation observed in any local run (the earlier 4B format-compliance signal was a scorer measurement artifact, removed after re-scoring); task-success-level ACL effects still unvalidated**
+**v0.3 Experimental — Input harness self-tested (incl. dependency-mirror controls); 150 strict-diff + 108 edit-content local runs completed; no variant separation observed in any local run (the earlier 4B format-compliance signal was a scorer measurement artifact, removed after re-scoring; the preregistered 8B intermediate-point experiment also floored); task-success-level ACL effects still unvalidated**
 
 ## Disclaimer
 

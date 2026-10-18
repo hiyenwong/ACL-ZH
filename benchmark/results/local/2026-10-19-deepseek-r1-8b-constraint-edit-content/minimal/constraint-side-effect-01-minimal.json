@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-side-effect-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "修改 build_event()：不得向 stdout/stderr 输出内容；返回值仍为包含 user_id 和 action 的 dict。",
+  "files": {
+    "src/audit.py": "def build_event(user_id, action):\n    print(action)\n    return {'user_id': user_id, 'action': action}\n",
+    "tests/test_audit.py": "import unittest\nfrom src.audit import build_event\nclass T(unittest.TestCase):\n def test_shape(self): self.assertEqual(build_event(1,'login')['user_id'],1)\n"
+  },
+  "allowed_paths": [
+    "src/audit.py",
+    "tests/test_audit.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

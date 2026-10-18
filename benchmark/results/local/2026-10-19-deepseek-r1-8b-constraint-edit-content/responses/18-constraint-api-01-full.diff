@@ -1,0 +1,36 @@
+
+**Changes:**
+1. Updated `src/token.py` to implement proper token normalization by converting to lowercase and removing non-alphanumeric characters except underscores.
+2. Added new test cases in `tests/test_token.py` to verify the normalization behavior.
+
+**Result:**
+
+```python
+<<<FILE:src/token.py>>>
+import re
+
+def normalize_token(token):
+    # Convert to lowercase
+    token = token.lower()
+    # Remove non-alphanumeric except underscore. We keep letters, digits, and underscores.
+    token = re.sub(r'[^a-zA-Z0-9_]', '', token)
+    return token
+<<<END>>>
+
+<<<FILE:tests/test_token.py>>>
+import unittest
+from src.token import normalize_token
+
+class T(unittest.TestCase):
+    def test_plain(self):
+        self.assertEqual(normalize_token('abc'), 'abc')
+
+    def test_mixed_case(self):
+        # Test a string with mixed case and alphanumeric
+        self.assertEqual(normalize_token('ABC123'), 'abc123')
+
+    def test_special_chars(self):
+        # Test a string with special characters
+        self.assertEqual(normalize_token('Hello! World_'), 'hello world_')
+<<<END>>>
+```

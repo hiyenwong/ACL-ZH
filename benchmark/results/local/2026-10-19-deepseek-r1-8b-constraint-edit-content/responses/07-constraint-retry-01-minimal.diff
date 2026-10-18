@@ -1,0 +1,11 @@
+
+<<<'src/retry.py'>>
+```pythondef run_with_retry(call, attempts=3):
+    for _ in range(attempts):
+        try:
+            return call()
+        except Exception as e:
+            continue
+    raise ValueError("All attempts failed") from None
+```
+<<END>>

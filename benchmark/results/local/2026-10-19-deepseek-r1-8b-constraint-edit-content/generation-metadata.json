@@ -1,0 +1,610 @@
+{
+  "runner": "lm-studio-openai-compatible",
+  "recorded_at_utc": "2026-10-18T17:22:27+00:00",
+  "git_sha": "a5427db476430e17a4c0a5f1ef184540efb0ffed",
+  "lm_studio_version": "CLI commit: dcefd5a",
+  "quantization": "4bit",
+  "context_length": 131072,
+  "hardware_note": "Mac17,6 (Apple Silicon), 128 GB RAM",
+  "ram_bytes": 137438953472,
+  "provenance": {
+    "git_sha": "a5427db476430e17a4c0a5f1ef184540efb0ffed",
+    "git_dirty": true,
+    "manifest_sha256": "90b1ecf048fb7648becb9a21469655d8883d589fa8dd8d9ae1604162344c8b3a",
+    "experiment_sha256": "2880908bc0f98073f4fb1cc090ade02e982371d5dabdcaa12e6125e72f49ebf4",
+    "exporter_sha256": "ccb4e224f2337bb9d804619b40de69c111895c950175452ab1539fa10e0da5a4",
+    "run_manifest_sha256": "fe9fca82183a3c782e78d76251ff108ca7a586214361aa1337c7d1cccc75fae0",
+    "prompt_bundle_sha256": "d1632c0c7d66b7e2487c5aae3a6fa72fa670f64dbc8af688e0bdbc2476a9946d"
+  },
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "seed": 20261011,
+  "max_tokens": 4096,
+  "reasoning_effort": "none",
+  "experiment": "benchmark/local-model/experiment-deepseek-r1-8b-constraint-edit-content-v0.3.json",
+  "manifest": "benchmark/tasks/manifest-constraint-v0.3.jsonl",
+  "exporter": "benchmark/local-model/export_edit_content_prompts.py",
+  "python": "3.9.6 (default, Aug 17 2026, 12:07:42) \n[Clang 21.0.0 (clang-2100.3.34.1)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "runs": [
+    {
+      "run": 1,
+      "task_id": "constraint-schema-01",
+      "variant": "minimal",
+      "response_chars": 0,
+      "elapsed_seconds": 54.717,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 192,
+        "completion_tokens": 4095,
+        "total_tokens": 4287,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 2,
+      "task_id": "constraint-path-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 55.64,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 181,
+        "completion_tokens": 4095,
+        "total_tokens": 4276,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 3,
+      "task_id": "constraint-immutable-01",
+      "variant": "minimal",
+      "response_chars": 1091,
+      "elapsed_seconds": 41.239,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 192,
+        "completion_tokens": 3068,
+        "total_tokens": 3260,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2834
+        }
+      }
+    },
+    {
+      "run": 4,
+      "task_id": "constraint-path-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 56.327,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 206,
+        "completion_tokens": 4095,
+        "total_tokens": 4301,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 5,
+      "task_id": "constraint-side-effect-01",
+      "variant": "minimal",
+      "response_chars": 118,
+      "elapsed_seconds": 30.489,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 194,
+        "completion_tokens": 2263,
+        "total_tokens": 2457,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2225
+        }
+      }
+    },
+    {
+      "run": 6,
+      "task_id": "constraint-stdlib-01",
+      "variant": "minimal",
+      "response_chars": 204,
+      "elapsed_seconds": 4.898,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 191,
+        "completion_tokens": 375,
+        "total_tokens": 566,
+        "completion_tokens_details": {
+          "reasoning_tokens": 318
+        }
+      }
+    },
+    {
+      "run": 7,
+      "task_id": "constraint-retry-01",
+      "variant": "minimal",
+      "response_chars": 254,
+      "elapsed_seconds": 26.343,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 183,
+        "completion_tokens": 1973,
+        "total_tokens": 2156,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1909
+        }
+      }
+    },
+    {
+      "run": 8,
+      "task_id": "scope-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 56.64,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 216,
+        "completion_tokens": 4095,
+        "total_tokens": 4311,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 9,
+      "task_id": "constraint-immutable-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 56.743,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 202,
+        "completion_tokens": 4095,
+        "total_tokens": 4297,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 10,
+      "task_id": "constraint-api-01",
+      "variant": "minimal",
+      "response_chars": 87,
+      "elapsed_seconds": 41.622,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 169,
+        "completion_tokens": 3038,
+        "total_tokens": 3207,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3013
+        }
+      }
+    },
+    {
+      "run": 11,
+      "task_id": "constraint-retry-01",
+      "variant": "baseline",
+      "response_chars": 315,
+      "elapsed_seconds": 53.856,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 175,
+        "completion_tokens": 3895,
+        "total_tokens": 4070,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3817
+        }
+      }
+    },
+    {
+      "run": 12,
+      "task_id": "compatibility-01",
+      "variant": "minimal",
+      "response_chars": 0,
+      "elapsed_seconds": 57.402,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 183,
+        "completion_tokens": 4095,
+        "total_tokens": 4278,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 13,
+      "task_id": "constraint-retry-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 57.855,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 201,
+        "completion_tokens": 4095,
+        "total_tokens": 4296,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 14,
+      "task_id": "constraint-api-01",
+      "variant": "baseline",
+      "response_chars": 109,
+      "elapsed_seconds": 37.55,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 165,
+        "completion_tokens": 2725,
+        "total_tokens": 2890,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2693
+        }
+      }
+    },
+    {
+      "run": 15,
+      "task_id": "constraint-schema-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 57.647,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 188,
+        "completion_tokens": 4095,
+        "total_tokens": 4283,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 16,
+      "task_id": "constraint-stdlib-01",
+      "variant": "baseline",
+      "response_chars": 1403,
+      "elapsed_seconds": 9.352,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 189,
+        "completion_tokens": 697,
+        "total_tokens": 886,
+        "completion_tokens_details": {
+          "reasoning_tokens": 301
+        }
+      }
+    },
+    {
+      "run": 17,
+      "task_id": "dependency-01",
+      "variant": "baseline",
+      "response_chars": 847,
+      "elapsed_seconds": 53.887,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 195,
+        "completion_tokens": 3847,
+        "total_tokens": 4042,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3638
+        }
+      }
+    },
+    {
+      "run": 18,
+      "task_id": "constraint-api-01",
+      "variant": "full",
+      "response_chars": 1080,
+      "elapsed_seconds": 55.835,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 181,
+        "completion_tokens": 3937,
+        "total_tokens": 4118,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3687
+        }
+      }
+    },
+    {
+      "run": 19,
+      "task_id": "constraint-return-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 57.588,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 184,
+        "completion_tokens": 4095,
+        "total_tokens": 4279,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 20,
+      "task_id": "constraint-schema-01",
+      "variant": "full",
+      "response_chars": 93,
+      "elapsed_seconds": 57.654,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 205,
+        "completion_tokens": 4095,
+        "total_tokens": 4300,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4072
+        }
+      }
+    },
+    {
+      "run": 21,
+      "task_id": "constraint-immutable-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 57.22,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 191,
+        "completion_tokens": 4095,
+        "total_tokens": 4286,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 22,
+      "task_id": "dependency-01",
+      "variant": "full",
+      "response_chars": 114,
+      "elapsed_seconds": 23.397,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 211,
+        "completion_tokens": 1730,
+        "total_tokens": 1941,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1696
+        }
+      }
+    },
+    {
+      "run": 23,
+      "task_id": "exception-01",
+      "variant": "minimal",
+      "response_chars": 158,
+      "elapsed_seconds": 5.153,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 182,
+        "completion_tokens": 386,
+        "total_tokens": 568,
+        "completion_tokens_details": {
+          "reasoning_tokens": 335
+        }
+      }
+    },
+    {
+      "run": 24,
+      "task_id": "constraint-stdlib-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 57.127,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 212,
+        "completion_tokens": 4095,
+        "total_tokens": 4307,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 25,
+      "task_id": "compatibility-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 57.164,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 179,
+        "completion_tokens": 4095,
+        "total_tokens": 4274,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 26,
+      "task_id": "scope-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 56.914,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 237,
+        "completion_tokens": 4095,
+        "total_tokens": 4332,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 27,
+      "task_id": "dependency-01",
+      "variant": "minimal",
+      "response_chars": 442,
+      "elapsed_seconds": 39.916,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 198,
+        "completion_tokens": 2950,
+        "total_tokens": 3148,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2840
+        }
+      }
+    },
+    {
+      "run": 28,
+      "task_id": "constraint-return-01",
+      "variant": "baseline",
+      "response_chars": 222,
+      "elapsed_seconds": 36.637,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 172,
+        "completion_tokens": 2708,
+        "total_tokens": 2880,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2664
+        }
+      }
+    },
+    {
+      "run": 29,
+      "task_id": "constraint-path-01",
+      "variant": "minimal",
+      "response_chars": 495,
+      "elapsed_seconds": 52.578,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 186,
+        "completion_tokens": 3805,
+        "total_tokens": 3991,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3686
+        }
+      }
+    },
+    {
+      "run": 30,
+      "task_id": "exception-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 57.06,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 177,
+        "completion_tokens": 4095,
+        "total_tokens": 4272,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 31,
+      "task_id": "compatibility-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 56.561,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 195,
+        "completion_tokens": 4095,
+        "total_tokens": 4290,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 32,
+      "task_id": "constraint-return-01",
+      "variant": "minimal",
+      "response_chars": 745,
+      "elapsed_seconds": 33.743,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 174,
+        "completion_tokens": 2524,
+        "total_tokens": 2698,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2365
+        }
+      }
+    },
+    {
+      "run": 33,
+      "task_id": "constraint-side-effect-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 56.224,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 186,
+        "completion_tokens": 4095,
+        "total_tokens": 4281,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 34,
+      "task_id": "scope-01",
+      "variant": "minimal",
+      "response_chars": 0,
+      "elapsed_seconds": 56.744,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 221,
+        "completion_tokens": 4095,
+        "total_tokens": 4316,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 35,
+      "task_id": "constraint-side-effect-01",
+      "variant": "full",
+      "response_chars": 132,
+      "elapsed_seconds": 26.366,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 211,
+        "completion_tokens": 1982,
+        "total_tokens": 2193,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1939
+        }
+      }
+    },
+    {
+      "run": 36,
+      "task_id": "exception-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 56.274,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 188,
+        "completion_tokens": 4095,
+        "total_tokens": 4283,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    }
+  ]
+}

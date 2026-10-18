@@ -1,0 +1,20 @@
+
+**Changes:**
+
+We need to modify `src/serializer.py` so that when it dumps a dictionary, the keys are sorted alphabetically. This will ensure that the test passes.
+
+**Result:**
+
+```python
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    if isinstance(value, dict):
+        sorted_dict = {k: value[k] for k in sorted(value.keys())}
+        return json.dumps(sorted_dict)
+    else:
+        return json.dumps(value)
+
+<<<END>>>
+```

@@ -1,0 +1,7 @@
+
+<<<FILE:src/token.py>>>
+```python
+def normalize_token(token):
+    return token.strip().lower()
+```
+<<<END>>>

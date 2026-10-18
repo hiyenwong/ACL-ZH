@@ -1,0 +1,226 @@
+{
+  "runner": "lm-studio-openai-compatible",
+  "recorded_at_utc": "2026-10-18T16:54:54+00:00",
+  "git_sha": "a5427db476430e17a4c0a5f1ef184540efb0ffed",
+  "lm_studio_version": "CLI commit: dcefd5a",
+  "quantization": "4bit",
+  "context_length": 131072,
+  "hardware_note": "Mac17,6 (Apple Silicon), 128 GB RAM",
+  "ram_bytes": 137438953472,
+  "provenance": {
+    "git_sha": "a5427db476430e17a4c0a5f1ef184540efb0ffed",
+    "git_dirty": true,
+    "manifest_sha256": "175a706f2f0409bc5e83f068b9b940290a719a9c8300b2e16c1696791e8c2f4f",
+    "experiment_sha256": "eed8b46244bd55a0563f813f2ef942de500a41734af306536dccf468e49aade5",
+    "exporter_sha256": "ccb4e224f2337bb9d804619b40de69c111895c950175452ab1539fa10e0da5a4",
+    "run_manifest_sha256": "5d40b52cf39c46987d01563c1c81a4458630ead8272e533aa6b348434d7af04d",
+    "prompt_bundle_sha256": "fc19089b70b0b1427b4b468c34585638f999ac3abe1fbbadb6b41911b6213618"
+  },
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "seed": 20261011,
+  "max_tokens": 4096,
+  "reasoning_effort": "none",
+  "experiment": "benchmark/local-model/experiment-deepseek-r1-8b-dependency-mirror-edit-content-v0.4.json",
+  "manifest": "benchmark/tasks/manifest-dependency-mirror-v0.4.jsonl",
+  "exporter": "benchmark/local-model/export_edit_content_prompts.py",
+  "python": "3.9.6 (default, Aug 17 2026, 12:07:42) \n[Clang 21.0.0 (clang-2100.3.34.1)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "runs": [
+    {
+      "run": 1,
+      "task_id": "dependency-anchor-01",
+      "variant": "full",
+      "response_chars": 114,
+      "elapsed_seconds": 16.601,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 211,
+        "completion_tokens": 1730,
+        "total_tokens": 1941,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1696
+        }
+      }
+    },
+    {
+      "run": 2,
+      "task_id": "dependency-verbose-01",
+      "variant": "baseline",
+      "response_chars": 847,
+      "elapsed_seconds": 37.833,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 195,
+        "completion_tokens": 3847,
+        "total_tokens": 4042,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3638
+        }
+      }
+    },
+    {
+      "run": 3,
+      "task_id": "dependency-no-target-file-01",
+      "variant": "minimal",
+      "response_chars": 442,
+      "elapsed_seconds": 29.298,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 198,
+        "completion_tokens": 2950,
+        "total_tokens": 3148,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2840
+        }
+      }
+    },
+    {
+      "run": 4,
+      "task_id": "dependency-no-file-ban-01",
+      "variant": "baseline",
+      "response_chars": 847,
+      "elapsed_seconds": 40.22,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 195,
+        "completion_tokens": 3847,
+        "total_tokens": 4042,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3638
+        }
+      }
+    },
+    {
+      "run": 5,
+      "task_id": "dependency-anchor-01",
+      "variant": "minimal",
+      "response_chars": 442,
+      "elapsed_seconds": 39.212,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 198,
+        "completion_tokens": 2950,
+        "total_tokens": 3148,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2840
+        }
+      }
+    },
+    {
+      "run": 6,
+      "task_id": "dependency-no-target-file-01",
+      "variant": "baseline",
+      "response_chars": 847,
+      "elapsed_seconds": 48.823,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 195,
+        "completion_tokens": 3847,
+        "total_tokens": 4042,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3638
+        }
+      }
+    },
+    {
+      "run": 7,
+      "task_id": "dependency-anchor-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "elapsed_seconds": 50.017,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 195,
+        "completion_tokens": 4095,
+        "total_tokens": 4290,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 8,
+      "task_id": "dependency-no-file-ban-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 50.301,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 208,
+        "completion_tokens": 4095,
+        "total_tokens": 4303,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 9,
+      "task_id": "dependency-verbose-01",
+      "variant": "full",
+      "response_chars": 0,
+      "elapsed_seconds": 51.87,
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 224,
+        "completion_tokens": 4095,
+        "total_tokens": 4319,
+        "completion_tokens_details": {
+          "reasoning_tokens": 4094
+        }
+      }
+    },
+    {
+      "run": 10,
+      "task_id": "dependency-verbose-01",
+      "variant": "minimal",
+      "response_chars": 188,
+      "elapsed_seconds": 51.767,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 200,
+        "completion_tokens": 4004,
+        "total_tokens": 4204,
+        "completion_tokens_details": {
+          "reasoning_tokens": 3952
+        }
+      }
+    },
+    {
+      "run": 11,
+      "task_id": "dependency-no-file-ban-01",
+      "variant": "minimal",
+      "response_chars": 442,
+      "elapsed_seconds": 38.275,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 198,
+        "completion_tokens": 2950,
+        "total_tokens": 3148,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2840
+        }
+      }
+    },
+    {
+      "run": 12,
+      "task_id": "dependency-no-target-file-01",
+      "variant": "full",
+      "response_chars": 115,
+      "elapsed_seconds": 39.106,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 210,
+        "completion_tokens": 2984,
+        "total_tokens": 3194,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2951
+        }
+      }
+    }
+  ]
+}

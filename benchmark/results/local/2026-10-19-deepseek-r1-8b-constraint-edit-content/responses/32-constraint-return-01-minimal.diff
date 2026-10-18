@@ -1,0 +1,20 @@
+
+The task requires adding a test case to verify that `parse_id` raises an exception when given invalid input. The current implementation of `src/ids.py` does not handle such cases, so the test should check for a `ValueError`.
+
+Here's the change:
+
+<<<FILE:tests/test_ids.py
+import unittest
+from src.ids import parse_id
+
+class T(unittest.TestCase):
+    def test_int(self):
+        self.assertEqual(parse_id('7'), 7)
+
+    def test_invalid_input(self):
+        with self.assertRaises(ValueError) as context:
+            parse_id('abc')
+        self.assertEqual(str(context.exception), "invalid literal for int() with value 'abc'")
+>>>>
+
+This modification adds a test case to ensure the function behaves correctly when encountering non-numeric input.

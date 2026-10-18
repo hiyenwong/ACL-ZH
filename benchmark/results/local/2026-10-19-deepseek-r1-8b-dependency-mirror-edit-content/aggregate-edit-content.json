@@ -1,0 +1,88 @@
+{
+  "experiment_id": "local-deepseek-r1-8b-dependency-mirror-edit-content-v0.4",
+  "provider": "lm-studio-local",
+  "track": "local-lm-studio-edit-content",
+  "contract_version": "edit-content-contract-v0.1",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "runs": 12,
+  "summary": {
+    "baseline": {
+      "n": 4,
+      "parsed": 0,
+      "format_compliant": 0,
+      "visible_tests_pass": 4,
+      "hidden_oracle_pass": 0,
+      "semantic_task_success": 0,
+      "task_success": 0
+    },
+    "minimal": {
+      "n": 4,
+      "parsed": 4,
+      "format_compliant": 1,
+      "visible_tests_pass": 4,
+      "hidden_oracle_pass": 0,
+      "semantic_task_success": 0,
+      "task_success": 0
+    },
+    "full": {
+      "n": 4,
+      "parsed": 2,
+      "format_compliant": 1,
+      "visible_tests_pass": 3,
+      "hidden_oracle_pass": 0,
+      "semantic_task_success": 0,
+      "task_success": 0
+    }
+  },
+  "task_matrix": {
+    "dependency-anchor-01": {
+      "full": false,
+      "minimal": false,
+      "baseline": false
+    },
+    "dependency-verbose-01": {
+      "baseline": false,
+      "full": false,
+      "minimal": false
+    },
+    "dependency-no-target-file-01": {
+      "minimal": false,
+      "baseline": false,
+      "full": false
+    },
+    "dependency-no-file-ban-01": {
+      "baseline": false,
+      "full": false,
+      "minimal": false
+    }
+  },
+  "provenance": {
+    "status": "verified",
+    "score_kind": "initial",
+    "actual": {
+      "git_sha": "a5427db476430e17a4c0a5f1ef184540efb0ffed",
+      "git_dirty": true,
+      "manifest_sha256": "175a706f2f0409bc5e83f068b9b940290a719a9c8300b2e16c1696791e8c2f4f",
+      "experiment_sha256": "eed8b46244bd55a0563f813f2ef942de500a41734af306536dccf468e49aade5",
+      "run_manifest_sha256": "5d40b52cf39c46987d01563c1c81a4458630ead8272e533aa6b348434d7af04d",
+      "prompt_bundle_sha256": "fc19089b70b0b1427b4b468c34585638f999ac3abe1fbbadb6b41911b6213618",
+      "scorer_sha256": "07b3557c6a8c70b514776cd6e8e51dff4fd6feab0f859c28afcf98fec17b2e00",
+      "oracle_sha256": "907b7b6e735bcd11c4ece3200b2970dccf0abd9c20d68e15977ec835c5e9e21c",
+      "parser_sha256": "cd8a3b84429694ffd7941c0bd4bf16d25ba53dfecad621984084d1e1b33620e3"
+    },
+    "recorded": {
+      "manifest_sha256": "175a706f2f0409bc5e83f068b9b940290a719a9c8300b2e16c1696791e8c2f4f",
+      "experiment_sha256": "eed8b46244bd55a0563f813f2ef942de500a41734af306536dccf468e49aade5",
+      "run_manifest_sha256": "5d40b52cf39c46987d01563c1c81a4458630ead8272e533aa6b348434d7af04d",
+      "prompt_bundle_sha256": "fc19089b70b0b1427b4b468c34585638f999ac3abe1fbbadb6b41911b6213618"
+    },
+    "mismatches": {},
+    "missing_baseline": []
+  },
+  "metric_definitions": {
+    "semantic_task_success": "visible_tests_pass AND hidden_oracle_pass AND NOT constraint_violation",
+    "task_success": "semantic_task_success AND format_compliant",
+    "format_compliant": "well-formed blocks only: no residual text, no protocol violation, no duplicate or empty file path, no Markdown fence (``` or ~~~) in block content"
+  },
+  "evidence_boundary": "Diagnostic edit-content track; not comparable with strict unified-diff task-success counts."
+}

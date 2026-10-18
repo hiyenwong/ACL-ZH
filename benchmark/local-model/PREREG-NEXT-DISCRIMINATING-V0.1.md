@@ -2,7 +2,13 @@
 
 Prereg ID: `prereg-next-discriminating-v0.1`
 Date: 2026-10-19
-Status: **preregistered — no inference run under this protocol yet**
+Status: **executed 2026-10-19** — results in
+`benchmark/results/local/2026-10-19-deepseek-r1-8b-dependency-mirror-edit-content/`
+and `benchmark/results/local/2026-10-19-deepseek-r1-8b-constraint-edit-content/`
+(both scored with provenance `verified`, no overrides). Outcome:
+dependency-mirror floor (0/12), constraint near-floor (1/36; the single
+Minimal success is exploratory per §5), 22/48 truncation. No variant
+separation; no ACL effectiveness claim.
 Priority: P2-03 (per `benchmark/tasks/POST-REMEDIATION-REVIEW-V0.2.md`)
 
 This document freezes the protocol for the next local-model experiment
