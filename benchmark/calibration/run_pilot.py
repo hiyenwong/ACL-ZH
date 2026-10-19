@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Read committed model condition; prevent accidental parameter or workspace drift."""
 import argparse
+import hashlib
+import tempfile
 import json
 import subprocess
 import sys
@@ -42,6 +44,35 @@ def main():
         cmd.extend(["--hardware-note", a.hardware_note])
     subprocess.run([sys.executable, str(Path(__file__).with_name("validate_pilot.py")),
                     "--experiment", a.experiment, "--manifest", a.manifest], check=True)
+
+    # Fresh exact-manifest controls required before scored inference.
+    with tempfile.TemporaryDirectory(prefix="aclzh-calibration-controls-") as td:
+        summary = {}
+        eval_script = root / "benchmark/agent-eval/run.py"
+        reference = root / "benchmark/agent-eval/reference_agent.py"
+        controls = [
+            ("noop", "true"),
+            ("reference", 'python "' + str(reference) + '" "{prompt_file}"'),
+        ]
+        for label, command in controls:
+            output = Path(td) / label
+            subprocess.run([sys.executable, str(eval_script),
+                            "--manifest", a.manifest, "--variant", "full",
+                            "--agent", label, "--agent-command", command,
+                            "--repetitions", "1", "--output", str(output)], check=True)
+            rows = [json.loads(line)
+                    for p in output.glob("*.jsonl")
+                    for line in p.read_text(encoding="utf-8").splitlines() if line.strip()]
+            passed = sum(bool(row["task_success"]) for row in rows)
+            n = len(exp["tasks"])
+            expected = n if label == "reference" else 0
+            if len(rows) != n or passed != expected:
+                ap.error(label + " control failed: " + str(passed) + "/" + str(len(rows)))
+            summary[label] = {"n": n, "success": passed}
+        summary["manifest_sha256"] = hashlib.sha256(Path(a.manifest).read_bytes()).hexdigest()
+        Path(a.workdir).mkdir(parents=True, exist_ok=False)
+        (Path(a.workdir) / "control-evidence.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
     subprocess.run(cmd, check=True)
 
 if __name__ == "__main__":
