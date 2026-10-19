@@ -264,6 +264,14 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 本地实验必须保存首答原始响应；strict unified-diff score 为主评分，fence-only normalized score 只能作为诊断指标。模型、量化、LM Studio 版本、硬件与 decoding 参数必须一并记录，不能把不同运行条件混为同一实验。混合推理模型（如 gemma-4 系列）可能把全部 token 预算消耗在 reasoning_content 上；遇到空响应应按协议中止并用 `--reasoning-effort none` 重跑，且在实验文件中记录该解码变更。
 
+## M2-01 校准试验（OpenSpec；执行前准备）
+
+当前已提交 M2-01 [OpenSpec 规范](openspec/changes/m2-01-benchmark-discriminability/proposal.md) 和 [LM Studio 本地运行手册](benchmark/calibration/RUNBOOK.md)。
+
+这是一组 **Baseline-only、12 个已公开历史任务** 的可执行校准试验，用于检查本地模型和评分流程是否处于可测量区间；它不是独立的 held-out 验证，也不提供 ACL-ZH 有效性证据。执行前必须使用 `prepare_pilot.py` 将真实模型及解码参数固定并 commit，随后由 `run_pilot.py` 检查干净工作区、No-op / Reference 控制及实验配置。原始结果经既有 edit-content scorer 与 `report_pilot.py` 评估。
+
+目前没有新的 LM Studio 校准实验结果；独立评估集和 M2-02 预注册尚未完成。具体任务完成状态以 [M2-01 tasks.md](openspec/changes/m2-01-benchmark-discriminability/tasks.md) 为准。
+
 ## Agent 适配
 
 - Claude Code：`adapters/claude-code/CLAUDE.md`
