@@ -1,0 +1,57 @@
+name: M2-01 calibration infrastructure checks
+
+on:
+  push:
+    paths:
+      - "benchmark/calibration/**"
+      - "openspec/changes/m2-01-benchmark-discriminability/**"
+      - ".github/workflows/calibration-m2-01.yml"
+  pull_request:
+    paths:
+      - "benchmark/calibration/**"
+      - ".github/workflows/calibration-m2-01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile calibration utilities
+        run: |
+          python -m py_compile benchmark/calibration/*.py
+      - name: Validate pilot manifest and no-op oracle
+        run: |
+          python benchmark/calibration/validate_pilot.py \
+            --manifest benchmark/calibration/manifests/calibration-pilot-v0.1.jsonl \
+            --experiment benchmark/calibration/experiments/experiment-baseline-pilot-v0.1.template.json
+      - name: Validate experiment matrix
+        run: |
+          python benchmark/web-eval/validate_experiment.py \
+            benchmark/calibration/experiments/experiment-baseline-pilot-v0.1.template.json
+      - name: Historical constraint reference/no-op controls
+        run: |
+          rm -rf /tmp/m2-cal-noop /tmp/m2-cal-reference
+          python benchmark/agent-eval/run.py \
+            --manifest benchmark/calibration/manifests/calibration-pilot-v0.1.jsonl \
+            --variant full --agent noop --agent-command 'true' \
+            --repetitions 1 --output /tmp/m2-cal-noop
+          python benchmark/agent-eval/run.py \
+            --manifest benchmark/calibration/manifests/calibration-pilot-v0.1.jsonl \
+            --variant full --agent reference \
+            --agent-command 'python "$GITHUB_WORKSPACE/benchmark/agent-eval/reference_agent.py" "{prompt_file}"' \
+            --repetitions 1 --output /tmp/m2-cal-reference
+          python - <<'PY'
+          import glob,json
+          for kind, expected in [('noop',0),('reference',12)]:
+              rows=[json.loads(x) for p in glob.glob('/tmp/m2-cal-'+kind+'/*.jsonl') for x in open(p,encoding='utf-8') if x.strip()]
+              assert len(rows)==12, (kind,len(rows))
+              assert sum(bool(r['task_success']) for r in rows)==expected,kind
+          print('M2-01 controls: PASS')
+          PY
