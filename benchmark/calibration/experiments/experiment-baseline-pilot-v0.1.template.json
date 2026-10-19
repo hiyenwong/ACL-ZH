@@ -1,0 +1,49 @@
+{
+  "experiment_id": "m2-01-calibration-baseline-pilot-v0.1",
+  "track": "local-lm-studio-edit-content",
+  "provider": "lm-studio-local",
+  "agent": "openai-compatible-chat-completions",
+  "model": "MODEL_NOT_PINNED",
+  "date_planned": "2026-10-19",
+  "repetitions": 1,
+  "decoding": {
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20261011,
+    "max_tokens": 256,
+    "reasoning_effort": null
+  },
+  "variants": [
+    "baseline"
+  ],
+  "tasks": [
+    "scope-01",
+    "dependency-01",
+    "exception-01",
+    "compatibility-01",
+    "constraint-path-01",
+    "constraint-stdlib-01",
+    "constraint-schema-01",
+    "constraint-side-effect-01",
+    "constraint-retry-01",
+    "constraint-immutable-01",
+    "constraint-return-01",
+    "constraint-api-01"
+  ],
+  "run_order": [
+    "scope-01:baseline",
+    "dependency-01:baseline",
+    "exception-01:baseline",
+    "compatibility-01:baseline",
+    "constraint-path-01:baseline",
+    "constraint-stdlib-01:baseline",
+    "constraint-schema-01:baseline",
+    "constraint-side-effect-01:baseline",
+    "constraint-retry-01:baseline",
+    "constraint-immutable-01:baseline",
+    "constraint-return-01:baseline",
+    "constraint-api-01:baseline"
+  ],
+  "status": "TEMPLATE_DO_NOT_RUN_BEFORE_MODEL_PIN",
+  "evidence_boundary": "Existing historical synthetic tasks, baseline-only feasibility pilot; not held-out evidence."
+}
