@@ -72,7 +72,7 @@ def main():
         summary["manifest_sha256"] = hashlib.sha256(Path(a.manifest).read_bytes()).hexdigest()
         Path(a.workdir).mkdir(parents=True, exist_ok=False)
         (Path(a.workdir) / "control-evidence.json").write_text(
-            json.dumps(summary, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+            json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     subprocess.run(cmd, check=True)
 
 if __name__ == "__main__":
