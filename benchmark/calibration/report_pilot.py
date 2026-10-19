@@ -39,6 +39,18 @@ def main():
     for key in ("temperature", "top_p", "seed", "max_tokens", "reasoning_effort"):
         if dec.get(key) != meta.get(key):
             errors.append("decoding mismatch: " + key)
+    control_path = root / "control-evidence.json"
+    if not control_path.exists():
+        errors.append("missing exact-manifest control evidence")
+    else:
+        controls = json.loads(control_path.read_text(encoding="utf-8"))
+        digest = hashlib.sha256(Path(args.manifest).read_bytes()).hexdigest()
+        if controls.get("manifest_sha256") != digest:
+            errors.append("control manifest hash mismatch")
+        for label, count in [("noop", 0), ("reference", len(tasks))]:
+            item = controls.get(label) or {}
+            if item.get("n") != len(tasks) or item.get("success") != count:
+                errors.append("failed " + label + " control")
     truncated = sum(r.get("finish_reason") == "length" for r in observations)
     for r in rows:
         if r.get("track") != "local-lm-studio-edit-content" or r.get("variant") != "baseline":
