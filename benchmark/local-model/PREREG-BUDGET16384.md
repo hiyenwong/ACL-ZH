@@ -35,3 +35,13 @@ before the second manifest: this budget remains unsuitable.
 
 Outputs are isolated by tracked run ID in project artifacts. Source and
 configuration are committed before launch. No historical outputs change.
+
+## Infrastructure interruption amendment
+
+The first attempt returned four responses, then the service unloaded the
+model during request five (HTTP 400). This is not a completed comparison.
+Preserve the partial attempt unchanged; restart once in a new run directory
+with identical decoding/order, without pooling partial responses. This
+restart is disclosed as an infrastructure repair, not independent replication.
+The runner now checkpoints completed request metadata and records HTTP error
+bodies on interruption. No request-level retries or scoring changes are added.
