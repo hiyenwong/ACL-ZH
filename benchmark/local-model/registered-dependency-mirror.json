@@ -1,0 +1,50 @@
+{
+  "experiment_id": "deepseek-r1-8b-budget16384-dependency-mirror-2026-11-12",
+  "track": "local-open-model-edit-content",
+  "provider": "lm-studio-local",
+  "agent": "openai-compatible-chat-completions",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "model_variant": "deepseek/deepseek-r1-0528-qwen3-8b@4bit",
+  "quantization": "4bit",
+  "context_length": null,
+  "date_planned": "2026-11-12",
+  "repetitions": 1,
+  "decoding": {
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20261011,
+    "max_tokens": 16384,
+    "reasoning_effort": "none"
+  },
+  "response_contract": "<<<FILE:path>>>\\n<complete final file content>\\n<<<END>>> (frozen parser: benchmark/local-model/edit_content_parser.py; contract edit-content-contract-v0.1)",
+  "variants": [
+    "baseline",
+    "minimal",
+    "full"
+  ],
+  "randomization_seed": 20261011,
+  "run_order_algorithm": "sorted('task:variant') shuffled by random.Random(20261011)",
+  "preregistration": "benchmark/local-model/PREREG-BUDGET16384.md",
+  "status": "preregistered",
+  "tasks": [
+    "dependency-anchor-01",
+    "dependency-no-file-ban-01",
+    "dependency-no-target-file-01",
+    "dependency-verbose-01"
+  ],
+  "run_order": [
+    "dependency-anchor-01:full",
+    "dependency-verbose-01:baseline",
+    "dependency-no-target-file-01:minimal",
+    "dependency-no-file-ban-01:baseline",
+    "dependency-anchor-01:minimal",
+    "dependency-no-target-file-01:baseline",
+    "dependency-anchor-01:baseline",
+    "dependency-no-file-ban-01:full",
+    "dependency-verbose-01:full",
+    "dependency-verbose-01:minimal",
+    "dependency-no-file-ban-01:minimal",
+    "dependency-no-target-file-01:full"
+  ],
+  "evidence_boundary": "New decoding condition, diagnostic only; never pool historical or strict-diff scores. Context maximum advertised as 131072; actual configured context unknown."
+}
