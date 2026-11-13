@@ -18,9 +18,9 @@ def run(*args):
 def main():
     os.chdir(ROOT)
     run_id = os.environ['ORX_RUN_ID']
-    output = Path('/Users/hiyenwong/.local/share/openresearch/files/acl-zh') / 'budget16384' / run_id
+    output = Path('/Users/hiyenwong/.local/share/openresearch/files/acl-zh') / 'transport-v2' / run_id
     output.mkdir(parents=True, exist_ok=False)
-    for test in ['selftest_edit_content.py', 'selftest_provenance.py']:
+    for test in ['selftest_edit_content.py', 'selftest_provenance.py', 'selftest_transport_v2.py']:
         run(LOCAL / test)
     for family, version in [('dependency-mirror', 'v0.4'), ('constraint', 'v0.3')]:
         manifest = ROOT / f'benchmark/tasks/manifest-{family}-{version}.jsonl'
@@ -49,7 +49,7 @@ def main():
         dest = output / family
         run(LOCAL / 'run_lm_studio.py', '--model', config['model'],
             '--experiment', experiment, '--manifest', manifest, '--workdir', dest,
-            '--exporter', LOCAL / 'export_edit_content_prompts.py',
+            '--exporter', LOCAL / 'export_edit_content_transport_v2.py',
             '--max-tokens', '16384', '--reasoning-effort', 'none',
             '--temperature', '0', '--top-p', '1', '--seed', '20261011',
             '--timeout', '1800', '--quantization', '4bit')

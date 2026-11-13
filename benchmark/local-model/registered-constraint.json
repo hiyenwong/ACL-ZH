@@ -1,5 +1,5 @@
 {
-  "experiment_id": "deepseek-r1-8b-budget16384-constraint-2026-11-12",
+  "experiment_id": "deepseek-r1-8b-transport-v2-constraint-2026-11-13",
   "track": "local-open-model-edit-content",
   "provider": "lm-studio-local",
   "agent": "openai-compatible-chat-completions",
@@ -7,7 +7,7 @@
   "model_variant": "deepseek/deepseek-r1-0528-qwen3-8b@4bit",
   "quantization": "4bit",
   "context_length": null,
-  "date_planned": "2026-11-12",
+  "date_planned": "2026-11-13",
   "repetitions": 1,
   "decoding": {
     "temperature": 0,
@@ -24,7 +24,7 @@
   ],
   "randomization_seed": 20261011,
   "run_order_algorithm": "sorted('task:variant') shuffled by random.Random(20261011)",
-  "preregistration": "benchmark/local-model/PREREG-BUDGET16384.md",
+  "preregistration": "benchmark/local-model/PREREG-TRANSPORT-V2.md",
   "status": "preregistered",
   "tasks": [
     "scope-01",
@@ -78,5 +78,6 @@
     "constraint-side-effect-01:full",
     "exception-01:full"
   ],
-  "evidence_boundary": "New decoding condition, diagnostic only; never pool historical or strict-diff scores. Context maximum advertised as 131072; actual configured context unknown."
+  "evidence_boundary": "New decoding condition, diagnostic only; never pool historical or strict-diff scores. Context maximum advertised as 131072; actual configured context unknown.",
+  "prompt_transport_version": "explicit-transport-v2"
 }
