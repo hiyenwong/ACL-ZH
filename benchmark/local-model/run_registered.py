@@ -68,7 +68,7 @@ def main():
         '--exporter', LOCAL / 'export_edit_content_transport_v2.py',
         '--max-tokens', '16384', '--reasoning-effort', 'none',
         '--temperature', '0', '--top-p', '1', '--seed', '20261011',
-        '--timeout', '1800', '--quantization', '4bit')
+        '--timeout', '1800', '--quantization', '4bit', '--context-length', '32768')
     run(LOCAL / 'score_edit_content_run.py', '--workdir', dest,
         '--experiment', experiment, '--manifest', manifest)
     aggregate = json.loads((dest / 'aggregate-edit-content.json').read_text(encoding='utf-8'))

@@ -83,3 +83,16 @@ equivalent to a human, does not validate JSON Schema constrained decoding, and
 does not pool results with the historical dependency-mirror, constraint, or
 strict unified-diff tracks. Historical transport-v2 comparisons remain
 exploratory because their task information was unequal.
+
+## Repair amendment A1, 2026-11-18
+
+The first submitted run `1f40c7a5-a5fe-4d1f-a532-18cdf2a739e0` completed every
+construction gate, then LM Studio returned `{"error":"Model unloaded."}` on
+request 6 after five partial generation attempts. It established no scored
+variant result and its partial responses are not scored or pooled.
+
+Before the repair attempt, the target model is explicitly loaded as
+`deepseek/deepseek-r1-0528-qwen3-8b@4bit` with configured context length
+32768, parallelism 1, and a 24-hour keep-alive TTL. The repair records
+context length 32768 in generation metadata. Tasks, prompts, model, decoding,
+max completion tokens, scorer, oracle, and analysis plan are unchanged.

@@ -6,7 +6,7 @@
   "model": "deepseek/deepseek-r1-0528-qwen3-8b",
   "model_variant": "deepseek/deepseek-r1-0528-qwen3-8b@4bit",
   "quantization": "4bit",
-  "context_length": null,
+  "context_length": 32768,
   "date_planned": "2026-11-18",
   "repetitions": 1,
   "decoding": {
@@ -80,7 +80,7 @@
     "eq-retry-01:full",
     "eq-slug-01:full"
   ],
-  "evidence_boundary": "Fresh information-equivalent diagnostic edit-content track; never pool with historical unequal-information manifests or strict unified-diff scores. Context maximum advertised as 131072; actual configured context unknown.",
+  "evidence_boundary": "Fresh information-equivalent diagnostic edit-content track; never pool with historical unequal-information manifests or strict unified-diff scores. Repair attempt uses explicitly configured context length 32768.",
   "prompt_transport_version": "explicit-transport-v2",
   "task_schema_version": "information-equivalent-task-v0.1"
 }
