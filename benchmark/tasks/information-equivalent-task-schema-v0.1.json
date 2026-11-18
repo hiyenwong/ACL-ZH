@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openresearch.local/acl-zh/information-equivalent-task-v0.1.json",
+  "title": "ACL-ZH information-equivalent edit-content task",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "difficulty",
+    "fixture",
+    "schema_version",
+    "baseline",
+    "minimal",
+    "full",
+    "atomic_facts",
+    "scope_facts",
+    "evaluation_facts",
+    "allowed_paths",
+    "forbidden_paths",
+    "test_command",
+    "oracle"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^eq-[a-z0-9-]+-01$"},
+    "category": {"type": "string", "pattern": "^equivalence-[a-z-]+$"},
+    "difficulty": {"enum": ["simple", "moderate", "hard"]},
+    "fixture": {"const": "synthetic-python-equivalence-v0.1"},
+    "schema_version": {"const": "information-equivalent-task-v0.1"},
+    "baseline": {"type": "string", "minLength": 80},
+    "minimal": {"type": "string", "minLength": 80},
+    "full": {"type": "string", "minLength": 80},
+    "atomic_facts": {
+      "type": "array",
+      "minItems": 4,
+      "items": {"$ref": "#/$defs/countedFact"}
+    },
+    "scope_facts": {"minItems": 1, "maxItems": 1, "items": {"$ref": "#/$defs/countedFact"}},
+    "evaluation_facts": {"minItems": 1, "maxItems": 1, "items": {"$ref": "#/$defs/fact"}},
+    "allowed_paths": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string"}},
+    "forbidden_paths": {"const": []},
+    "test_command": {"const": "python -m unittest discover -s tests"},
+    "oracle": {"type": "string", "minLength": 8}
+  },
+  "$defs": {
+    "fact": {
+      "type": "object",
+      "required": ["id", "text", "hardness", "counted", "oracle_assertion"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^eq-[a-z0-9-]+-01/[FSV][0-9]{2}$"},
+        "text": {"type": "string", "minLength": 12},
+        "hardness": {"const": "required"},
+        "counted": {"type": "boolean"},
+        "oracle_assertion": {"type": "string", "minLength": 8}
+      },
+      "additionalProperties": false
+    },
+    "countedFact": {
+      "allOf": [{"$ref": "#/$defs/fact"}, {"properties": {"counted": {"const": true}}}]
+    }
+  },
+  "additionalProperties": false
+}

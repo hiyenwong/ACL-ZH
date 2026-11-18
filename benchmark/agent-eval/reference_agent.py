@@ -8,7 +8,86 @@ if len(sys.argv) != 2:
 
 prompt = Path(sys.argv[1]).read_text(encoding="utf-8")
 
-if "get_user" in prompt and ("空格" in prompt or "首尾" in prompt):
+if "slugify" in prompt:
+    Path("src/slug.py").write_text("""def slugify(value):
+    return '-'.join(value.strip().lower().split())
+""", encoding="utf-8")
+elif "format_clock" in prompt:
+    Path("src/clock.py").write_text("""def format_clock(seconds):
+    minutes, second = divmod(seconds, 60)
+    return f'{minutes:02d}:{second:02d}'
+""", encoding="utf-8")
+elif "ordered_tags" in prompt:
+    Path("src/order_tags.py").write_text("""def ordered_tags(values):
+    return list(dict.fromkeys(values))
+""", encoding="utf-8")
+elif "build_settings" in prompt:
+    Path("src/session_settings.py").write_text("""def build_settings(settings):
+    result = {'mode': 'viewer', 'page': 1}
+    result.update(settings)
+    return result
+""", encoding="utf-8")
+elif "validate_score" in prompt:
+    Path("src/score.py").write_text("""class InvalidScoreError(Exception):
+    pass
+
+def validate_score(value):
+    if value < 0 or value > 100:
+        raise InvalidScoreError(value)
+    return value
+""", encoding="utf-8")
+elif "heartbeat" in prompt or "record(at)" in prompt:
+    Path("src/heartbeat.py").write_text("""def record(at):
+    return {'at': at, 'kind': 'heartbeat'}
+""", encoding="utf-8")
+elif "format_amount" in prompt:
+    Path("src/money.py").write_text("""from decimal import Decimal
+
+def format_amount(cents):
+    return f'${Decimal(cents).scaleb(-2):,.2f}'
+""", encoding="utf-8")
+elif "month_name" in prompt:
+    Path("src/months.py").write_text("""class InvalidMonthError(Exception):
+    pass
+
+MONTHS = {
+    1: 'January', 2: 'February', 3: 'March', 4: 'April',
+    5: 'May', 6: 'June', 7: 'July', 8: 'August',
+    9: 'September', 10: 'October', 11: 'November', 12: 'December',
+}
+
+def month_name(number):
+    try:
+        return MONTHS[number]
+    except KeyError as exc:
+        raise InvalidMonthError(number) from exc
+""", encoding="utf-8")
+elif "first_value" in prompt:
+    Path("src/fallback.py").write_text("""def first_value(primary, secondary):
+    value = primary()
+    if value is not None:
+        return value
+    return secondary()
+""", encoding="utf-8")
+elif "clamp" in prompt:
+    Path("src/clamp.py").write_text("""def clamp(value, low, high):
+    return max(low, min(value, high))
+""", encoding="utf-8")
+elif "src/window.py" in prompt or "window(values" in prompt:
+    Path("src/window.py").write_text("""def window(values, start, stop):
+    return values[start:stop]
+""", encoding="utf-8")
+elif "bounded_retry" in prompt or "retry(call" in prompt:
+    Path("src/bounded_retry.py").write_text("""def retry(call, attempts):
+    last = None
+    for _ in range(attempts):
+        try:
+            return call()
+        except KeyError as exc:
+            last = exc
+    raise last
+""", encoding="utf-8")
+elif "get_user" in prompt and ("空格" in prompt or "首尾" in prompt):
     Path("src/user_service.py").write_text(
         "def get_user(user_id):\n    return {'id': user_id, 'name': '  Alice  '.strip()}\n",
         encoding="utf-8",
