@@ -293,7 +293,12 @@ def hidden_oracle(task_id, workspace):
             )
         if task_id == "eq-clock-01":
             m = load_module(workspace, "ck", "src/clock.py")
-            return m.format_clock(0) == "00:00" and m.format_clock(65) == "01:05" and m.format_clock(3600) == "60:00"
+            return (
+                isinstance(m.format_clock(65), str)
+                and m.format_clock(0) == "00:00"
+                and m.format_clock(65) == "01:05"
+                and m.format_clock(3600) == "60:00"
+            )
         if task_id == "eq-order-01":
             m = load_module(workspace, "ot", "src/order_tags.py")
             original = ["b", "a", "b", "a", "c"]
@@ -329,10 +334,23 @@ def hidden_oracle(task_id, workspace):
             out, err = io.StringIO(), io.StringIO()
             with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
                 result = m.record(7)
-            return params == ["at"] and result == {"at": 7, "kind": "heartbeat"} and not out.getvalue() and not err.getvalue()
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                second = m.record(8)
+            return (
+                params == ["at"]
+                and result == {"at": 7, "kind": "heartbeat"}
+                and isinstance(result, dict)
+                and result is not second
+                and not out.getvalue()
+                and not err.getvalue()
+            )
         if task_id == "eq-money-01":
             m = load_module(workspace, "mn", "src/money.py")
-            return m.format_amount(5) == "$0.05" and m.format_amount(123456) == "$1,234.56"
+            return (
+                isinstance(m.format_amount(5), str)
+                and m.format_amount(5) == "$0.05"
+                and m.format_amount(123456) == "$1,234.56"
+            )
         if task_id == "eq-month-01":
             import inspect
             m = load_module(workspace, "mo", "src/months.py")
@@ -354,7 +372,26 @@ def hidden_oracle(task_id, workspace):
             def secondary():
                 calls.append("s")
                 return "second"
-            return params == ["primary", "secondary"] and m.first_value(primary, secondary) == "second" and calls == ["p", "s"]
+            hit_calls = []
+            hit = m.first_value(lambda: (hit_calls.append("p") or "first"), lambda: (_ for _ in ()).throw(AssertionError("secondary called")))
+            miss = m.first_value(primary, secondary) == "second"
+            both_none_calls = []
+            def none_primary():
+                both_none_calls.append("p")
+                return None
+            def none_secondary():
+                both_none_calls.append("s")
+                return None
+            all_none = m.first_value(none_primary, none_secondary) is None
+            return (
+                params == ["primary", "secondary"]
+                and hit == "first"
+                and hit_calls == ["p"]
+                and miss
+                and calls == ["p", "s"]
+                and all_none
+                and both_none_calls == ["p", "s"]
+            )
         if task_id == "eq-clamp-01":
             import inspect
             m = load_module(workspace, "cl", "src/clamp.py")
@@ -382,7 +419,18 @@ def hidden_oracle(task_id, workspace):
             def fail():
                 calls2.append(1)
                 raise KeyError("fail")
-            return params == ["call", "attempts"] and ok and _raises(KeyError, lambda: m.retry(fail, 2)) and len(calls2) == 2
+            other_calls = []
+            def type_failure():
+                other_calls.append(1)
+                raise TypeError("stop")
+            other_propagates = _raises(TypeError, lambda: m.retry(type_failure, 3)) and other_calls == [1]
+            return (
+                params == ["call", "attempts"]
+                and ok
+                and _raises(KeyError, lambda: m.retry(fail, 2))
+                and len(calls2) == 2
+                and other_propagates
+            )
     except Exception:
         return False
     return False
