@@ -1,5 +1,5 @@
-"""Fixed run entrypoint for the schema-capability child experiment."""
-from probe_structured_output import main
+"""Fixed run entrypoint for the free-answer schema child experiment."""
+from probe_free_answer_schema import main
 
 if __name__ == "__main__":
     main()
