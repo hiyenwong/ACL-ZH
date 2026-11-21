@@ -71,6 +71,8 @@ def main():
             "id": row["id"],
             "mode": row["mode"],
             "prompt": row["prompt"],
+            "a": row["a"],
+            "b": row["b"],
             "answer": row["answer"],
             "text": text,
             "parsed": parsed,

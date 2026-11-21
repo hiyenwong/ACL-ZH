@@ -107,8 +107,30 @@ Primary endpoints (reported per arm, never pooled across instruction modes):
   accounting, and an example-matched follow-up (arm D trained for proportionally
   more iterations) is specified but not run here.
 
-## 6. Predefined gates and failure categories
+## 5A. Amendment A1 (2026-11-21, before the primary comparison)
 
+**Step budget.** `scripts/chat_sft.py` ends training when its conversation
+dataloader finishes the first epoch (`last_step`), so the frozen
+`--num-iterations=1500` is unreachable with a 24,000-item mixture: the direct
+arm stops at 40 steps and the trace arm at 62 steps (longer targets pack fewer
+conversations per row, so the epoch is longer). A pilot pair at those unequal
+lengths was run first and is reported only as exploratory.
+
+**Frozen comparison.** The primary pair uses an equal optimization budget of
+**40 steps per arm** (`--num-iterations=40`), i.e. 40 × 16,384 = 655,360 SFT
+tokens per arm, tags `d6-supp-trace-eq40` and `d6-supp-direct-eq40`. Equal
+steps, equal tokens, identical items and prompts; only the targets differ.
+
+**Known residual confound.** At equal steps the trace arm still consumes more
+tokens per conversation, so it sees fewer distinct examples (estimated from the
+mean tokens per conversation, reported with the results). No example-matched
+arm is run here.
+
+**Implementation note.** `chat_sft.py` uses one `--model-tag` for both loading
+the base checkpoint and saving the SFT checkpoint, so the base directory was
+copied to per-arm tags before each run. No training code changed.
+
+## 6. Predefined gates and failure categories
 - **Learnability gate** (checked first): if direct-mode accuracy for both arms
   is below 0.50 on the single-digit subset, d6 is treated as a capability floor
   for this task. The suppression measurements are still reported, but no
