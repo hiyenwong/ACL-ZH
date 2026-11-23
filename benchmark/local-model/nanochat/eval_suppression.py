@@ -94,6 +94,11 @@ def main():
         return {
             "n": n,
             "accuracy": round(sum(r["correct"] for r in records) / n, 4),
+            "mean_abs_error_wrong": round(
+                sum(abs(r["parsed"] - r["answer"]) for r in records
+                    if not r["correct"] and r["parsed"] is not None)
+                / max(1, sum((not r["correct"] and r["parsed"] is not None) for r in records)), 2
+            ),
             "mean_generated_tokens": round(sum(r["generated_tokens"] for r in records) / n, 2),
             "mean_prefix_chars": round(sum(r["prefix_chars"] for r in records) / n, 2),
             "mean_prefix_lines": round(sum(r["prefix_lines"] for r in records) / n, 2),

@@ -130,6 +130,24 @@ arm is run here.
 the base checkpoint and saving the SFT checkpoint, so the base directory was
 copied to per-arm tags before each run. No training code changed.
 
+## 5B. Amendment A2 (2026-11-23, before the d12 runs)
+
+**Escalation arm.** Following the d6 equal-budget and pilot runs, the protocol
+is applied to the next size of the nanochat miniseries, `--depth=12`
+(`model_dim = 12 * 64 = 768`), same tokenizer, same base-train settings and
+5000 iterations, tag `d12-supp`. Same synthetic task, same items, same arms,
+same greedy evaluation.
+
+**Step budget at d12.** Primary condition: each arm is trained for **one full
+epoch of the same 24,000 items** (steps differ between arms, as at d6). This is
+the example-matched condition; the equal-token 40-step condition from A1 is
+kept only for cross-model comparability if both d12 epochs finish within one
+hour of training time each, and is otherwise dropped.
+
+**Analysis addition.** For silent multi-digit failures, report the mean
+absolute numeric distance `|predicted - answer|` per arm as a descriptive
+error-magnitude measure. No other new endpoints.
+
 ## 6. Predefined gates and failure categories
 - **Learnability gate** (checked first): if direct-mode accuracy for both arms
   is below 0.50 on the single-digit subset, d6 is treated as a capability floor
