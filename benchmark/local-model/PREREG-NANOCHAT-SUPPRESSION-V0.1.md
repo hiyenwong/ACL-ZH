@@ -148,6 +148,16 @@ hour of training time each, and is otherwise dropped.
 absolute numeric distance `|predicted - answer|` per arm as a descriptive
 error-magnitude measure. No other new endpoints.
 
+## 5C. Amendment A3 (2026-11-24, before the direct-2x run)
+
+**Internalization probe.** Open question after the d6 runs: is low silent
+accuracy an architecture limit or a training-budget limit? Frozen addition:
+arm **D2x** — same data and direct targets as arm D, but the training mixture
+contains the same 24,000 items twice (48,000 rows, `NANOCHAT_SUPP_TRAIN_ITEMS=48000`),
+so one dataloader epoch covers two optimizer epochs' worth of steps (d6: ~80
+steps). Same eval, same endpoints, same gates. It is compared against arm D
+(40 steps) and arm T pilot (62 steps) only; no pooling with other conditions.
+
 ## 6. Predefined gates and failure categories
 - **Learnability gate** (checked first): if direct-mode accuracy for both arms
   is below 0.50 on the single-digit subset, d6 is treated as a capability floor

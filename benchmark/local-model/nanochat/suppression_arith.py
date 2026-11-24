@@ -26,6 +26,12 @@ EVAL_ITEMS = 200
 TRAIN_SEED = 20261121
 EVAL_SEED = 771721
 
+# Amendment A3: duplicate the mixture to give direct arms more optimizer steps
+# within one dataloader epoch (the dataloader ends training at epoch end).
+_train_items_override = int(os.environ.get("NANOCHAT_SUPP_TRAIN_ITEMS", "0"))
+if _train_items_override > 0:
+    assert _train_items_override % TRAIN_ITEMS == 0, _train_items_override
+
 TRACE_PROMPT = "Compute {a}+{b}. Show your work, then give the final answer."
 DIRECT_PROMPT = "Compute {a}+{b}. Do not show your work. Give only the final answer."
 
@@ -89,8 +95,13 @@ class SuppressionArith(Task):
         super().__init__(**kwargs)
         assert split in {"train", "eval"}
         self.split = split
-        self.items = make_items(TRAIN_ITEMS if split == "train" else EVAL_ITEMS,
-                                TRAIN_SEED if split == "train" else EVAL_SEED)
+        base = make_items(TRAIN_ITEMS if split == "train" else EVAL_ITEMS,
+                          TRAIN_SEED if split == "train" else EVAL_SEED)
+        if split == "train" and _train_items_override > 0:
+            k = _train_items_override // TRAIN_ITEMS
+            base = base * k
+            print(f"[suppression-arith] mixture duplicated x{k}: {len(base)} rows")
+        self.items = base
 
     def num_examples(self):
         return len(self.items)
