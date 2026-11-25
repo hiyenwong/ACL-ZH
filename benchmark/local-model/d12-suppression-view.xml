@@ -18,8 +18,8 @@
 <signal name="silent_multi_error" label="Silent multi-digit error" digits="2" better="lower" />
 <signal name="leak_rate" label="Leak rate" digits="3" better="lower" />
 <view headline="trace_silent_multi_accuracy direct_silent_multi_accuracy loss">
-  <chart from="arms" x="arm" y="silent_multi_accuracy" mark="bars" ghost="false" title="Silent multi-digit accuracy by arm" />
   <chart y="loss" phase="train" ghost="false" />
+  <chart from="arms" x="arm" y="silent_multi_accuracy" mark="bars" ghost="false" phase="summarize" title="Silent multi-digit accuracy by arm" />
   <chart y="trace_sft_loss" phase="sft-trace" ghost="false" />
   <chart y="direct_sft_loss" phase="sft-direct" ghost="false" />
   <stats of="trace_silent_multi_accuracy direct_silent_multi_accuracy trace_silent_accuracy direct_silent_accuracy trace_visible_accuracy" />
