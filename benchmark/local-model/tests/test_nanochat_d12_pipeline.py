@@ -74,6 +74,22 @@ def test_sft_command_keeps_one_epoch_protocol() -> None:
     assert "--model-tag=d12-supp-trace" in command
 
 
+def test_eval_command_uses_module_import_from_nanochat_checkout() -> None:
+    pipeline = load_pipeline()
+
+    command = pipeline.eval_command(
+        Path("/venv/bin/python"),
+        Path("/repo/eval_suppression.py"),
+        "trace",
+        Path("/eval.jsonl"),
+        Path("/out.jsonl"),
+    )
+
+    assert command[3:5] == ["-m", "eval_suppression"]
+    assert "--model-tag" in command
+    assert "d12-supp-trace" in command
+
+
 def test_evaluation_complete_requires_all_400_rows(tmp_path: Path) -> None:
     pipeline = load_pipeline()
     summary = tmp_path / "eval.summary.json"
