@@ -1,0 +1,32 @@
+{
+  "plan": [
+    {"phase": "setup", "of": 1, "unit": "checks"},
+    {"phase": "train", "of": 5000, "unit": "steps"},
+    {"phase": "sft-trace", "of": 62, "unit": "steps"},
+    {"phase": "sft-direct", "of": 40, "unit": "steps"},
+    {"phase": "eval-trace", "of": 400, "unit": "prompts"},
+    {"phase": "eval-direct", "of": 400, "unit": "prompts"},
+    {"phase": "summarize", "of": 1, "unit": "report"}
+  ],
+  "rules": [
+    {
+      "name": "stalled-pipeline",
+      "text": "Ask when no stage progress is reported for 15 minutes.",
+      "does": "ask",
+      "when": {"kind": "noProgress", "seconds": 900}
+    },
+    {
+      "name": "nan-base-loss",
+      "text": "Stop when base-training loss is NaN or infinite on three consecutive reports.",
+      "does": "stop",
+      "when": {"kind": "nonFinite", "signal": "loss", "reports": 3}
+    }
+  ],
+  "brief": {
+    "question": "Does the completed d12 model reduce the silent-versus-visible accuracy gap observed at d6 under the frozen suppression protocol?",
+    "healthy": "Base training resumes at step 2000 and reaches 5000. Trace SFT ends at 62 steps, direct SFT at 40 steps, and each evaluation covers 400 prompts.",
+    "noise": "Torch compile and FlashAttention fallback warnings are expected on MPS. The first training step is slower, and periodic validation can reduce throughput.",
+    "worth_a_flag": "Resume below step 2000, a duplicated 48000-row mixture, unexpected SFT step totals, incomplete 400-prompt evaluations, or a missing training process.",
+    "decided": "The task, seeds, model depth, 5000-step base budget, one-epoch SFT arms, greedy decoding, and endpoints are frozen. This run changes no scientific condition."
+  }
+}
