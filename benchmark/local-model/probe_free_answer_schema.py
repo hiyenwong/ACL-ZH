@@ -24,11 +24,11 @@ ARITHMETIC_TASKS = [
      'prompt': 'Compute (847 - 319) // 13.', 'expected': 40},
 ]
 CODE_TASKS = [
-    {'id': 'code-normalize-01', 'kind': 'code', 'prompt': 'Normalize a string by removing surrounding whitespace and converting it to lowercase.', 'expression': 'value.strip().lower()',
+    {'id': 'code-normalize-01', 'kind': 'code', 'prompt': 'Normalize the string value by removing surrounding whitespace and converting it to lowercase.', 'expression': 'value.strip().lower()',
      'cases': [{'input': {'value': '  ACL-ZH  '}, 'expected': 'acl-zh'}, {'input': {'value': 'Probe'}, 'expected': 'probe'}]},
-    {'id': 'code-distance-01', 'kind': 'code', 'prompt': 'Return the absolute difference between two numbers.', 'expression': 'abs(left - right)',
+    {'id': 'code-distance-01', 'kind': 'code', 'prompt': 'Return the absolute difference between the two numbers left and right.', 'expression': 'abs(left - right)',
      'cases': [{'input': {'left': 19, 'right': 47}, 'expected': 28}, {'input': {'left': -6, 'right': -13}, 'expected': 7}]},
-    {'id': 'code-list-01', 'kind': 'code', 'prompt': 'For every string in a list, remove surrounding whitespace and return the new list.', 'expression': '[item.strip() for item in items]',
+    {'id': 'code-list-01', 'kind': 'code', 'prompt': 'For every string in the list items, remove surrounding whitespace and return the new list.', 'expression': '[item.strip() for item in items]',
      'cases': [{'input': {'items': [' a ', 'b']}, 'expected': ['a', 'b']}, {'input': {'items': ['  x']}, 'expected': ['x']}]},
     {'id': 'code-record-01', 'kind': 'code', 'prompt': "From user, return a new dict with only id and name; remove whitespace around name but do not change id.", 'expression': "{'id': user['id'], 'name': user['name'].strip()}",
      'cases': [{'input': {'user': {'id': 7, 'name': ' Ada '}}, 'expected': {'id': 7, 'name': 'Ada'}}, {'input': {'user': {'id': -2, 'name': 'LOVELACE'}}, 'expected': {'id': -2, 'name': 'LOVELACE'}}]},
@@ -66,7 +66,9 @@ def instruction(task, constrained):
     wording = ('Return only one JSON object with exactly task_id and ' + field +
                '. The JSON must contain no extra fields. Do not explain.')
     if task['kind'] == 'code':
-        wording += ' The expression must be a single Python expression, with no return keyword, assignment, import, statement, or code fence.'
+        var_names = ', '.join(sorted(task['cases'][0]['input'].keys()))
+        wording += (f' Use the input variable(s): {var_names}.'
+                    ' The expression must be a single Python expression, with no return keyword, assignment, import, statement, or code fence.')
     return {'role': 'user', 'content': task['prompt'] + '\n\n' + wording}
 
 
@@ -185,6 +187,15 @@ def self_test():
         else:
             assert task['expression'] not in schema_text
             assert semantic_valid(json.dumps({'task_id': task['id'], 'expression': task['expression']}), task)
+            expected_vars = set(task['cases'][0]['input'].keys())
+            assert expected_vars, task['id']
+            for case in task['cases']:
+                assert set(case['input'].keys()) == expected_vars, task['id']
+            for constrained_flag in (False, True):
+                rendered = instruction(task, constrained_flag)['content']
+                for var in expected_vars:
+                    assert var in task['prompt'], (task['id'], var)
+                    assert var in rendered, (task['id'], var, constrained_flag)
         assert not semantic_valid(json.dumps({'task_id': task['id'], 'answer': 999999}), task) if task['kind'] == 'arithmetic' else True
     assert not semantic_valid("{'task_id': 'x', 'expression': '__import__(\"os\").system(\"true\")'}", CODE_TASKS[0])
     print('free-answer schema task and safe evaluator self-test: PASS')

@@ -43,6 +43,27 @@ outside the whitelist (`in` inside a conditional expression), so code semantic
 validity can undercount equivalent expressions. Arithmetic correctness is not
 affected by this limitation.
 
+Post-hoc audit note (added 2026-11-27; archived requests/responses immutable):
+in this historical run (`346f051`), the three code tasks `code-normalize-01`,
+`code-distance-01`, and `code-list-01` did not explicitly identify the input
+variable names bound by `semantic_valid()` (`value`, `left`/`right`, and
+`items`). As a result, reasonable expressions using alternative variable names
+failed evaluation — notably constrained `03-response.json`
+(`s.strip().lower()`, which matches the requested normalization but failed
+because only `value` is bound) and `11-response.json`
+(`[x.strip().strip() for x in list]`), as well as plain `08-response.json`
+(`abs(5 - 3)`) and `12-response.json` (`[s.strip() for s in input_list if
+isinstance(s, str)]`). Accordingly, the archived code semantic validity rates
+(`0/5` constrained, `1/5` plain) conflate input-binding underspecification with
+genuine semantic failures and must not be interpreted on their own as pure
+code-reasoning failure. The current script
+(`benchmark/local-model/probe_free_answer_schema.py`) now specifies these
+input bindings for any future re-runs, while all archived JSON files in this
+directory remain unchanged. The non-promoting decision for this schema route
+rests on the deterministic arithmetic probe (constrained `0/5` vs plain `4/5`,
+with `0` reported reasoning tokens on every constrained call), which does not
+depend on code variable bindings or the AST evaluator.
+
 The primary conclusion is the constrained semantic regression on arithmetic:
 5/5 plain arithmetic answers were not matched by the constrained mode, which
 was 0/5 and used no reported reasoning tokens. This is a small, one-call-per-

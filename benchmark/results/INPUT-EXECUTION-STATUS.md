@@ -9,9 +9,11 @@ were hidden-reasoning budget truncations. The preregistered follow-up gate was
 not met, so no ACL effect or harm claim is supported.
 
 Transport-v2 remains the candidate response contract. The tested JSON Schema
-route was rejected after exact schema compliance coincided with 0/10 semantic
-success on the free-answer probe. The d12 nanochat suppression study is complete
-but belongs to the separate mechanism track, not the ACL effectiveness result.
+route was rejected after exact schema compliance coincided with 0/5 arithmetic
+accuracy (vs 4/5 plain; 0/10 overall semantic, noting that 3 historical code
+prompts omitted explicit input variable names) on the free-answer probe. The
+d12 nanochat suppression study is complete but belongs to the separate mechanism
+track, not the ACL effectiveness result.
 
 The next valid effectiveness study requires a fresh harder held-out task set or
 a preregistered reasoning/budget control. The 12 information-equivalent tasks
