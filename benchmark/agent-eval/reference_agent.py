@@ -77,7 +77,7 @@ elif "src/window.py" in prompt or "window(values" in prompt:
     Path("src/window.py").write_text("""def window(values, start, stop):
     return values[start:stop]
 """, encoding="utf-8")
-elif "bounded_retry" in prompt or "retry(call" in prompt:
+elif "bounded_retry" in prompt or ("retry(call" in prompt and "run_with_retry" not in prompt):
     Path("src/bounded_retry.py").write_text("""def retry(call, attempts):
     last = None
     for _ in range(attempts):
