@@ -1,5 +1,28 @@
 # Input Track execution status
 
+## Current status — 2026-11-26
+
+The local 8B diagnostic line has completed its information-equivalent v0.1
+comparison. Baseline / Minimal ACL / Full ACL task success was 11/12, 10/12 and
+10/12. Every completed response passed semantics and format; all five failures
+were hidden-reasoning budget truncations. The preregistered follow-up gate was
+not met, so no ACL effect or harm claim is supported.
+
+Transport-v2 remains the candidate response contract. The tested JSON Schema
+route was rejected after exact schema compliance coincided with 0/10 semantic
+success on the free-answer probe. The d12 nanochat suppression study is complete
+but belongs to the separate mechanism track, not the ACL effectiveness result.
+
+The next valid effectiveness study requires a fresh harder held-out task set or
+a preregistered reasoning/budget control. The 12 information-equivalent tasks
+must not be retuned and then reused as independent confirmation.
+
+Full run IDs, commits and evidence boundaries:
+[2026-11 research progress](2026-11-RESEARCH-PROGRESS.md).
+
+The autonomous Claude Code / Codex smoke workflows below remain credential
+blocked; their historical status is unchanged.
+
 ## Smoke run attempt
 
 Workflow run: 37790448253

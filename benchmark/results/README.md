@@ -62,6 +62,23 @@ Scorer remediation (2026-10-15): the edit-content scorer's `format_compliant` pr
 
 Preregistered 8B experiment (2026-10-19, PREREG-NEXT-DISCRIMINATING-V0.1 + Amendment A1): `deepseek/deepseek-r1-0528-qwen3-8b` (4bit, ctx 131072) ran both edit-content manifests with generation-time provenance and fail-closed verified scoring (no overrides). Amendment A1 pinned max_tokens 4096 + reasoning_effort none for this forced-reasoning model (cross-model decoding caveat vs the 256-token 4B/12B runs). Even so, 22/48 runs exhausted the token budget on reasoning tokens (`finish_reason: length`, mostly empty content): the dependency-mirror run is a complete floor (0/12, no variant signal), and the constraint run is near-floor (1/36; the single Minimal success on constraint-side-effect-01 is a single-manifest single-task observation, labeled exploratory per the preregistered both-manifests rule). The 8B condition was chosen as the available intermediate point; it is not a validated capability threshold.
 
+## 2026-11 registered research progress
+
+Status: **completed through the information-equivalent v0.1 gate; ACL effect unvalidated**
+
+Six registered local studies now cover the higher-token 8B diagnostic, explicit
+response transport v2, JSON Schema capability and semantics, the
+information-equivalent 12-task comparison, and the separate d12 nanochat
+reasoning-suppression mechanism study.
+
+The latest primary Input Track result is Baseline 11/12, Minimal ACL 10/12 and
+Full ACL 10/12. All 31 non-truncated calls passed; all five failures exhausted
+the hidden-reasoning budget. This does not meet the preregistered follow-up gate
+and supports no ACL effectiveness or harm claim.
+
+See [2026-11 research progress](2026-11-RESEARCH-PROGRESS.md) for run IDs,
+source commits, measurements, mechanism results and the next evidence gate.
+
 ## Publication rule
 
 README claims must point to a committed result or a reproducible CI run. Predictions and intuitions must remain labeled as hypotheses.
