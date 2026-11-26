@@ -1,0 +1,27 @@
+[
+  {
+    "regex": "^\\[train\\] step (?P<step>\\d+)/(?P<of>\\d+) .* \\| loss: (?P<loss>\\S+)",
+    "phase": "train",
+    "unit": "steps"
+  },
+  {
+    "regex": "^\\[sft-trace\\] step (?P<step>\\d+) \\([0-9.]+%\\) \\| loss: (?P<trace_sft_loss>\\S+)",
+    "phase": "sft-trace",
+    "unit": "steps"
+  },
+  {
+    "regex": "^\\[sft-direct\\] step (?P<step>\\d+) \\([0-9.]+%\\) \\| loss: (?P<direct_sft_loss>\\S+)",
+    "phase": "sft-direct",
+    "unit": "steps"
+  },
+  {
+    "regex": "^\\[eval-trace\\] \\{\"done\": (?P<step>\\d+), \"total\": (?P<of>\\d+)\\}",
+    "phase": "eval-trace",
+    "unit": "prompts"
+  },
+  {
+    "regex": "^\\[eval-direct\\] \\{\"done\": (?P<step>\\d+), \"total\": (?P<of>\\d+)\\}",
+    "phase": "eval-direct",
+    "unit": "prompts"
+  }
+]

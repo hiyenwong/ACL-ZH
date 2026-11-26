@@ -7,6 +7,7 @@ import subprocess
 import sys
 import time
 import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -136,7 +137,15 @@ def main():
         if args.reasoning_effort is not None:
             payload["reasoning_effort"] = args.reasoning_effort
         started = time.time()
-        result = http_json(endpoint, payload=payload, token=args.api_token, timeout=args.timeout)
+        try:
+            result = http_json(endpoint, payload=payload, token=args.api_token, timeout=args.timeout)
+        except Exception as exc:
+            detail = exc.read().decode('utf-8', errors='replace') if isinstance(exc, urllib.error.HTTPError) else str(exc)
+            (root / 'interrupted-generation.json').write_text(
+                json.dumps({'completed_runs': metadata, 'failed_run': item,
+                            'error': detail}, ensure_ascii=False, indent=2), encoding='utf-8')
+            print('Generation interrupted: ' + detail, flush=True)
+            raise
         elapsed = time.time() - started
         try:
             response = result["choices"][0]["message"]["content"]
@@ -155,6 +164,8 @@ def main():
             "usage": result.get("usage"),
         }
         metadata.append(row)
+        (root / 'generation-progress.json').write_text(
+            json.dumps(metadata, ensure_ascii=False, indent=2), encoding='utf-8')
         print(json.dumps(row, ensure_ascii=False), flush=True)
 
     prov = provenance.generation_provenance(
