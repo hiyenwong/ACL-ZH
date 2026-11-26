@@ -1,0 +1,11 @@
+
+<<<FILE:src/money.py>>>
+def format_amount(cents):
+    dollars_part = cents // 100
+    cents_part = cents % 100
+
+    s_dollars = format(dollars_part, ',d') if dollars_part != 0 else "0"
+    s_cents = str(cents_part).zfill(2)
+
+    return "$" + s_dollars + "." + s_cents
+<<<END>>>

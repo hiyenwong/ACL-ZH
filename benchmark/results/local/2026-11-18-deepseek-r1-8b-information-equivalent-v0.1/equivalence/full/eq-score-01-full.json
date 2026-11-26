@@ -1,0 +1,15 @@
+{
+  "task_id": "eq-score-01",
+  "category": "equivalence-validation",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "# 任务\n目标：满足全部原子事实。\n## 原子事实\n[eq-score-01/F01] validate_score(value) 保持单参数公开签名。\n[eq-score-01/F02] value 为 0 或 100 时保持原 int 并返回。\n[eq-score-01/F03] value 小于 0 或大于 100 时抛出 InvalidScoreError。\n[eq-score-01/F04] InvalidScoreError 必须是 Exception，但不得是 ValueError。\n## 范围\n[eq-score-01/S1] 只允许修改 src/score.py；其他所有工作区文件必须保持不变。\n## 评估\n[eq-score-01/V1] 评估器会在收到完整文件内容后运行测试；本轮没有文件或终端工具，不要声称自己运行了测试。",
+  "files": {
+    "src/score.py": "class InvalidScoreError(Exception):\n    pass\n\ndef validate_score(value):\n    return value\n"
+  },
+  "allowed_paths": [
+    "src/score.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

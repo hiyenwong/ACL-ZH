@@ -1,0 +1,94 @@
+{
+  "manifest": "benchmark/tasks/manifest-information-equivalent-v0.1.jsonl",
+  "schema_version": "information-equivalent-task-v0.1",
+  "task_count": 12,
+  "atomic_fact_count": 56,
+  "strict_equivalence_pass": true,
+  "tasks": [
+    {
+      "id": "eq-slug-01",
+      "facts": 4,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-clock-01",
+      "facts": 6,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-order-01",
+      "facts": 4,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-settings-01",
+      "facts": 5,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-score-01",
+      "facts": 4,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-quiet-01",
+      "facts": 4,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-money-01",
+      "facts": 5,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-month-01",
+      "facts": 4,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-fallback-01",
+      "facts": 5,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-clamp-01",
+      "facts": 5,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-window-01",
+      "facts": 5,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    },
+    {
+      "id": "eq-retry-01",
+      "facts": 5,
+      "required_lines_found": true,
+      "variant_only_content": false,
+      "errors": []
+    }
+  ],
+  "errors": []
+}

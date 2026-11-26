@@ -1,0 +1,10 @@
+
+<<<FILE:src/safe_math.py>>>
+def safe_divide(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return None
+<<<END>>>
+
+The test file remains unchanged as it only tests the normal case.

@@ -1,0 +1,5 @@
+
+<<<FILE:src/heartbeat.py>>>
+def record(at):
+    return {'at': at, 'kind': 'heartbeat'}
+<<<END>>>

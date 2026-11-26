@@ -1,0 +1,71 @@
+{
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "ACLZH_PROBE_OK"
+        ]
+      },
+      "count": {
+        "type": "integer",
+        "enum": [
+          7
+        ]
+      }
+    },
+    "required": [
+      "status",
+      "count"
+    ],
+    "additionalProperties": false
+  },
+  "cases": [
+    [
+      "cooperative",
+      "Return only a JSON object with status ACLZH_PROBE_OK and integer count 7."
+    ],
+    [
+      "plain_text",
+      "Return only the plain text WRONG. Do not output JSON or an object."
+    ],
+    [
+      "wrong_type",
+      "Return JSON with status WRONG, count as the string seven, and an extra field debug set to true."
+    ]
+  ],
+  "order": [
+    [
+      0,
+      false
+    ],
+    [
+      0,
+      true
+    ],
+    [
+      1,
+      true
+    ],
+    [
+      1,
+      false
+    ],
+    [
+      2,
+      false
+    ],
+    [
+      2,
+      true
+    ]
+  ],
+  "max_tokens": 16384,
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20261011,
+  "reasoning_effort": "none",
+  "source_commit": "83d2f5914a5d94ff6379b3f0b296979a09bcf193"
+}

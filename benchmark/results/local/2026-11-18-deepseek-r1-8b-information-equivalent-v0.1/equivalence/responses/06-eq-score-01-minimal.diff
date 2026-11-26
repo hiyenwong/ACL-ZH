@@ -1,0 +1,13 @@
+
+<<<FILE:src/score.py>>>
+class InvalidScoreError(Exception):
+    pass
+
+def validate_score(value):
+    if value == 0 or value == 100:
+        return value
+    elif value < 0 or value > 100:
+        raise InvalidScoreError("Invalid score")
+    else:
+        return value
+<<<END>>>

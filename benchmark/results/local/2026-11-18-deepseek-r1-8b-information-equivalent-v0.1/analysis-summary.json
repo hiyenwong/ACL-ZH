@@ -1,0 +1,246 @@
+{
+  "run_id": "c7ab1518-ab20-472c-8c6e-fcf67bf71206",
+  "experiment_id": "77ca4793-b1c2-424c-9c15-daaa022b2b92",
+  "commit": "082d13cf83b97201af53197ee621d4bb158e19a0",
+  "summary": {
+    "baseline": {
+      "n": 12,
+      "parsed": 11,
+      "format_compliant": 11,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 11,
+      "semantic_task_success": 11,
+      "task_success": 11
+    },
+    "minimal": {
+      "n": 12,
+      "parsed": 10,
+      "format_compliant": 10,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 10,
+      "semantic_task_success": 10,
+      "task_success": 10
+    },
+    "full": {
+      "n": 12,
+      "parsed": 10,
+      "format_compliant": 10,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 10,
+      "semantic_task_success": 10,
+      "task_success": 10
+    }
+  },
+  "task_matrix": {
+    "eq-quiet-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-money-01": {
+      "baseline": true,
+      "full": true,
+      "minimal": true
+    },
+    "eq-fallback-01": {
+      "minimal": true,
+      "full": true,
+      "baseline": true
+    },
+    "eq-retry-01": {
+      "minimal": false,
+      "baseline": true,
+      "full": false
+    },
+    "eq-score-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-month-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-window-01": {
+      "baseline": true,
+      "full": false,
+      "minimal": false
+    },
+    "eq-clock-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-clamp-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-settings-01": {
+      "baseline": true,
+      "full": true,
+      "minimal": true
+    },
+    "eq-order-01": {
+      "full": true,
+      "baseline": true,
+      "minimal": true
+    },
+    "eq-slug-01": {
+      "minimal": true,
+      "baseline": false,
+      "full": true
+    }
+  },
+  "paired_task_success": {
+    "baseline_vs_minimal": {
+      "a_only_wins": 2,
+      "b_only_wins": 1
+    },
+    "baseline_vs_full": {
+      "a_only_wins": 2,
+      "b_only_wins": 1
+    },
+    "minimal_vs_full": {
+      "a_only_wins": 0,
+      "b_only_wins": 0
+    }
+  },
+  "failure_count": 5,
+  "failures": [
+    {
+      "task_id": "eq-retry-01",
+      "variant": "minimal",
+      "visible_tests_pass": true,
+      "hidden_oracle_pass": false,
+      "semantic_task_success": false,
+      "format_compliant": false,
+      "format_violations": [
+        "no_file_blocks"
+      ],
+      "finish_reason": "length"
+    },
+    {
+      "task_id": "eq-window-01",
+      "variant": "full",
+      "visible_tests_pass": true,
+      "hidden_oracle_pass": false,
+      "semantic_task_success": false,
+      "format_compliant": false,
+      "format_violations": [
+        "no_file_blocks"
+      ],
+      "finish_reason": "length"
+    },
+    {
+      "task_id": "eq-slug-01",
+      "variant": "baseline",
+      "visible_tests_pass": true,
+      "hidden_oracle_pass": false,
+      "semantic_task_success": false,
+      "format_compliant": false,
+      "format_violations": [
+        "no_file_blocks"
+      ],
+      "finish_reason": "length"
+    },
+    {
+      "task_id": "eq-window-01",
+      "variant": "minimal",
+      "visible_tests_pass": true,
+      "hidden_oracle_pass": false,
+      "semantic_task_success": false,
+      "format_compliant": false,
+      "format_violations": [
+        "no_file_blocks"
+      ],
+      "finish_reason": "length"
+    },
+    {
+      "task_id": "eq-retry-01",
+      "variant": "full",
+      "visible_tests_pass": true,
+      "hidden_oracle_pass": false,
+      "semantic_task_success": false,
+      "format_compliant": false,
+      "format_violations": [
+        "no_file_blocks"
+      ],
+      "finish_reason": "length"
+    }
+  ],
+  "truncation_count": 5,
+  "truncations": [
+    {
+      "run": 5,
+      "task_id": "eq-retry-01",
+      "variant": "minimal",
+      "response_chars": 0,
+      "completion_tokens": 16383,
+      "reasoning_tokens": 16382,
+      "task_success": false,
+      "format_violations": [
+        "no_file_blocks"
+      ]
+    },
+    {
+      "run": 26,
+      "task_id": "eq-window-01",
+      "variant": "full",
+      "response_chars": 0,
+      "completion_tokens": 16383,
+      "reasoning_tokens": 16382,
+      "task_success": false,
+      "format_violations": [
+        "no_file_blocks"
+      ]
+    },
+    {
+      "run": 30,
+      "task_id": "eq-slug-01",
+      "variant": "baseline",
+      "response_chars": 0,
+      "completion_tokens": 16383,
+      "reasoning_tokens": 16382,
+      "task_success": false,
+      "format_violations": [
+        "no_file_blocks"
+      ]
+    },
+    {
+      "run": 34,
+      "task_id": "eq-window-01",
+      "variant": "minimal",
+      "response_chars": 0,
+      "completion_tokens": 16383,
+      "reasoning_tokens": 16382,
+      "task_success": false,
+      "format_violations": [
+        "no_file_blocks"
+      ]
+    },
+    {
+      "run": 35,
+      "task_id": "eq-retry-01",
+      "variant": "full",
+      "response_chars": 0,
+      "completion_tokens": 16383,
+      "reasoning_tokens": 16382,
+      "task_success": false,
+      "format_violations": [
+        "no_file_blocks"
+      ]
+    }
+  ],
+  "all_failures_are_truncations": true,
+  "nontruncated_task_success": 31,
+  "nontruncated_n": 31,
+  "provenance_status": "verified",
+  "preregistered_followup_gate": {
+    "metric": "paired task_success net wins",
+    "threshold": 4,
+    "observed_max_net": 1,
+    "met": false
+  }
+}

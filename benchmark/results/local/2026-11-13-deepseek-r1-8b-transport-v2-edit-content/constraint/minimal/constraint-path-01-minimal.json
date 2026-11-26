@@ -1,0 +1,20 @@
+{
+  "task_id": "constraint-path-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "修改 normalize_email()：去掉首尾空格并转为小写。不要修改 src/auth.py。",
+  "files": {
+    "src/auth.py": "AUTH_VERSION = 1\n",
+    "src/profile.py": "def normalize_email(value):\n    return value\n",
+    "tests/test_profile.py": "import unittest\nfrom src.profile import normalize_email\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_email('a@b.com'),'a@b.com')\n"
+  },
+  "allowed_paths": [
+    "src/profile.py",
+    "tests/test_profile.py"
+  ],
+  "forbidden_paths": [
+    "src/auth.py"
+  ],
+  "test_command": "python -m unittest discover -s tests"
+}

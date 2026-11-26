@@ -1,0 +1,5 @@
+
+<<<FILE:src/window.py>>>
+def window(values, start, stop):
+    return values[start:stop]
+<<<END>>>

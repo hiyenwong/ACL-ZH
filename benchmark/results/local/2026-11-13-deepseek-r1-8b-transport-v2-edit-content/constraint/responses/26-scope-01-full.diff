@@ -1,0 +1,7 @@
+
+<<<FILE:src/user_service.py>>>
+def get_user(user_id):
+    name = '  Alice  '
+    stripped_name = name.strip()
+    return {'id': user_id, 'name': stripped_name}
+<<<END>>>

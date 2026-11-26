@@ -1,0 +1,15 @@
+{
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Return only a JSON object with status ACLZH_PROBE_OK and integer count 7."
+    }
+  ],
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20261011,
+  "max_tokens": 16384,
+  "reasoning_effort": "none",
+  "stream": false
+}

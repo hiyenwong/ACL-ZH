@@ -1,0 +1,26 @@
+
+<<<FILE:src/ids.py>>>
+```python
+def parse_id(value):
+    if value.startswith("ID-"):
+        try:
+            return int(value[3:])
+        except ValueError:
+            raise ValueError("Invalid ID format: expected 'ID-<number>'")
+    return int(value)
+```
+<<<END>>>
+
+<<<FILE:tests/test_ids.py>>>
+```python
+import unittest
+from src.ids import parse_id
+
+class T(unittest.TestCase):
+    def test_int(self): 
+        self.assertEqual(parse_id('7'), 7)
+    
+    def test_id_format(self):
+        self.assertEqual(parse_id('ID-42'), 42)
+```
+<<<END>>>

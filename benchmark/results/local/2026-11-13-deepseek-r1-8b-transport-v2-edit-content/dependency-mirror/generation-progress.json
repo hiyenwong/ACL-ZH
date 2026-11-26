@@ -1,0 +1,194 @@
+[
+  {
+    "run": 1,
+    "task_id": "dependency-anchor-01",
+    "variant": "full",
+    "response_chars": 138,
+    "elapsed_seconds": 50.918,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 401,
+      "completion_tokens": 4692,
+      "total_tokens": 5093,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4654
+      }
+    }
+  },
+  {
+    "run": 2,
+    "task_id": "dependency-verbose-01",
+    "variant": "baseline",
+    "response_chars": 138,
+    "elapsed_seconds": 21.561,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 402,
+      "completion_tokens": 2213,
+      "total_tokens": 2615,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2175
+      }
+    }
+  },
+  {
+    "run": 3,
+    "task_id": "dependency-no-target-file-01",
+    "variant": "minimal",
+    "response_chars": 115,
+    "elapsed_seconds": 52.557,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 361,
+      "completion_tokens": 5210,
+      "total_tokens": 5571,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5177
+      }
+    }
+  },
+  {
+    "run": 4,
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "baseline",
+    "response_chars": 115,
+    "elapsed_seconds": 60.56,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 367,
+      "completion_tokens": 5948,
+      "total_tokens": 6315,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5915
+      }
+    }
+  },
+  {
+    "run": 5,
+    "task_id": "dependency-anchor-01",
+    "variant": "minimal",
+    "response_chars": 115,
+    "elapsed_seconds": 58.601,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 361,
+      "completion_tokens": 5774,
+      "total_tokens": 6135,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5741
+      }
+    }
+  },
+  {
+    "run": 6,
+    "task_id": "dependency-no-target-file-01",
+    "variant": "baseline",
+    "response_chars": 115,
+    "elapsed_seconds": 49.185,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 367,
+      "completion_tokens": 4907,
+      "total_tokens": 5274,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4874
+      }
+    }
+  },
+  {
+    "run": 7,
+    "task_id": "dependency-anchor-01",
+    "variant": "baseline",
+    "response_chars": 115,
+    "elapsed_seconds": 46.521,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 367,
+      "completion_tokens": 4673,
+      "total_tokens": 5040,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4640
+      }
+    }
+  },
+  {
+    "run": 8,
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "full",
+    "response_chars": 115,
+    "elapsed_seconds": 92.051,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 396,
+      "completion_tokens": 8632,
+      "total_tokens": 9028,
+      "completion_tokens_details": {
+        "reasoning_tokens": 8599
+      }
+    }
+  },
+  {
+    "run": 9,
+    "task_id": "dependency-verbose-01",
+    "variant": "full",
+    "response_chars": 115,
+    "elapsed_seconds": 128.278,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 489,
+      "completion_tokens": 11433,
+      "total_tokens": 11922,
+      "completion_tokens_details": {
+        "reasoning_tokens": 11400
+      }
+    }
+  },
+  {
+    "run": 10,
+    "task_id": "dependency-verbose-01",
+    "variant": "minimal",
+    "response_chars": 376,
+    "elapsed_seconds": 49.932,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 384,
+      "completion_tokens": 4850,
+      "total_tokens": 5234,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4748
+      }
+    }
+  },
+  {
+    "run": 11,
+    "task_id": "dependency-no-file-ban-01",
+    "variant": "minimal",
+    "response_chars": 115,
+    "elapsed_seconds": 59.858,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 361,
+      "completion_tokens": 5774,
+      "total_tokens": 6135,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5741
+      }
+    }
+  },
+  {
+    "run": 12,
+    "task_id": "dependency-no-target-file-01",
+    "variant": "full",
+    "response_chars": 115,
+    "elapsed_seconds": 69.503,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 398,
+      "completion_tokens": 6521,
+      "total_tokens": 6919,
+      "completion_tokens_details": {
+        "reasoning_tokens": 6488
+      }
+    }
+  }
+]

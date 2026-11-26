@@ -1,0 +1,40 @@
+
+<<<FILE:src/retry.py>>>
+def run_with_retry(call, attempts=3):
+    for _ in range(attempts):
+        try:
+            return call()
+        except Exception as e:
+            if _ == attempts - 1:
+                raise e
+    # If no exception was raised, this line is never reached.
+    return call()
+<<<END>>>
+
+<<<FILE:tests/test_retry.py>>>
+import unittest
+from src.retry import run_with_retry
+
+class T(unittest.TestCase):
+    def test_success(self):
+        self.assertEqual(run_with_retry(lambda: 'ok', 3), 'ok')
+    
+    def test_failure(self):
+        def failing_call():
+            raise Exception("Failed")
+        with self.assertRaises(Exception) as context:
+            run_with_retry(failing_call, 3)
+        self.assertEqual(str(context.exception), "Failed")
+
+    def test_retry_mixed(self):
+        # This function fails the first time, then succeeds on second attempt.
+        def mixed_call():
+            if mixed_call.counter == 0:
+                raise Exception("First failure")
+            else:
+                return "ok"
+        mixed_call.counter = 0
+        
+        result = run_with_retry(mixed_call, 2)
+        self.assertEqual(result, "ok")
+<<<END>>>

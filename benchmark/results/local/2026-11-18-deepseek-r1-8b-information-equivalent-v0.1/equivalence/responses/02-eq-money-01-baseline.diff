@@ -1,0 +1,7 @@
+
+<<<FILE:src/money.py>>>
+def format_amount(cents):
+    dollars = cents / 100.0
+    formatted = '${:,.2f}'.format(dollars)
+    return formatted
+<<<END>>>

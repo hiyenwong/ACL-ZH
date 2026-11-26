@@ -1,0 +1,17 @@
+
+<<<FILE:src/bounded_retry.py>>>
+def retry(call, attempts):
+    last_error = None
+
+    for i in range(attempts):
+        try:
+            result = call()
+            return result
+        except KeyError as e:
+            last_error = e
+        except BaseException as e:
+            raise e
+
+    if last_error is not None:
+        raise last_error
+<<<END>>>

@@ -1,0 +1,17 @@
+
+<<<src/user_service.py>>>
+def get_user(user_id):
+    return {'id': user_id, 'name': '  Alice  '.strip()}
+<<<END>>>
+
+<<<tests/test_user_service.py>>>
+import unittest
+from src.user_service import get_user
+
+class T(unittest.TestCase):
+    def test_api(self):
+        user = get_user(1)
+        self.assertEqual(user['id'], 1)
+        expected_name = 'Alice'
+        self.assertEqual(user['name'], expected_name)
+<<<END>>>

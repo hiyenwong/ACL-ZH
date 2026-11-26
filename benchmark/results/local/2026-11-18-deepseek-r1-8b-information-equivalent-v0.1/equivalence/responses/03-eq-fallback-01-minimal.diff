@@ -1,0 +1,15 @@
+
+<<<FILE:src/fallback.py>>>
+def first_value(primary, secondary):
+    p_val = primary()
+    
+    if p_val is not None:
+        return p_val
+    
+    s_val = secondary()
+    
+    if s_val is not None:
+        return s_val
+    
+    return None
+<<<END>>>

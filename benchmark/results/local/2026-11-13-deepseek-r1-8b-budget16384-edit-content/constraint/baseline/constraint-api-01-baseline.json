@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-api-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "baseline",
+  "instruction": "token 去掉两边空格就行，函数签名和返回字符串这个行为别改。",
+  "files": {
+    "src/token.py": "def normalize_token(token):\n    return token\n",
+    "tests/test_token.py": "import unittest\nfrom src.token import normalize_token\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_token('abc'),'abc')\n"
+  },
+  "allowed_paths": [
+    "src/token.py",
+    "tests/test_token.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

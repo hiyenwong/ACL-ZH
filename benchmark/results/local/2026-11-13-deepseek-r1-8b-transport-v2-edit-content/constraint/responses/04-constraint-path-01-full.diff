@@ -1,0 +1,23 @@
+
+<<<FILE:src/profile.py>>>
+def normalize_email(value):
+    if not isinstance(value, str):
+        return value
+    normalized = value.strip().lower()
+    return normalized
+<<<END>>>
+
+<<<FILE:tests/test_profile.py>>>
+import unittest
+from src.profile import normalize_email
+
+class T(unittest.TestCase):
+    def test_plain(self):
+        self.assertEqual(normalize_email('a@b.com'), 'a@b.com')
+
+    def test_stripped(self):
+        self.assertEqual(normalize_email('  a@b.com '), 'a@b.com')
+
+    def test_lowercased(self):
+        self.assertEqual(normalize_email('A@a.COM'), 'a@a.com')
+<<<END>>>

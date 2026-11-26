@@ -1,0 +1,13 @@
+
+<<<FILE:src/payload.py>>>
+def compact_payload(value):
+    if not isinstance(value, dict):
+        value = dict(value)
+    compacted_dict = {}
+    for k, v in value.items():
+        if v is not None:
+            compacted_dict[k] = v
+    return compacted_dict
+<<<END>>>
+
+The test remains unchanged as it already passes the expected input without None values.

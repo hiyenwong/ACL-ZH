@@ -1,0 +1,18 @@
+
+<<<FILE:src/ids.py>>>
+import re
+
+def parse_id(value):
+    if isinstance(value, int):
+        return value
+    elif isinstance(value, str):
+        m = re.search(r'(-?\d+)', value)
+        if m:
+            return int(m.group())
+        else:
+            raise ValueError(f"Invalid ID format: {value}")
+    else:
+        raise TypeError("parse_id expects a string or an integer")
+<<<END>>>
+
+The test file already contains the necessary test cases. No changes needed for tests/test_ids.py.

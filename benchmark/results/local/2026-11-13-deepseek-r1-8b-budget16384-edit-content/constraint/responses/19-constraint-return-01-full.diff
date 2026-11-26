@@ -1,0 +1,20 @@
+
+<<<FILE:src/ids.py>>>
+def parse_id(value):
+    if isinstance(value, str) and value.startswith('ID-'):
+        try:
+            return int(value[3:])
+        except ValueError:
+            raise
+    else:
+        try:
+            return int(value)
+        except ValueError:
+            raise
+
+class T(unittest.TestCase):
+    def test_int(self): 
+        self.assertEqual(parse_id('7'), 7)
+<<<END>>>
+
+The code has been updated to handle both "ID-42" format and ordinary digit strings. The function now checks if the input is a string starting with "ID-" and parses accordingly, while maintaining existing behavior for other inputs.

@@ -1,0 +1,13 @@
+
+<<<FILE:src/order_tags.py>>>
+def ordered_tags(values):
+    if not hasattr(values, '__iter__'):
+        return [values]
+    seen = []
+    result = []
+    for item in values:
+        if item not in seen:
+            result.append(item)
+            seen.append(item)
+    return result
+<<<END>>>

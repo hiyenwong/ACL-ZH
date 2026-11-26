@@ -1,0 +1,5 @@
+
+<<<FILE:src/clamp.py>>>
+def clamp(value, low, high):
+    return min(max(value, low), high)
+<<<END>>>

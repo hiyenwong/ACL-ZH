@@ -1,0 +1,25 @@
+
+<<<FILE:src/payload.py>>>
+def compact_payload(value):
+    result = {}
+    for k, v in value.items():
+        if v is not None:
+            result[k] = v
+    return result
+<<<END>>>
+
+This implementation filters out any key-value pairs where the value is None, while preserving other values including 0, False, and empty strings. The test case provided in the original code will still pass since it doesn't involve None values.
+
+To verify, you can add a test case to tests/test_payload.py:
+
+<<<FILE:tests/test_payload.py>>>
+import unittest
+from src.payload import compact_payload
+
+class T(unittest.TestCase):
+    def test_copy(self):
+        self.assertEqual(compact_payload({'a':1}), {'a':1})
+    
+    def test_remove_none(self):
+        self.assertEqual(compact_payload({'a': None}), {})
+<<<END>>>

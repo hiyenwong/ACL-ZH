@@ -1,0 +1,15 @@
+
+<<<FILE:src/payload.py>>>
+def compact_payload(value):
+    try:
+        d = dict(value)
+    except Exception as e:
+        raise TypeError(f"compact_payload() does not support type {type(value)}") from e
+
+    new_dict = {}
+    for k, v in d.items():
+        if v is not None:
+            new_dict[k] = v
+    return new_dict
+
+<<<END>>>

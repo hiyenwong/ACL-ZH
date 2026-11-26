@@ -1,0 +1,12 @@
+
+<<<FILE:src/clock.py>>>
+def format_clock(seconds):
+    minutes = seconds // 60
+    secs = seconds % 60
+    
+    # Format each part to have two digits, padding with zeros if needed
+    minutes_str = str(minutes).zfill(2)
+    secs_str = str(secs).zfill(2)
+    
+    return minutes_str + ':' + secs_str
+<<<END>>>

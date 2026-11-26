@@ -1,0 +1,17 @@
+
+<<<FILE:src/payload.py>>>
+def compact_payload(value):
+    return {k: v for k, v in value.items() if v is not None}
+<<<END>>>
+
+<<<FILE:tests/test_payload.py>>>
+import unittest
+from src.payload import compact_payload
+
+class T(unittest.TestCase):
+    def test_copy(self): 
+        self.assertEqual(compact_payload({'a':1}), {'a':1})
+    def test_remove_none(self):
+        self.assertEqual(compact_payload({'a': None}), {})
+
+<<<END>>>

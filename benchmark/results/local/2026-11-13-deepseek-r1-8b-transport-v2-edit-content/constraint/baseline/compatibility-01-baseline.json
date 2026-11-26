@@ -1,0 +1,17 @@
+{
+  "task_id": "compatibility-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "baseline",
+  "instruction": "名字格式化顺便去一下两边空格，但 uppercase 这个老用法必须保持。",
+  "files": {
+    "src/formatter.py": "def format_name(value, uppercase=False):\n    return value.upper() if uppercase else value\n",
+    "tests/test_formatter.py": "import unittest\nfrom src.formatter import format_name\nclass T(unittest.TestCase):\n def test_upper(self): self.assertEqual(format_name('alice',True),'ALICE')\n"
+  },
+  "allowed_paths": [
+    "src/formatter.py",
+    "tests/test_formatter.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

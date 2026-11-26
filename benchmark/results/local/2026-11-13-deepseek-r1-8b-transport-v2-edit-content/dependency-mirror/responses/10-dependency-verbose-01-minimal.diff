@@ -1,0 +1,16 @@
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True, separators=(',', ':'))
+<<<END>>>
+
+<<<FILE:tests/test_serializer.py>>>
+import json, unittest
+from src.serializer import dumps
+
+class T(unittest.TestCase):
+    def test_valid_json(self): 
+        self.assertEqual(json.loads(dumps({'b':1,'a':2})), {'a':2, 'b':1})
+<<<END>>>

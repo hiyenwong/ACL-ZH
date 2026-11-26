@@ -1,0 +1,27 @@
+
+<<<FILE:src/months.py>>>
+class InvalidMonthError(Exception):
+    pass
+
+def month_name(number):
+    months = [
+        "January", 
+        "February", 
+        "March", 
+        "April",
+        "May", 
+        "June", 
+        "July", 
+        "August",
+        "September", 
+        "October", 
+        "November", 
+        "December"
+    ]
+    if number == 0 or number == 13:
+        raise InvalidMonthError
+    elif isinstance(number, int) and 1 <= number <= 12:
+        return months[number-1]
+    else:
+        return str(number)
+<<<END>>>

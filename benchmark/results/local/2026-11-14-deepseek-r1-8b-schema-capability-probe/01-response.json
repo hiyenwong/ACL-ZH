@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-7an4sk1skpcq843rlt71q8",
+  "object": "chat.completion",
+  "created": 1794665647,
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n{\n  \"status\": \"ACLZH_PROBE_OK\",\n  \"count\": 7\n}",
+        "reasoning_content": "\nWe are to return a JSON object with two keys: \"status\" and \"count\"\n The status should be the string \"ACLZH_PROBE_OK\"\n The count should be an integer, specifically 7.\n\n We are to output only the JSON object without any additional text or formatting.\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 21,
+    "completion_tokens": 82,
+    "total_tokens": 103,
+    "completion_tokens_details": {
+      "reasoning_tokens": 58
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "deepseek/deepseek-r1-0528-qwen3-8b"
+}

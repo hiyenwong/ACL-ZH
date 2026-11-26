@@ -1,0 +1,15 @@
+{
+  "task_id": "eq-fallback-01",
+  "category": "equivalence-control-flow",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "完成任务。\n事实：\n[eq-fallback-01/F01] first_value(primary, secondary) 保持二参数公开签名。\n[eq-fallback-01/F02] primary 必须恰好调用一次。\n[eq-fallback-01/F03] primary 返回非 None 时立即返回该值，并不得调用 secondary。\n[eq-fallback-01/F04] primary 返回 None 时恰好调用 secondary 一次，并返回 secondary 的值。\n[eq-fallback-01/F05] primary 和 secondary 都返回 None 时返回 None。\n范围：\n[eq-fallback-01/S1] 只允许修改 src/fallback.py；其他所有工作区文件必须保持不变。\n评估：\n[eq-fallback-01/V1] 评估器会在收到完整文件内容后运行测试；本轮没有文件或终端工具，不要声称自己运行了测试。",
+  "files": {
+    "src/fallback.py": "def first_value(primary, secondary):\n    return primary()\n"
+  },
+  "allowed_paths": [
+    "src/fallback.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

@@ -1,0 +1,13 @@
+
+<<<FILE:src/safe_math.py>>>
+def safe_divide(a, b):
+    if b == 0:
+        return None
+    try:
+        return a / b
+    except Exception as e:
+        # Only catch division by zero, re-raise other exceptions to preserve behavior
+        if b == 0:
+            return None
+        raise e
+<<<END>>>

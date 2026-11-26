@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-side-effect-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "baseline",
+  "instruction": "build_event 不要再打印东西了，只返回事件对象，结构别变。",
+  "files": {
+    "src/audit.py": "def build_event(user_id, action):\n    print(action)\n    return {'user_id': user_id, 'action': action}\n",
+    "tests/test_audit.py": "import unittest\nfrom src.audit import build_event\nclass T(unittest.TestCase):\n def test_shape(self): self.assertEqual(build_event(1,'login')['user_id'],1)\n"
+  },
+  "allowed_paths": [
+    "src/audit.py",
+    "tests/test_audit.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

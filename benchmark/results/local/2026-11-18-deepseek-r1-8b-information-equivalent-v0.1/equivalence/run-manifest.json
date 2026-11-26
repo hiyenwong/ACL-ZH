@@ -1,0 +1,254 @@
+[
+  {
+    "run": 1,
+    "task_id": "eq-quiet-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-quiet-01-minimal.md",
+    "response": "responses/01-eq-quiet-01-minimal.diff"
+  },
+  {
+    "run": 2,
+    "task_id": "eq-money-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-money-01-baseline.md",
+    "response": "responses/02-eq-money-01-baseline.diff"
+  },
+  {
+    "run": 3,
+    "task_id": "eq-fallback-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-fallback-01-minimal.md",
+    "response": "responses/03-eq-fallback-01-minimal.diff"
+  },
+  {
+    "run": 4,
+    "task_id": "eq-money-01",
+    "variant": "full",
+    "prompt": "full/eq-money-01-full.md",
+    "response": "responses/04-eq-money-01-full.diff"
+  },
+  {
+    "run": 5,
+    "task_id": "eq-retry-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-retry-01-minimal.md",
+    "response": "responses/05-eq-retry-01-minimal.diff"
+  },
+  {
+    "run": 6,
+    "task_id": "eq-score-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-score-01-minimal.md",
+    "response": "responses/06-eq-score-01-minimal.diff"
+  },
+  {
+    "run": 7,
+    "task_id": "eq-month-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-month-01-minimal.md",
+    "response": "responses/07-eq-month-01-minimal.diff"
+  },
+  {
+    "run": 8,
+    "task_id": "eq-window-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-window-01-baseline.md",
+    "response": "responses/08-eq-window-01-baseline.diff"
+  },
+  {
+    "run": 9,
+    "task_id": "eq-fallback-01",
+    "variant": "full",
+    "prompt": "full/eq-fallback-01-full.md",
+    "response": "responses/09-eq-fallback-01-full.diff"
+  },
+  {
+    "run": 10,
+    "task_id": "eq-clock-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-clock-01-minimal.md",
+    "response": "responses/10-eq-clock-01-minimal.diff"
+  },
+  {
+    "run": 11,
+    "task_id": "eq-month-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-month-01-baseline.md",
+    "response": "responses/11-eq-month-01-baseline.diff"
+  },
+  {
+    "run": 12,
+    "task_id": "eq-clamp-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-clamp-01-minimal.md",
+    "response": "responses/12-eq-clamp-01-minimal.diff"
+  },
+  {
+    "run": 13,
+    "task_id": "eq-month-01",
+    "variant": "full",
+    "prompt": "full/eq-month-01-full.md",
+    "response": "responses/13-eq-month-01-full.diff"
+  },
+  {
+    "run": 14,
+    "task_id": "eq-clock-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-clock-01-baseline.md",
+    "response": "responses/14-eq-clock-01-baseline.diff"
+  },
+  {
+    "run": 15,
+    "task_id": "eq-quiet-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-quiet-01-baseline.md",
+    "response": "responses/15-eq-quiet-01-baseline.diff"
+  },
+  {
+    "run": 16,
+    "task_id": "eq-score-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-score-01-baseline.md",
+    "response": "responses/16-eq-score-01-baseline.diff"
+  },
+  {
+    "run": 17,
+    "task_id": "eq-settings-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-settings-01-baseline.md",
+    "response": "responses/17-eq-settings-01-baseline.diff"
+  },
+  {
+    "run": 18,
+    "task_id": "eq-clock-01",
+    "variant": "full",
+    "prompt": "full/eq-clock-01-full.md",
+    "response": "responses/18-eq-clock-01-full.diff"
+  },
+  {
+    "run": 19,
+    "task_id": "eq-order-01",
+    "variant": "full",
+    "prompt": "full/eq-order-01-full.md",
+    "response": "responses/19-eq-order-01-full.diff"
+  },
+  {
+    "run": 20,
+    "task_id": "eq-quiet-01",
+    "variant": "full",
+    "prompt": "full/eq-quiet-01-full.md",
+    "response": "responses/20-eq-quiet-01-full.diff"
+  },
+  {
+    "run": 21,
+    "task_id": "eq-fallback-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-fallback-01-baseline.md",
+    "response": "responses/21-eq-fallback-01-baseline.diff"
+  },
+  {
+    "run": 22,
+    "task_id": "eq-settings-01",
+    "variant": "full",
+    "prompt": "full/eq-settings-01-full.md",
+    "response": "responses/22-eq-settings-01-full.diff"
+  },
+  {
+    "run": 23,
+    "task_id": "eq-slug-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-slug-01-minimal.md",
+    "response": "responses/23-eq-slug-01-minimal.diff"
+  },
+  {
+    "run": 24,
+    "task_id": "eq-score-01",
+    "variant": "full",
+    "prompt": "full/eq-score-01-full.md",
+    "response": "responses/24-eq-score-01-full.diff"
+  },
+  {
+    "run": 25,
+    "task_id": "eq-clamp-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-clamp-01-baseline.md",
+    "response": "responses/25-eq-clamp-01-baseline.diff"
+  },
+  {
+    "run": 26,
+    "task_id": "eq-window-01",
+    "variant": "full",
+    "prompt": "full/eq-window-01-full.md",
+    "response": "responses/26-eq-window-01-full.diff"
+  },
+  {
+    "run": 27,
+    "task_id": "eq-settings-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-settings-01-minimal.md",
+    "response": "responses/27-eq-settings-01-minimal.diff"
+  },
+  {
+    "run": 28,
+    "task_id": "eq-order-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-order-01-baseline.md",
+    "response": "responses/28-eq-order-01-baseline.diff"
+  },
+  {
+    "run": 29,
+    "task_id": "eq-money-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-money-01-minimal.md",
+    "response": "responses/29-eq-money-01-minimal.diff"
+  },
+  {
+    "run": 30,
+    "task_id": "eq-slug-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-slug-01-baseline.md",
+    "response": "responses/30-eq-slug-01-baseline.diff"
+  },
+  {
+    "run": 31,
+    "task_id": "eq-clamp-01",
+    "variant": "full",
+    "prompt": "full/eq-clamp-01-full.md",
+    "response": "responses/31-eq-clamp-01-full.diff"
+  },
+  {
+    "run": 32,
+    "task_id": "eq-order-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-order-01-minimal.md",
+    "response": "responses/32-eq-order-01-minimal.diff"
+  },
+  {
+    "run": 33,
+    "task_id": "eq-retry-01",
+    "variant": "baseline",
+    "prompt": "baseline/eq-retry-01-baseline.md",
+    "response": "responses/33-eq-retry-01-baseline.diff"
+  },
+  {
+    "run": 34,
+    "task_id": "eq-window-01",
+    "variant": "minimal",
+    "prompt": "minimal/eq-window-01-minimal.md",
+    "response": "responses/34-eq-window-01-minimal.diff"
+  },
+  {
+    "run": 35,
+    "task_id": "eq-retry-01",
+    "variant": "full",
+    "prompt": "full/eq-retry-01-full.md",
+    "response": "responses/35-eq-retry-01-full.diff"
+  },
+  {
+    "run": 36,
+    "task_id": "eq-slug-01",
+    "variant": "full",
+    "prompt": "full/eq-slug-01-full.md",
+    "response": "responses/36-eq-slug-01-full.diff"
+  }
+]

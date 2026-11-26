@@ -1,0 +1,9 @@
+
+<<<src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True, separators=(',', ':'))
+<<<END>>>
+
+The test file already expects sorted output and compact JSON format, so no changes are needed there. The change only affects the `src/serializer.py` file by adding two parameters to `json.dumps`: `sort_keys=True` and `separators=(',', ':')`.

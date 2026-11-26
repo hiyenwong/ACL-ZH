@@ -1,0 +1,36 @@
+
+<<<FILE:src/retry.py>>>
+```python
+def run_with_retry(call, attempts=3):
+    last_exception = None
+    for _ in range(attempts):
+        try:
+            result = call()
+            if not isinstance(result, Exception):
+                return result
+        except Exception as e:
+            last_exception = e
+
+    if last_exception is not None:
+        raise last_exception
+```
+<<<END>>>
+
+<<<FILE:tests/test_retry.py>>>
+```python
+import unittest
+from src.retry import run_with_retry
+
+
+class T(unittest.TestCase):
+    def test_success(self):
+        self.assertEqual(run_with_retry(lambda: 'ok', attempts=3), 'ok')
+
+    def test_failure(self):
+        def failing_call():
+            raise Exception('Failed first time')
+        
+        with self.assertRaises(Exception):
+            run_with_retry(failing_call, attempts=2)
+```
+<<<END>>>

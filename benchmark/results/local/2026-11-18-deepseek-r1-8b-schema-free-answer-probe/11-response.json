@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-mums4qt8y99dqo6g0lha",
+  "object": "chat.completion",
+  "created": 1795001747,
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"task_id\": \"code-list-01\", \"expression\": \"[x.strip().strip() for x in list]\"}",
+        "reasoning_content": "",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 69,
+    "completion_tokens": 27,
+    "total_tokens": 96,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "deepseek/deepseek-r1-0528-qwen3-8b"
+}

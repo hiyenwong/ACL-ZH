@@ -1,0 +1,116 @@
+{
+  "model_tag": "d6-supp-trace-eq40",
+  "source": "sft",
+  "max_tokens": 160,
+  "model_meta": {
+    "step": 39,
+    "model_config": {
+      "sequence_len": 512,
+      "vocab_size": 32768,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_kv_head": 6,
+      "n_embd": 384,
+      "window_pattern": "L"
+    },
+    "user_config": {
+      "run": "dummy",
+      "device_type": "",
+      "model_tag": "d6-supp-trace-eq40",
+      "model_step": null,
+      "load_optimizer": 1,
+      "num_iterations": 40,
+      "max_seq_len": null,
+      "device_batch_size": null,
+      "total_batch_size": null,
+      "embedding_lr": null,
+      "unembedding_lr": null,
+      "matrix_lr": null,
+      "init_lr_frac": 0.8,
+      "warmup_ratio": 0.0,
+      "warmdown_ratio": 0.5,
+      "final_lr_frac": 0.0,
+      "eval_every": -1,
+      "eval_tokens": 20971520,
+      "chatcore_every": -1,
+      "chatcore_max_cat": -1,
+      "chatcore_max_sample": 24,
+      "mmlu_epochs": 3,
+      "gsm8k_epochs": 4
+    }
+  },
+  "overall": {
+    "n": 400,
+    "accuracy": 0.4925,
+    "mean_generated_tokens": 18.5,
+    "mean_prefix_chars": 20.2,
+    "mean_prefix_lines": 2.0,
+    "leak_rate_prefix_chars_gt_0": 0.5,
+    "step_pattern_rate": 0.5,
+    "ended_rate": 1.0
+  },
+  "by_mode": {
+    "direct": {
+      "n": 200,
+      "accuracy": 0.33,
+      "mean_generated_tokens": 4.0,
+      "mean_prefix_chars": 0.0,
+      "mean_prefix_lines": 0.0,
+      "leak_rate_prefix_chars_gt_0": 0.0,
+      "step_pattern_rate": 0.0,
+      "ended_rate": 1.0
+    },
+    "trace": {
+      "n": 200,
+      "accuracy": 0.655,
+      "mean_generated_tokens": 33.0,
+      "mean_prefix_chars": 40.39,
+      "mean_prefix_lines": 4.0,
+      "leak_rate_prefix_chars_gt_0": 1.0,
+      "step_pattern_rate": 1.0,
+      "ended_rate": 1.0
+    }
+  },
+  "by_mode_and_size": {
+    "direct_single": {
+      "n": 101,
+      "accuracy": 0.6238,
+      "mean_generated_tokens": 4.0,
+      "mean_prefix_chars": 0.0,
+      "mean_prefix_lines": 0.0,
+      "leak_rate_prefix_chars_gt_0": 0.0,
+      "step_pattern_rate": 0.0,
+      "ended_rate": 1.0
+    },
+    "direct_multi": {
+      "n": 99,
+      "accuracy": 0.0303,
+      "mean_generated_tokens": 4.0,
+      "mean_prefix_chars": 0.0,
+      "mean_prefix_lines": 0.0,
+      "leak_rate_prefix_chars_gt_0": 0.0,
+      "step_pattern_rate": 0.0,
+      "ended_rate": 1.0
+    },
+    "trace_single": {
+      "n": 101,
+      "accuracy": 0.7327,
+      "mean_generated_tokens": 33.0,
+      "mean_prefix_chars": 37.46,
+      "mean_prefix_lines": 4.0,
+      "leak_rate_prefix_chars_gt_0": 1.0,
+      "step_pattern_rate": 1.0,
+      "ended_rate": 1.0
+    },
+    "trace_multi": {
+      "n": 99,
+      "accuracy": 0.5758,
+      "mean_generated_tokens": 33.0,
+      "mean_prefix_chars": 43.38,
+      "mean_prefix_lines": 4.0,
+      "leak_rate_prefix_chars_gt_0": 1.0,
+      "step_pattern_rate": 1.0,
+      "ended_rate": 1.0
+    }
+  }
+}
