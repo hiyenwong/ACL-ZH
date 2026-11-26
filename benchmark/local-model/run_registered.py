@@ -1,4 +1,4 @@
-"""Execute the d12 suppression experiment through the fixed project entry point."""
+"""Execute the latest registered experiment through the fixed project entry point."""
 
 from nanochat_d12_pipeline import main
 
