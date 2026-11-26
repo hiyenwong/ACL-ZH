@@ -17,8 +17,11 @@ The next valid effectiveness study requires a fresh harder held-out task set or
 a preregistered reasoning/budget control. The 12 information-equivalent tasks
 must not be retuned and then reused as independent confirmation.
 
-Full run IDs, commits and evidence boundaries:
-[2026-11 research progress](2026-11-RESEARCH-PROGRESS.md).
+Full run IDs, commits, committed archives and evidence boundaries:
+[2026-11 research progress](2026-11-RESEARCH-PROGRESS.md)
+(primary archive: [2026-11-18-deepseek-r1-8b-information-equivalent-v0.1](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md),
+manifest: [manifest-information-equivalent-v0.1.jsonl](../tasks/manifest-information-equivalent-v0.1.jsonl),
+preregistration: [PREREG-INFORMATION-EQUIVALENT-V0.1.md](../local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md)).
 
 The autonomous Claude Code / Codex smoke workflows below remain credential
 blocked; their historical status is unchanged.

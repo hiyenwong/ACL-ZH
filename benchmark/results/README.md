@@ -66,15 +66,18 @@ Preregistered 8B experiment (2026-10-19, PREREG-NEXT-DISCRIMINATING-V0.1 + Amend
 
 Status: **completed through the information-equivalent v0.1 gate; ACL effect unvalidated**
 
-Six registered local studies now cover the higher-token 8B diagnostic, explicit
-response transport v2, JSON Schema capability and semantics, the
-information-equivalent 12-task comparison, and the separate d12 nanochat
-reasoning-suppression mechanism study.
+Six registered local studies (archived under `benchmark/results/local/2026-11-*` with preregistration protocols under `benchmark/local-model/PREREG-*.md`) cover the higher-token 8B diagnostic, explicit response transport v2, JSON Schema capability and free-answer semantics, the information-equivalent 12-task comparison, and the separate d12 nanochat reasoning-suppression mechanism study:
 
-The latest primary Input Track result is Baseline 11/12, Minimal ACL 10/12 and
-Full ACL 10/12. All 31 non-truncated calls passed; all five failures exhausted
-the hidden-reasoning budget. This does not meet the preregistered follow-up gate
-and supports no ACL effectiveness or harm claim.
+| Date | Study | Committed archive | Result |
+| --- | --- | --- | --- |
+| 2026-11-13 | 8B / 16,384-token diagnostic | [2026-11-13-deepseek-r1-8b-budget16384-edit-content](local/2026-11-13-deepseek-r1-8b-budget16384-edit-content/RESULT-REPORT.md) | dependency-mirror 0/4 per variant; constraint 8/12, 6/12, 4/12; 1/48 truncated |
+| 2026-11-13 | Explicit response transport v2 | [2026-11-13-deepseek-r1-8b-transport-v2-edit-content](local/2026-11-13-deepseek-r1-8b-transport-v2-edit-content/RESULT-REPORT.md) | dependency-mirror 1/4 per variant; constraint 10/12, 11/12, 9/12; 3/48 truncated |
+| 2026-11-14 | JSON Schema capability probe | [2026-11-14-deepseek-r1-8b-schema-capability-probe](local/2026-11-14-deepseek-r1-8b-schema-capability-probe/RESULT-REPORT.md) | 6/6 calls; constrained 3/3 vs plain 1/3 schema-valid (singleton enum feasibility only) |
+| 2026-11-18 | Free-answer schema semantic probe | [2026-11-18-deepseek-r1-8b-schema-free-answer-probe](local/2026-11-18-deepseek-r1-8b-schema-free-answer-probe/RESULT-REPORT.md) | 20/20 calls; constrained 10/10 schema, 0/10 semantic, 0/5 arithmetic vs plain 5/10, 4/5 |
+| 2026-11-18 | Information-equivalent edit-content v0.1 | [2026-11-18-deepseek-r1-8b-information-equivalent-v0.1](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md) | Baseline 11/12, Minimal 10/12, Full 10/12; all 31 non-truncated passed; 5/36 truncated |
+| 2026-11-25 | nanochat d12 suppression mechanism | [2026-11-25-nanochat-d12-suppression-mechanism](local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) | trace silent multi-digit 0.3737 (visible 1.000); direct silent multi-digit 0.3434 (mechanism track only) |
+
+The latest primary Input Track result ([manifest](../tasks/manifest-information-equivalent-v0.1.jsonl), [preregistration](../local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md)) is Baseline 11/12, Minimal ACL 10/12 and Full ACL 10/12. All 31 non-truncated calls passed; all five failures exhausted the hidden-reasoning budget. This does not meet the preregistered 4-win follow-up gate and supports no ACL effectiveness or harm claim.
 
 See [2026-11 research progress](2026-11-RESEARCH-PROGRESS.md) for run IDs,
 source commits, measurements, mechanism results and the next evidence gate.

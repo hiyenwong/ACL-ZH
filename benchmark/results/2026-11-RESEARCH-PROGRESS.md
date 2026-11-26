@@ -24,23 +24,31 @@ and mechanism results, not autonomous Claude Code / Codex benchmark results.
 
 ## Registered experiment sequence
 
-| Study | Run / source | Observed result | Decision |
-| --- | --- | --- | --- |
-| 8B, 16,384-token budget | `ad7d19bf-24d4-4ce8-88cf-ab5644a022e2` / `3267889` | 48/48 calls. Dependency-mirror contract success 0/4 for every variant; constraint Baseline/Minimal/Full 8/12, 6/12, 4/12. | No preregistered cross-manifest separation; inspect failure taxonomy and information equivalence. |
-| Explicit response transport v2 | `a52f5cf4-8c79-4cf3-825c-1e0b145ec0da` / `b584045` | 48/48 calls. Dependency-mirror 1/4 per variant; constraint Baseline/Minimal/Full 10/12, 11/12, 9/12. Format compliance improved, semantics did not improve uniformly. | Retain as a candidate transport; no ACL efficacy or harm claim. |
-| JSON Schema capability probe | `91d11517-f949-4bff-ac82-ccf1105600d5` / `83d2f59` | Constrained responses were schema-valid 3/3 versus plain 1/3, but singleton enums supplied the entire answer. | Structural feasibility only; require free-answer semantic tests. |
-| Free-answer schema semantic probe | `40e6d411-29c4-4091-8dfd-52f26ffc4a66` / `346f051` | 20/20 calls. Constrained exact-schema 10/10, semantic 0/10 and arithmetic 0/5; plain semantic 5/10 and arithmetic 4/5. | Reject this schema path for the formal code track; retain transport-v2. |
-| Information-equivalent edit-content v0.1 | `c7ab1518-ab20-472c-8c6e-fcf67bf71206` / `082d13c` | 36/36 calls. Baseline/Minimal/Full task success 11/12, 10/12, 10/12; all 31 non-truncated calls passed. | No follow-up gate met; do not claim an ACL effect or tune on the same tasks. |
-| d12 reasoning-suppression mechanism | `548d036b-3882-49d4-8f57-62f082ac0115` / `58ef5bd` | d12 trace arm: silent multi-digit 0.3737, visible 1.000; direct arm: silent multi-digit 0.3434, trace-requested 0.3131 with no visible work. | Depth narrows but does not close the suppression gap; training budget remains confounded. |
+| Study | Run / source | Observed result | Committed evidence & preregistration | Decision |
+| --- | --- | --- | --- | --- |
+| 8B, 16,384-token budget | `ad7d19bf-24d4-4ce8-88cf-ab5644a022e2` / `3267889` | 48/48 calls. Dependency-mirror contract success 0/4 for every variant; constraint Baseline/Minimal/Full 8/12, 6/12, 4/12. | [Report](local/2026-11-13-deepseek-r1-8b-budget16384-edit-content/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-BUDGET16384.md) | No preregistered cross-manifest separation; inspect failure taxonomy and information equivalence. |
+| Explicit response transport v2 | `a52f5cf4-8c79-4cf3-825c-1e0b145ec0da` / `b584045` | 48/48 calls. Dependency-mirror 1/4 per variant; constraint Baseline/Minimal/Full 10/12, 11/12, 9/12. Format compliance improved, semantics did not improve uniformly. | [Report](local/2026-11-13-deepseek-r1-8b-transport-v2-edit-content/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-TRANSPORT-V2.md) | Retain as a candidate transport; no ACL efficacy or harm claim. |
+| JSON Schema capability probe | `91d11517-f949-4bff-ac82-ccf1105600d5` / `83d2f59` | 6/6 calls. Constrained responses were schema-valid 3/3 versus plain 1/3, but singleton enums supplied the entire answer. | [Report](local/2026-11-14-deepseek-r1-8b-schema-capability-probe/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-SCHEMA-CAPABILITY.md) | Structural feasibility only; require free-answer semantic tests. |
+| Free-answer schema semantic probe | `40e6d411-29c4-4091-8dfd-52f26ffc4a66` / `346f051` | 20/20 calls. Constrained exact-schema 10/10, semantic 0/10 and arithmetic 0/5; plain semantic 5/10 and arithmetic 4/5. | [Report](local/2026-11-18-deepseek-r1-8b-schema-free-answer-probe/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-FREE-ANSWER-SCHEMA.md) | Reject this schema path for the formal code track; retain transport-v2. |
+| Information-equivalent edit-content v0.1 | `c7ab1518-ab20-472c-8c6e-fcf67bf71206` / `082d13c` | 36/36 calls. Baseline/Minimal/Full task success 11/12, 10/12, 10/12; all 31 non-truncated calls passed. | [Report](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md) · [Manifest](../tasks/manifest-information-equivalent-v0.1.jsonl) | No follow-up gate met; do not claim an ACL effect or tune on the same tasks. |
+| d12 reasoning-suppression mechanism | `548d036b-3882-49d4-8f57-62f082ac0115` / `58ef5bd` | d12 trace arm: silent multi-digit 0.3737, visible 1.000; direct arm: silent multi-digit 0.3434, trace-requested 0.3131 with no visible work. | [Report](local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) · [JSON](local/2026-11-25-nanochat-d12-suppression-mechanism/d12-suppression-report.json) · [Prereg](../local-model/PREREG-NANOCHAT-SUPPRESSION-V0.1.md) | Depth narrows but does not close the suppression gap; training budget remains confounded. |
 
-All listed model runs are terminal. Earlier interrupted or implementation-failed
+All listed model runs are terminal, and all six source commits are ancestors in
+this repository's git history. Earlier interrupted or implementation-failed
 runs are not pooled into these measurements.
 
 ## Latest primary Input Track result
 
-The information-equivalent manifest passed all construction gates before
-inference: 12/12 tasks and 56 counted technical facts passed the equivalence
-audit; No-op controls were 0/36 and Reference controls 36/36. Scoring provenance
+The [information-equivalent manifest](../tasks/manifest-information-equivalent-v0.1.jsonl)
+passed all construction gates defined in
+[PREREG-INFORMATION-EQUIVALENT-V0.1.md](../local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md)
+before inference: 12/12 tasks and 56 counted technical facts passed the
+[equivalence audit](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/pre-inference-equivalence-audit.json);
+[No-op controls](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/controls-noop.json)
+were 0/36 and
+[Reference controls](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/controls-reference.json)
+36/36. Scoring provenance in
+[aggregate-edit-content.json](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/aggregate-edit-content.json)
 was verified without overrides.
 
 | Variant | Task success | Semantic success | Format compliance | Truncated |
