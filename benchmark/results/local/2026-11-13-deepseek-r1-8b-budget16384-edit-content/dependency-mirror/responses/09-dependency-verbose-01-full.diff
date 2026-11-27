@@ -1,0 +1,9 @@
+
+The changes involve modifying the `dumps` function in `src/serializer.py` to use sorted keys and compact separators, while ensuring the output remains valid JSON. The test file `tests/test_serializer.py` is not modified as it already passes with the new output format.
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True, separators=(',', ':'))
+<<<END>>>

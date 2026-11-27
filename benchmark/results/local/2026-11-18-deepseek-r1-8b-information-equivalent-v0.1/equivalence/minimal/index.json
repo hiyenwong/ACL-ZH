@@ -1,0 +1,74 @@
+[
+  {
+    "task_id": "eq-slug-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-slug-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-slug-01-minimal.json"
+  },
+  {
+    "task_id": "eq-clock-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-clock-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-clock-01-minimal.json"
+  },
+  {
+    "task_id": "eq-order-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-order-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-order-01-minimal.json"
+  },
+  {
+    "task_id": "eq-settings-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-settings-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-settings-01-minimal.json"
+  },
+  {
+    "task_id": "eq-score-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-score-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-score-01-minimal.json"
+  },
+  {
+    "task_id": "eq-quiet-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-quiet-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-quiet-01-minimal.json"
+  },
+  {
+    "task_id": "eq-money-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-money-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-money-01-minimal.json"
+  },
+  {
+    "task_id": "eq-month-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-month-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-month-01-minimal.json"
+  },
+  {
+    "task_id": "eq-fallback-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-fallback-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-fallback-01-minimal.json"
+  },
+  {
+    "task_id": "eq-clamp-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-clamp-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-clamp-01-minimal.json"
+  },
+  {
+    "task_id": "eq-window-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-window-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-window-01-minimal.json"
+  },
+  {
+    "task_id": "eq-retry-01",
+    "variant": "minimal",
+    "prompt": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-retry-01-minimal.md",
+    "metadata": "benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/equivalence/minimal/eq-retry-01-minimal.json"
+  }
+]

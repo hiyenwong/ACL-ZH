@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-r57qmdz2w2r0wi461sdjxof",
+  "object": "chat.completion",
+  "created": 1795001770,
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"task_id\": \"code-record-01\", \"expression\": \"def remove_whitespace(d):    return {k: v['name'].strip() for k, v in d.items()}\"}",
+        "reasoning_content": "",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 76,
+    "completion_tokens": 41,
+    "total_tokens": 117,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "deepseek/deepseek-r1-0528-qwen3-8b"
+}

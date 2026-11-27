@@ -1,0 +1,17 @@
+{
+  "task_id": "exception-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "目标：为 safe_divide() 增加除零保护。\n任务：当且仅当发生 ZeroDivisionError 时返回 None。\n约束：不得捕获或吞掉其他异常类型。\n验证：运行 python -m unittest discover -s tests。",
+  "files": {
+    "src/safe_math.py": "def safe_divide(a, b):\n    return a / b\n",
+    "tests/test_safe_math.py": "import unittest\nfrom src.safe_math import safe_divide\nclass T(unittest.TestCase):\n def test_normal(self): self.assertEqual(safe_divide(6,3),2)\n"
+  },
+  "allowed_paths": [
+    "src/safe_math.py",
+    "tests/test_safe_math.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

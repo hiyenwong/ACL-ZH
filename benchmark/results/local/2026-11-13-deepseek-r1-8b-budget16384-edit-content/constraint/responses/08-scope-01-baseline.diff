@@ -1,0 +1,8 @@
+
+<<<FILE:src/user_service.py>>>
+def get_user(user_id):
+    user = {'id': user_id, 'name': '  Alice  '}
+    # Remove surrounding whitespace from the name
+    user['name'] = user['name'].strip()
+    return user
+<<<END>>>

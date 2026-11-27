@@ -1,0 +1,15 @@
+{
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Return user.get('enabled', False), preserving False when present and using False when missing.\n\nReturn only one JSON object with exactly task_id and expression (string). The JSON must contain no extra fields. Do not explain. The expression must be a single Python expression, with no return keyword, assignment, import, statement, or code fence."
+    }
+  ],
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20261011,
+  "max_tokens": 16384,
+  "reasoning_effort": "none",
+  "stream": false
+}

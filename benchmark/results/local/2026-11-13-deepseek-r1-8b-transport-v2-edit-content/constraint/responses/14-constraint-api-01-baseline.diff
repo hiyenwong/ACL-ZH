@@ -1,0 +1,20 @@
+
+<<<FILE:src/token.py>>>
+def normalize_token(token):
+    return token.strip()
+<<<END>>>
+
+<<<FILE:tests/test_token.py>>>
+import unittest
+from src.token import normalize_token
+
+class T(unittest.TestCase):
+    def test_plain(self): 
+        self.assertEqual(normalize_token('abc'), 'abc')
+    
+    def test_whitespace_around(self):
+        self.assertEqual(normalize_token('  abc  '), 'abc')
+    
+    def test_whitespace_only(self):
+        self.assertEqual(normalize_token('   '), '')
+<<<END>>>

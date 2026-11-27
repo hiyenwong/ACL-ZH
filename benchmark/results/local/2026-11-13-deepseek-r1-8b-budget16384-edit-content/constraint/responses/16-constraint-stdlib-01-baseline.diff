@@ -1,0 +1,11 @@
+
+<<<FILE:src/hashutil.py>>>
+import hashlib
+
+def sha256_text(value):
+    if isinstance(value, str):
+        value = value.encode('utf-8')
+    return hashlib.sha256(value).hexdigest()
+<<<END>>>
+
+The test file remains unchanged as it only checks callability.

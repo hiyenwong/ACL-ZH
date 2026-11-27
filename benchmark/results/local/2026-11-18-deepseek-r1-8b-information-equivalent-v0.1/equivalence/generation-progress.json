@@ -1,0 +1,578 @@
+[
+  {
+    "run": 1,
+    "task_id": "eq-quiet-01",
+    "variant": "minimal",
+    "response_chars": 97,
+    "elapsed_seconds": 27.729,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 448,
+      "completion_tokens": 1478,
+      "total_tokens": 1926,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1445
+      }
+    }
+  },
+  {
+    "run": 2,
+    "task_id": "eq-money-01",
+    "variant": "baseline",
+    "response_chars": 152,
+    "elapsed_seconds": 98.072,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 460,
+      "completion_tokens": 4856,
+      "total_tokens": 5316,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4804
+      }
+    }
+  },
+  {
+    "run": 3,
+    "task_id": "eq-fallback-01",
+    "variant": "minimal",
+    "response_chars": 250,
+    "elapsed_seconds": 39.523,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 463,
+      "completion_tokens": 2066,
+      "total_tokens": 2529,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1999
+      }
+    }
+  },
+  {
+    "run": 4,
+    "task_id": "eq-money-01",
+    "variant": "full",
+    "response_chars": 278,
+    "elapsed_seconds": 197.193,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 472,
+      "completion_tokens": 9716,
+      "total_tokens": 10188,
+      "completion_tokens_details": {
+        "reasoning_tokens": 9616
+      }
+    }
+  },
+  {
+    "run": 5,
+    "task_id": "eq-retry-01",
+    "variant": "minimal",
+    "response_chars": 0,
+    "elapsed_seconds": 224.665,
+    "finish_reason": "length",
+    "usage": {
+      "prompt_tokens": 457,
+      "completion_tokens": 16383,
+      "total_tokens": 16840,
+      "completion_tokens_details": {
+        "reasoning_tokens": 16382
+      }
+    }
+  },
+  {
+    "run": 6,
+    "task_id": "eq-score-01",
+    "variant": "minimal",
+    "response_chars": 278,
+    "elapsed_seconds": 71.331,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 450,
+      "completion_tokens": 5997,
+      "total_tokens": 6447,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5919
+      }
+    }
+  },
+  {
+    "run": 7,
+    "task_id": "eq-month-01",
+    "variant": "minimal",
+    "response_chars": 419,
+    "elapsed_seconds": 63.812,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 436,
+      "completion_tokens": 5280,
+      "total_tokens": 5716,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5171
+      }
+    }
+  },
+  {
+    "run": 8,
+    "task_id": "eq-window-01",
+    "variant": "baseline",
+    "response_chars": 98,
+    "elapsed_seconds": 19.61,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 454,
+      "completion_tokens": 1686,
+      "total_tokens": 2140,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1656
+      }
+    }
+  },
+  {
+    "run": 9,
+    "task_id": "eq-fallback-01",
+    "variant": "full",
+    "response_chars": 180,
+    "elapsed_seconds": 29.436,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 482,
+      "completion_tokens": 2520,
+      "total_tokens": 3002,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2474
+      }
+    }
+  },
+  {
+    "run": 10,
+    "task_id": "eq-clock-01",
+    "variant": "minimal",
+    "response_chars": 357,
+    "elapsed_seconds": 154.278,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 470,
+      "completion_tokens": 11506,
+      "total_tokens": 11976,
+      "completion_tokens_details": {
+        "reasoning_tokens": 11408
+      }
+    }
+  },
+  {
+    "run": 11,
+    "task_id": "eq-month-01",
+    "variant": "baseline",
+    "response_chars": 469,
+    "elapsed_seconds": 62.524,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 443,
+      "completion_tokens": 5206,
+      "total_tokens": 5649,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5085
+      }
+    }
+  },
+  {
+    "run": 12,
+    "task_id": "eq-clamp-01",
+    "variant": "minimal",
+    "response_chars": 176,
+    "elapsed_seconds": 5.747,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 454,
+      "completion_tokens": 487,
+      "total_tokens": 941,
+      "completion_tokens_details": {
+        "reasoning_tokens": 436
+      }
+    }
+  },
+  {
+    "run": 13,
+    "task_id": "eq-month-01",
+    "variant": "full",
+    "response_chars": 545,
+    "elapsed_seconds": 159.394,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 455,
+      "completion_tokens": 8614,
+      "total_tokens": 9069,
+      "completion_tokens_details": {
+        "reasoning_tokens": 8470
+      }
+    }
+  },
+  {
+    "run": 14,
+    "task_id": "eq-clock-01",
+    "variant": "baseline",
+    "response_chars": 309,
+    "elapsed_seconds": 64.96,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 477,
+      "completion_tokens": 3503,
+      "total_tokens": 3980,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3412
+      }
+    }
+  },
+  {
+    "run": 15,
+    "task_id": "eq-quiet-01",
+    "variant": "baseline",
+    "response_chars": 97,
+    "elapsed_seconds": 24.588,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 455,
+      "completion_tokens": 869,
+      "total_tokens": 1324,
+      "completion_tokens_details": {
+        "reasoning_tokens": 836
+      }
+    }
+  },
+  {
+    "run": 16,
+    "task_id": "eq-score-01",
+    "variant": "baseline",
+    "response_chars": 315,
+    "elapsed_seconds": 131.079,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 457,
+      "completion_tokens": 4085,
+      "total_tokens": 4542,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4005
+      }
+    }
+  },
+  {
+    "run": 17,
+    "task_id": "eq-settings-01",
+    "variant": "baseline",
+    "response_chars": 343,
+    "elapsed_seconds": 128.979,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 462,
+      "completion_tokens": 4076,
+      "total_tokens": 4538,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3984
+      }
+    }
+  },
+  {
+    "run": 18,
+    "task_id": "eq-clock-01",
+    "variant": "full",
+    "response_chars": 446,
+    "elapsed_seconds": 144.527,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 489,
+      "completion_tokens": 5536,
+      "total_tokens": 6025,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5419
+      }
+    }
+  },
+  {
+    "run": 19,
+    "task_id": "eq-order-01",
+    "variant": "full",
+    "response_chars": 189,
+    "elapsed_seconds": 49.161,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 436,
+      "completion_tokens": 2260,
+      "total_tokens": 2696,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2213
+      }
+    }
+  },
+  {
+    "run": 20,
+    "task_id": "eq-quiet-01",
+    "variant": "full",
+    "response_chars": 97,
+    "elapsed_seconds": 19.897,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 467,
+      "completion_tokens": 924,
+      "total_tokens": 1391,
+      "completion_tokens_details": {
+        "reasoning_tokens": 891
+      }
+    }
+  },
+  {
+    "run": 21,
+    "task_id": "eq-fallback-01",
+    "variant": "baseline",
+    "response_chars": 180,
+    "elapsed_seconds": 18.333,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 470,
+      "completion_tokens": 1218,
+      "total_tokens": 1688,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1172
+      }
+    }
+  },
+  {
+    "run": 22,
+    "task_id": "eq-settings-01",
+    "variant": "full",
+    "response_chars": 277,
+    "elapsed_seconds": 43.851,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 474,
+      "completion_tokens": 3627,
+      "total_tokens": 4101,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3554
+      }
+    }
+  },
+  {
+    "run": 23,
+    "task_id": "eq-slug-01",
+    "variant": "minimal",
+    "response_chars": 191,
+    "elapsed_seconds": 20.065,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 444,
+      "completion_tokens": 1712,
+      "total_tokens": 2156,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1657
+      }
+    }
+  },
+  {
+    "run": 24,
+    "task_id": "eq-score-01",
+    "variant": "full",
+    "response_chars": 220,
+    "elapsed_seconds": 43.585,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 469,
+      "completion_tokens": 3233,
+      "total_tokens": 3702,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3173
+      }
+    }
+  },
+  {
+    "run": 25,
+    "task_id": "eq-clamp-01",
+    "variant": "baseline",
+    "response_chars": 101,
+    "elapsed_seconds": 9.759,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 461,
+      "completion_tokens": 856,
+      "total_tokens": 1317,
+      "completion_tokens_details": {
+        "reasoning_tokens": 822
+      }
+    }
+  },
+  {
+    "run": 26,
+    "task_id": "eq-window-01",
+    "variant": "full",
+    "response_chars": 0,
+    "elapsed_seconds": 315.89,
+    "finish_reason": "length",
+    "usage": {
+      "prompt_tokens": 466,
+      "completion_tokens": 16383,
+      "total_tokens": 16849,
+      "completion_tokens_details": {
+        "reasoning_tokens": 16382
+      }
+    }
+  },
+  {
+    "run": 27,
+    "task_id": "eq-settings-01",
+    "variant": "minimal",
+    "response_chars": 383,
+    "elapsed_seconds": 81.426,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 455,
+      "completion_tokens": 4706,
+      "total_tokens": 5161,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4616
+      }
+    }
+  },
+  {
+    "run": 28,
+    "task_id": "eq-order-01",
+    "variant": "baseline",
+    "response_chars": 370,
+    "elapsed_seconds": 264.965,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 424,
+      "completion_tokens": 8483,
+      "total_tokens": 8907,
+      "completion_tokens_details": {
+        "reasoning_tokens": 8401
+      }
+    }
+  },
+  {
+    "run": 29,
+    "task_id": "eq-money-01",
+    "variant": "minimal",
+    "response_chars": 173,
+    "elapsed_seconds": 98.264,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 453,
+      "completion_tokens": 3203,
+      "total_tokens": 3656,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3142
+      }
+    }
+  },
+  {
+    "run": 30,
+    "task_id": "eq-slug-01",
+    "variant": "baseline",
+    "response_chars": 0,
+    "elapsed_seconds": 551.411,
+    "finish_reason": "length",
+    "usage": {
+      "prompt_tokens": 451,
+      "completion_tokens": 16383,
+      "total_tokens": 16834,
+      "completion_tokens_details": {
+        "reasoning_tokens": 16382
+      }
+    }
+  },
+  {
+    "run": 31,
+    "task_id": "eq-clamp-01",
+    "variant": "full",
+    "response_chars": 176,
+    "elapsed_seconds": 7.183,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 473,
+      "completion_tokens": 236,
+      "total_tokens": 709,
+      "completion_tokens_details": {
+        "reasoning_tokens": 185
+      }
+    }
+  },
+  {
+    "run": 32,
+    "task_id": "eq-order-01",
+    "variant": "minimal",
+    "response_chars": 292,
+    "elapsed_seconds": 278.294,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 417,
+      "completion_tokens": 9052,
+      "total_tokens": 9469,
+      "completion_tokens_details": {
+        "reasoning_tokens": 8981
+      }
+    }
+  },
+  {
+    "run": 33,
+    "task_id": "eq-retry-01",
+    "variant": "baseline",
+    "response_chars": 358,
+    "elapsed_seconds": 237.266,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 464,
+      "completion_tokens": 8184,
+      "total_tokens": 8648,
+      "completion_tokens_details": {
+        "reasoning_tokens": 8099
+      }
+    }
+  },
+  {
+    "run": 34,
+    "task_id": "eq-window-01",
+    "variant": "minimal",
+    "response_chars": 0,
+    "elapsed_seconds": 386.373,
+    "finish_reason": "length",
+    "usage": {
+      "prompt_tokens": 447,
+      "completion_tokens": 16383,
+      "total_tokens": 16830,
+      "completion_tokens_details": {
+        "reasoning_tokens": 16382
+      }
+    }
+  },
+  {
+    "run": 35,
+    "task_id": "eq-retry-01",
+    "variant": "full",
+    "response_chars": 0,
+    "elapsed_seconds": 255.304,
+    "finish_reason": "length",
+    "usage": {
+      "prompt_tokens": 476,
+      "completion_tokens": 16383,
+      "total_tokens": 16859,
+      "completion_tokens_details": {
+        "reasoning_tokens": 16382
+      }
+    }
+  },
+  {
+    "run": 36,
+    "task_id": "eq-slug-01",
+    "variant": "full",
+    "response_chars": 154,
+    "elapsed_seconds": 65.413,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 463,
+      "completion_tokens": 5504,
+      "total_tokens": 5967,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5457
+      }
+    }
+  }
+]

@@ -1,0 +1,18 @@
+
+<<<FILE:src/retry.py>>>
+```python
+def run_with_retry(call, attempts=3):
+    last_exception = None
+    for _ in range(attempts):
+        try:
+            result = call()
+            if not isinstance(result, Exception):
+                return result
+        except ValueError as e:
+            last_exception = e
+
+    if last_exception is not None:
+        raise last_exception
+    else:
+        return call()
+<<<END>>>

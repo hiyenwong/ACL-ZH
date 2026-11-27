@@ -1,0 +1,15 @@
+{
+  "task_id": "eq-settings-01",
+  "category": "equivalence-config",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "# 任务\n目标：满足全部原子事实。\n## 原子事实\n[eq-settings-01/F01] build_settings(settings) 保持单参数公开签名。\n[eq-settings-01/F02] 返回一个新 dict，而不是传入对象本身。\n[eq-settings-01/F03] 空 settings 的默认值为 mode='viewer' 且 page=1。\n[eq-settings-01/F04] settings 中出现的键覆盖同名默认值，未出现的默认键保留。\n[eq-settings-01/F05] 不得原地修改传入的 settings。\n## 范围\n[eq-settings-01/S1] 只允许修改 src/session_settings.py；其他所有工作区文件必须保持不变。\n## 评估\n[eq-settings-01/V1] 评估器会在收到完整文件内容后运行测试；本轮没有文件或终端工具，不要声称自己运行了测试。",
+  "files": {
+    "src/session_settings.py": "def build_settings(settings):\n    return settings\n"
+  },
+  "allowed_paths": [
+    "src/session_settings.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

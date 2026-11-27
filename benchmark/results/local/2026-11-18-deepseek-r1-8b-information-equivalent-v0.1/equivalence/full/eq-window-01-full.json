@@ -1,0 +1,15 @@
+{
+  "task_id": "eq-window-01",
+  "category": "equivalence-collection",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "# 任务\n目标：满足全部原子事实。\n## 原子事实\n[eq-window-01/F01] window(values, start, stop) 保持三参数公开签名。\n[eq-window-01/F02] start 是包含端点，stop 是不包含端点。\n[eq-window-01/F03] 越界部分按空序列处理，不得引发 IndexError。\n[eq-window-01/F04] 返回结果必须是 list。\n[eq-window-01/F05] 不得原地修改传入的 values。\n## 范围\n[eq-window-01/S1] 只允许修改 src/window.py；其他所有工作区文件必须保持不变。\n## 评估\n[eq-window-01/V1] 评估器会在收到完整文件内容后运行测试；本轮没有文件或终端工具，不要声称自己运行了测试。",
+  "files": {
+    "src/window.py": "def window(values, start, stop):\n    return values[:stop]\n"
+  },
+  "allowed_paths": [
+    "src/window.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

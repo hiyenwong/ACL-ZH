@@ -1,0 +1,15 @@
+{
+  "task_id": "eq-order-01",
+  "category": "equivalence-collection",
+  "track": "local-edit-content",
+  "variant": "baseline",
+  "instruction": "请按下方事实完成任务。\n必要事实：\n[eq-order-01/F01] ordered_tags(values) 保持单参数公开签名。\n[eq-order-01/F02] 返回值必须是 list。\n[eq-order-01/F03] 删除重复值，只保留每个值第一次出现的顺序。\n[eq-order-01/F04] 不得原地修改传入的 values。\n修改范围：\n[eq-order-01/S1] 只允许修改 src/order_tags.py；其他所有工作区文件必须保持不变。\n评估方式：\n[eq-order-01/V1] 评估器会在收到完整文件内容后运行测试；本轮没有文件或终端工具，不要声称自己运行了测试。",
+  "files": {
+    "src/order_tags.py": "def ordered_tags(values):\n    return values\n"
+  },
+  "allowed_paths": [
+    "src/order_tags.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

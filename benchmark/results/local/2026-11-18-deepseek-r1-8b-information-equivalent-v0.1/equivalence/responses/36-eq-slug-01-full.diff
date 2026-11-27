@@ -1,0 +1,9 @@
+
+<<<FILE:src/slug.py>>>
+import re
+
+def slugify(value):
+    value = value.strip()
+    value = value.lower()
+    return re.sub(r'\s+', '-', value)
+<<<END>>>

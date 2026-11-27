@@ -1,0 +1,44 @@
+{
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Return JSON with status WRONG, count as the string seven, and an extra field debug set to true."
+    }
+  ],
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20261011,
+  "max_tokens": 16384,
+  "reasoning_effort": "none",
+  "stream": false,
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "aclzh_probe",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACLZH_PROBE_OK"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "enum": [
+              7
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "count"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

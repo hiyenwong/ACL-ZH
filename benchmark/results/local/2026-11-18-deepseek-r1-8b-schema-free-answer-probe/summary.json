@@ -1,0 +1,342 @@
+[
+  {
+    "task_id": "arith-mixed-01",
+    "kind": "arithmetic",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": true,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 47,
+      "completion_tokens": 9887,
+      "total_tokens": 9934,
+      "completion_tokens_details": {
+        "reasoning_tokens": 9870
+      }
+    },
+    "elapsed_seconds": 111.97199702262878
+  },
+  {
+    "task_id": "arith-mixed-01",
+    "kind": "arithmetic",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 47,
+      "completion_tokens": 19,
+      "total_tokens": 66,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.6875061988830566
+  },
+  {
+    "task_id": "code-normalize-01",
+    "kind": "code",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 66,
+      "completion_tokens": 23,
+      "total_tokens": 89,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.43799781799316406
+  },
+  {
+    "task_id": "code-normalize-01",
+    "kind": "code",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 66,
+      "completion_tokens": 4688,
+      "total_tokens": 4754,
+      "completion_tokens_details": {
+        "reasoning_tokens": 4669
+      }
+    },
+    "elapsed_seconds": 47.78773617744446
+  },
+  {
+    "task_id": "arith-minmax-01",
+    "kind": "arithmetic",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": true,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 1429,
+      "total_tokens": 1488,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1410
+      }
+    },
+    "elapsed_seconds": 13.929517030715942
+  },
+  {
+    "task_id": "arith-minmax-01",
+    "kind": "arithmetic",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 21,
+      "total_tokens": 80,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.22095370292663574
+  },
+  {
+    "task_id": "code-distance-01",
+    "kind": "code",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 61,
+      "completion_tokens": 21,
+      "total_tokens": 82,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.26534485816955566
+  },
+  {
+    "task_id": "code-distance-01",
+    "kind": "code",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 61,
+      "completion_tokens": 5031,
+      "total_tokens": 5092,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5006
+      }
+    },
+    "elapsed_seconds": 51.52719163894653
+  },
+  {
+    "task_id": "arith-sum-01",
+    "kind": "arithmetic",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": true,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 50,
+      "completion_tokens": 2332,
+      "total_tokens": 2382,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2313
+      }
+    },
+    "elapsed_seconds": 23.029885292053223
+  },
+  {
+    "task_id": "arith-sum-01",
+    "kind": "arithmetic",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 50,
+      "completion_tokens": 19,
+      "total_tokens": 69,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.20335841178894043
+  },
+  {
+    "task_id": "code-list-01",
+    "kind": "code",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 69,
+      "completion_tokens": 27,
+      "total_tokens": 96,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.3219881057739258
+  },
+  {
+    "task_id": "code-list-01",
+    "kind": "code",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 69,
+      "completion_tokens": 2085,
+      "total_tokens": 2154,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2055
+      }
+    },
+    "elapsed_seconds": 20.474472045898438
+  },
+  {
+    "task_id": "arith-len-01",
+    "kind": "arithmetic",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 250,
+      "total_tokens": 290,
+      "completion_tokens_details": {
+        "reasoning_tokens": 225
+      }
+    },
+    "elapsed_seconds": 2.417529821395874
+  },
+  {
+    "task_id": "arith-len-01",
+    "kind": "arithmetic",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 19,
+      "total_tokens": 59,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.20188188552856445
+  },
+  {
+    "task_id": "code-record-01",
+    "kind": "code",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 76,
+      "completion_tokens": 41,
+      "total_tokens": 117,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.45769286155700684
+  },
+  {
+    "task_id": "code-record-01",
+    "kind": "code",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 76,
+      "completion_tokens": 479,
+      "total_tokens": 555,
+      "completion_tokens_details": {
+        "reasoning_tokens": 431
+      }
+    },
+    "elapsed_seconds": 4.574515104293823
+  },
+  {
+    "task_id": "arith-div-01",
+    "kind": "arithmetic",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": true,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 45,
+      "completion_tokens": 2403,
+      "total_tokens": 2448,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2383
+      }
+    },
+    "elapsed_seconds": 23.75757384300232
+  },
+  {
+    "task_id": "arith-div-01",
+    "kind": "arithmetic",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 45,
+      "completion_tokens": 19,
+      "total_tokens": 64,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.2018280029296875
+  },
+  {
+    "task_id": "code-default-01",
+    "kind": "code",
+    "constrained": true,
+    "schema_valid": true,
+    "semantic_valid": false,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 71,
+      "completion_tokens": 32,
+      "total_tokens": 103,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "elapsed_seconds": 0.3693559169769287
+  },
+  {
+    "task_id": "code-default-01",
+    "kind": "code",
+    "constrained": false,
+    "schema_valid": false,
+    "semantic_valid": true,
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 71,
+      "completion_tokens": 5610,
+      "total_tokens": 5681,
+      "completion_tokens_details": {
+        "reasoning_tokens": 5586
+      }
+    },
+    "elapsed_seconds": 57.827991008758545
+  }
+]

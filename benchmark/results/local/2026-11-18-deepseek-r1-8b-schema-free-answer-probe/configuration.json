@@ -1,0 +1,249 @@
+{
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "tasks": [
+    {
+      "id": "arith-mixed-01",
+      "kind": "arithmetic",
+      "prompt": "Compute ((17*23)-(312/6))%11.",
+      "expected": 9
+    },
+    {
+      "id": "arith-minmax-01",
+      "kind": "arithmetic",
+      "prompt": "Compute max(38, -17, 46, 12) * min(9, 4, 17).",
+      "expected": 184
+    },
+    {
+      "id": "arith-sum-01",
+      "kind": "arithmetic",
+      "prompt": "Compute sum([12, 15, 9, 31]) * 3.",
+      "expected": 201
+    },
+    {
+      "id": "arith-len-01",
+      "kind": "arithmetic",
+      "prompt": "Compute len('controlled-language') + 27.",
+      "expected": 46
+    },
+    {
+      "id": "arith-div-01",
+      "kind": "arithmetic",
+      "prompt": "Compute (847 - 319) // 13.",
+      "expected": 40
+    },
+    {
+      "id": "code-normalize-01",
+      "kind": "code",
+      "prompt": "Normalize a string by removing surrounding whitespace and converting it to lowercase.",
+      "expression": "value.strip().lower()",
+      "cases": [
+        {
+          "input": {
+            "value": "  ACL-ZH  "
+          },
+          "expected": "acl-zh"
+        },
+        {
+          "input": {
+            "value": "Probe"
+          },
+          "expected": "probe"
+        }
+      ]
+    },
+    {
+      "id": "code-distance-01",
+      "kind": "code",
+      "prompt": "Return the absolute difference between two numbers.",
+      "expression": "abs(left - right)",
+      "cases": [
+        {
+          "input": {
+            "left": 19,
+            "right": 47
+          },
+          "expected": 28
+        },
+        {
+          "input": {
+            "left": -6,
+            "right": -13
+          },
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "id": "code-list-01",
+      "kind": "code",
+      "prompt": "For every string in a list, remove surrounding whitespace and return the new list.",
+      "expression": "[item.strip() for item in items]",
+      "cases": [
+        {
+          "input": {
+            "items": [
+              " a ",
+              "b"
+            ]
+          },
+          "expected": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "input": {
+            "items": [
+              "  x"
+            ]
+          },
+          "expected": [
+            "x"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "code-record-01",
+      "kind": "code",
+      "prompt": "From user, return a new dict with only id and name; remove whitespace around name but do not change id.",
+      "expression": "{'id': user['id'], 'name': user['name'].strip()}",
+      "cases": [
+        {
+          "input": {
+            "user": {
+              "id": 7,
+              "name": " Ada "
+            }
+          },
+          "expected": {
+            "id": 7,
+            "name": "Ada"
+          }
+        },
+        {
+          "input": {
+            "user": {
+              "id": -2,
+              "name": "LOVELACE"
+            }
+          },
+          "expected": {
+            "id": -2,
+            "name": "LOVELACE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "code-default-01",
+      "kind": "code",
+      "prompt": "Return user.get('enabled', False), preserving False when present and using False when missing.",
+      "expression": "user.get('enabled', False)",
+      "cases": [
+        {
+          "input": {
+            "user": {
+              "enabled": false
+            }
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "user": {}
+          },
+          "expected": false
+        }
+      ]
+    }
+  ],
+  "order": [
+    [
+      "arith-mixed-01",
+      false
+    ],
+    [
+      "arith-mixed-01",
+      true
+    ],
+    [
+      "code-normalize-01",
+      true
+    ],
+    [
+      "code-normalize-01",
+      false
+    ],
+    [
+      "arith-minmax-01",
+      false
+    ],
+    [
+      "arith-minmax-01",
+      true
+    ],
+    [
+      "code-distance-01",
+      true
+    ],
+    [
+      "code-distance-01",
+      false
+    ],
+    [
+      "arith-sum-01",
+      false
+    ],
+    [
+      "arith-sum-01",
+      true
+    ],
+    [
+      "code-list-01",
+      true
+    ],
+    [
+      "code-list-01",
+      false
+    ],
+    [
+      "arith-len-01",
+      false
+    ],
+    [
+      "arith-len-01",
+      true
+    ],
+    [
+      "code-record-01",
+      true
+    ],
+    [
+      "code-record-01",
+      false
+    ],
+    [
+      "arith-div-01",
+      false
+    ],
+    [
+      "arith-div-01",
+      true
+    ],
+    [
+      "code-default-01",
+      true
+    ],
+    [
+      "code-default-01",
+      false
+    ]
+  ],
+  "max_tokens": 16384,
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20261011,
+  "reasoning_effort": "none",
+  "source_commit": "346f051fe36d028080ef14d3954c664ab80c45ab"
+}

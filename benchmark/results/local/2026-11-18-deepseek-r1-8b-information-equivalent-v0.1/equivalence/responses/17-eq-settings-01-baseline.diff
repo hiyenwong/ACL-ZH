@@ -1,0 +1,12 @@
+
+<<<FILE:src/session_settings.py>>>
+def build_settings(settings):
+    if not settings:
+        return {'mode': 'viewer', 'page': 1}
+    new_settings = settings.copy()
+    if 'mode' not in new_settings:
+        new_settings['mode'] = 'viewer'
+    if 'page' not in new_settings:
+        new_settings['page'] = 1
+    return new_settings
+<<<END>>>

@@ -1,0 +1,41 @@
+{
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Compute sum([12, 15, 9, 31]) * 3.\n\nReturn only one JSON object with exactly task_id and answer (integer). The JSON must contain no extra fields. Do not explain."
+    }
+  ],
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20261011,
+  "max_tokens": 16384,
+  "reasoning_effort": "none",
+  "stream": false,
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "aclzh_free_answer",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "enum": [
+              "arith-sum-01"
+            ]
+          },
+          "answer": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "task_id",
+          "answer"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

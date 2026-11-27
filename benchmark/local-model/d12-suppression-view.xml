@@ -1,0 +1,27 @@
+<signal name="loss" label="Base train loss" digits="3" smooth="0.3" better="lower" />
+<signal name="trace_sft_loss" label="Trace SFT loss" digits="3" smooth="0.3" better="lower" />
+<signal name="direct_sft_loss" label="Direct SFT loss" digits="3" smooth="0.3" better="lower" />
+<signal name="trace_silent_accuracy" label="Trace arm silent accuracy" digits="3" better="higher" />
+<signal name="direct_silent_accuracy" label="Direct arm silent accuracy" digits="3" better="higher" />
+<signal name="trace_visible_accuracy" label="Trace arm visible accuracy" digits="3" better="higher" />
+<signal name="direct_visible_accuracy" label="Direct arm visible accuracy" digits="3" better="higher" />
+<signal name="trace_silent_multi_accuracy" label="Trace arm silent multi-digit accuracy" digits="3" better="higher" />
+<signal name="direct_silent_multi_accuracy" label="Direct arm silent multi-digit accuracy" digits="3" better="higher" />
+<signal name="trace_silent_multi_error" label="Trace arm silent multi-digit error" digits="2" better="lower" />
+<signal name="direct_silent_multi_error" label="Direct arm silent multi-digit error" digits="2" better="lower" />
+<signal name="trace_leak_rate" label="Trace arm leak rate" digits="3" better="lower" />
+<signal name="direct_leak_rate" label="Direct arm leak rate" digits="3" better="lower" />
+<signal name="arm" label="Arm" />
+<signal name="silent_accuracy" label="Silent accuracy" digits="3" better="higher" />
+<signal name="visible_accuracy" label="Visible accuracy" digits="3" better="higher" />
+<signal name="silent_multi_accuracy" label="Silent multi-digit accuracy" digits="3" better="higher" />
+<signal name="silent_multi_error" label="Silent multi-digit error" digits="2" better="lower" />
+<signal name="leak_rate" label="Leak rate" digits="3" better="lower" />
+<view headline="trace_silent_multi_accuracy direct_silent_multi_accuracy loss">
+  <chart y="loss" phase="train" ghost="false" />
+  <chart from="arms" x="arm" y="silent_multi_accuracy" mark="bars" ghost="false" phase="summarize" title="Silent multi-digit accuracy by arm" />
+  <chart y="trace_sft_loss" phase="sft-trace" ghost="false" />
+  <chart y="direct_sft_loss" phase="sft-direct" ghost="false" />
+  <stats of="trace_silent_multi_accuracy direct_silent_multi_accuracy trace_silent_accuracy direct_silent_accuracy trace_visible_accuracy" />
+  <table name="arms" columns="arm silent_accuracy silent_multi_accuracy visible_accuracy leak_rate silent_multi_error" />
+</view>

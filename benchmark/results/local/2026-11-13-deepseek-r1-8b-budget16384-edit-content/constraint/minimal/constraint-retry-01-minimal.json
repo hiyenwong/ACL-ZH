@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-retry-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "实现 run_with_retry()：最多调用 call() attempts 次；成功立即返回；连续失败后重新抛出最后一个 ValueError。",
+  "files": {
+    "src/retry.py": "def run_with_retry(call, attempts=3):\n    return call()\n",
+    "tests/test_retry.py": "import unittest\nfrom src.retry import run_with_retry\nclass T(unittest.TestCase):\n def test_success(self): self.assertEqual(run_with_retry(lambda:'ok'),'ok')\n"
+  },
+  "allowed_paths": [
+    "src/retry.py",
+    "tests/test_retry.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

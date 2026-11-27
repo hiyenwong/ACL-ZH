@@ -1,0 +1,9 @@
+
+The change modifies `src/serializer.py` to use `json.dumps` with the `sort_keys=True` parameter, ensuring that keys are sorted alphabetically. The test file remains unchanged as it already expects a sorted dictionary.
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True)
+<<<END>>>

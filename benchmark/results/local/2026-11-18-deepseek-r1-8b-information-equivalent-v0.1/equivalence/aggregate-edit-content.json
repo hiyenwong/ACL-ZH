@@ -1,0 +1,128 @@
+{
+  "experiment_id": "deepseek-r1-8b-information-equivalent-v0.1-2026-11-18",
+  "provider": "lm-studio-local",
+  "track": "local-lm-studio-edit-content",
+  "contract_version": "edit-content-contract-v0.1",
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "runs": 36,
+  "summary": {
+    "baseline": {
+      "n": 12,
+      "parsed": 11,
+      "format_compliant": 11,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 11,
+      "semantic_task_success": 11,
+      "task_success": 11
+    },
+    "minimal": {
+      "n": 12,
+      "parsed": 10,
+      "format_compliant": 10,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 10,
+      "semantic_task_success": 10,
+      "task_success": 10
+    },
+    "full": {
+      "n": 12,
+      "parsed": 10,
+      "format_compliant": 10,
+      "visible_tests_pass": 12,
+      "hidden_oracle_pass": 10,
+      "semantic_task_success": 10,
+      "task_success": 10
+    }
+  },
+  "task_matrix": {
+    "eq-quiet-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-money-01": {
+      "baseline": true,
+      "full": true,
+      "minimal": true
+    },
+    "eq-fallback-01": {
+      "minimal": true,
+      "full": true,
+      "baseline": true
+    },
+    "eq-retry-01": {
+      "minimal": false,
+      "baseline": true,
+      "full": false
+    },
+    "eq-score-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-month-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-window-01": {
+      "baseline": true,
+      "full": false,
+      "minimal": false
+    },
+    "eq-clock-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-clamp-01": {
+      "minimal": true,
+      "baseline": true,
+      "full": true
+    },
+    "eq-settings-01": {
+      "baseline": true,
+      "full": true,
+      "minimal": true
+    },
+    "eq-order-01": {
+      "full": true,
+      "baseline": true,
+      "minimal": true
+    },
+    "eq-slug-01": {
+      "minimal": true,
+      "baseline": false,
+      "full": true
+    }
+  },
+  "provenance": {
+    "status": "verified",
+    "score_kind": "initial",
+    "actual": {
+      "git_sha": null,
+      "git_dirty": null,
+      "manifest_sha256": "383fc5bf38d00c6675bfccecc687d63ff30005a27a95262ea0df8adb98899650",
+      "experiment_sha256": "ca311fce8d394c2ca750d53a85c76c66dfe5b897368e887c4a6f6404735453b5",
+      "run_manifest_sha256": "dbd325ffa672d425b162d1c578b05679f7e531e8fccfc2f579646d4abb6c26e2",
+      "prompt_bundle_sha256": "50da9cbfeea226fe0dae016a578ec291b2970e631966ab4304a548ff32ae6c4c",
+      "scorer_sha256": "07b3557c6a8c70b514776cd6e8e51dff4fd6feab0f859c28afcf98fec17b2e00",
+      "oracle_sha256": "b0e17a08ed5ddf3f661ad2565f9f8d1135e36d53747de7b6b076e93f42b257a5",
+      "parser_sha256": "cd8a3b84429694ffd7941c0bd4bf16d25ba53dfecad621984084d1e1b33620e3"
+    },
+    "recorded": {
+      "manifest_sha256": "383fc5bf38d00c6675bfccecc687d63ff30005a27a95262ea0df8adb98899650",
+      "experiment_sha256": "ca311fce8d394c2ca750d53a85c76c66dfe5b897368e887c4a6f6404735453b5",
+      "run_manifest_sha256": "dbd325ffa672d425b162d1c578b05679f7e531e8fccfc2f579646d4abb6c26e2",
+      "prompt_bundle_sha256": "50da9cbfeea226fe0dae016a578ec291b2970e631966ab4304a548ff32ae6c4c"
+    },
+    "mismatches": {},
+    "missing_baseline": []
+  },
+  "metric_definitions": {
+    "semantic_task_success": "visible_tests_pass AND hidden_oracle_pass AND NOT constraint_violation",
+    "task_success": "semantic_task_success AND format_compliant",
+    "format_compliant": "well-formed blocks only: no residual text, no protocol violation, no duplicate or empty file path, no Markdown fence (``` or ~~~) in block content"
+  },
+  "evidence_boundary": "Diagnostic edit-content track; not comparable with strict unified-diff task-success counts."
+}

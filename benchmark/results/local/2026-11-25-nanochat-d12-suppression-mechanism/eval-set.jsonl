@@ -1,0 +1,400 @@
+{"id": "771721-00000", "mode": "direct", "prompt": "Compute 7+48. Do not show your work. Give only the final answer.", "a": 7, "b": 48, "answer": 55}
+{"id": "771721-00000", "mode": "trace", "prompt": "Compute 7+48. Show your work, then give the final answer.", "a": 7, "b": 48, "answer": 55}
+{"id": "771721-00001", "mode": "direct", "prompt": "Compute 7+7. Do not show your work. Give only the final answer.", "a": 7, "b": 7, "answer": 14}
+{"id": "771721-00001", "mode": "trace", "prompt": "Compute 7+7. Show your work, then give the final answer.", "a": 7, "b": 7, "answer": 14}
+{"id": "771721-00002", "mode": "direct", "prompt": "Compute 48+18. Do not show your work. Give only the final answer.", "a": 48, "b": 18, "answer": 66}
+{"id": "771721-00002", "mode": "trace", "prompt": "Compute 48+18. Show your work, then give the final answer.", "a": 48, "b": 18, "answer": 66}
+{"id": "771721-00003", "mode": "direct", "prompt": "Compute 7+9. Do not show your work. Give only the final answer.", "a": 7, "b": 9, "answer": 16}
+{"id": "771721-00003", "mode": "trace", "prompt": "Compute 7+9. Show your work, then give the final answer.", "a": 7, "b": 9, "answer": 16}
+{"id": "771721-00004", "mode": "direct", "prompt": "Compute 6+5. Do not show your work. Give only the final answer.", "a": 6, "b": 5, "answer": 11}
+{"id": "771721-00004", "mode": "trace", "prompt": "Compute 6+5. Show your work, then give the final answer.", "a": 6, "b": 5, "answer": 11}
+{"id": "771721-00005", "mode": "direct", "prompt": "Compute 40+25. Do not show your work. Give only the final answer.", "a": 40, "b": 25, "answer": 65}
+{"id": "771721-00005", "mode": "trace", "prompt": "Compute 40+25. Show your work, then give the final answer.", "a": 40, "b": 25, "answer": 65}
+{"id": "771721-00006", "mode": "direct", "prompt": "Compute 8+9. Do not show your work. Give only the final answer.", "a": 8, "b": 9, "answer": 17}
+{"id": "771721-00006", "mode": "trace", "prompt": "Compute 8+9. Show your work, then give the final answer.", "a": 8, "b": 9, "answer": 17}
+{"id": "771721-00007", "mode": "direct", "prompt": "Compute 7+1. Do not show your work. Give only the final answer.", "a": 7, "b": 1, "answer": 8}
+{"id": "771721-00007", "mode": "trace", "prompt": "Compute 7+1. Show your work, then give the final answer.", "a": 7, "b": 1, "answer": 8}
+{"id": "771721-00008", "mode": "direct", "prompt": "Compute 3+8. Do not show your work. Give only the final answer.", "a": 3, "b": 8, "answer": 11}
+{"id": "771721-00008", "mode": "trace", "prompt": "Compute 3+8. Show your work, then give the final answer.", "a": 3, "b": 8, "answer": 11}
+{"id": "771721-00009", "mode": "direct", "prompt": "Compute 48+21. Do not show your work. Give only the final answer.", "a": 48, "b": 21, "answer": 69}
+{"id": "771721-00009", "mode": "trace", "prompt": "Compute 48+21. Show your work, then give the final answer.", "a": 48, "b": 21, "answer": 69}
+{"id": "771721-00010", "mode": "direct", "prompt": "Compute 7+5. Do not show your work. Give only the final answer.", "a": 7, "b": 5, "answer": 12}
+{"id": "771721-00010", "mode": "trace", "prompt": "Compute 7+5. Show your work, then give the final answer.", "a": 7, "b": 5, "answer": 12}
+{"id": "771721-00011", "mode": "direct", "prompt": "Compute 46+6. Do not show your work. Give only the final answer.", "a": 46, "b": 6, "answer": 52}
+{"id": "771721-00011", "mode": "trace", "prompt": "Compute 46+6. Show your work, then give the final answer.", "a": 46, "b": 6, "answer": 52}
+{"id": "771721-00012", "mode": "direct", "prompt": "Compute 3+2. Do not show your work. Give only the final answer.", "a": 3, "b": 2, "answer": 5}
+{"id": "771721-00012", "mode": "trace", "prompt": "Compute 3+2. Show your work, then give the final answer.", "a": 3, "b": 2, "answer": 5}
+{"id": "771721-00013", "mode": "direct", "prompt": "Compute 28+25. Do not show your work. Give only the final answer.", "a": 28, "b": 25, "answer": 53}
+{"id": "771721-00013", "mode": "trace", "prompt": "Compute 28+25. Show your work, then give the final answer.", "a": 28, "b": 25, "answer": 53}
+{"id": "771721-00014", "mode": "direct", "prompt": "Compute 3+5. Do not show your work. Give only the final answer.", "a": 3, "b": 5, "answer": 8}
+{"id": "771721-00014", "mode": "trace", "prompt": "Compute 3+5. Show your work, then give the final answer.", "a": 3, "b": 5, "answer": 8}
+{"id": "771721-00015", "mode": "direct", "prompt": "Compute 3+2. Do not show your work. Give only the final answer.", "a": 3, "b": 2, "answer": 5}
+{"id": "771721-00015", "mode": "trace", "prompt": "Compute 3+2. Show your work, then give the final answer.", "a": 3, "b": 2, "answer": 5}
+{"id": "771721-00016", "mode": "direct", "prompt": "Compute 8+2. Do not show your work. Give only the final answer.", "a": 8, "b": 2, "answer": 10}
+{"id": "771721-00016", "mode": "trace", "prompt": "Compute 8+2. Show your work, then give the final answer.", "a": 8, "b": 2, "answer": 10}
+{"id": "771721-00017", "mode": "direct", "prompt": "Compute 25+12. Do not show your work. Give only the final answer.", "a": 25, "b": 12, "answer": 37}
+{"id": "771721-00017", "mode": "trace", "prompt": "Compute 25+12. Show your work, then give the final answer.", "a": 25, "b": 12, "answer": 37}
+{"id": "771721-00018", "mode": "direct", "prompt": "Compute 5+5. Do not show your work. Give only the final answer.", "a": 5, "b": 5, "answer": 10}
+{"id": "771721-00018", "mode": "trace", "prompt": "Compute 5+5. Show your work, then give the final answer.", "a": 5, "b": 5, "answer": 10}
+{"id": "771721-00019", "mode": "direct", "prompt": "Compute 6+37. Do not show your work. Give only the final answer.", "a": 6, "b": 37, "answer": 43}
+{"id": "771721-00019", "mode": "trace", "prompt": "Compute 6+37. Show your work, then give the final answer.", "a": 6, "b": 37, "answer": 43}
+{"id": "771721-00020", "mode": "direct", "prompt": "Compute 32+7. Do not show your work. Give only the final answer.", "a": 32, "b": 7, "answer": 39}
+{"id": "771721-00020", "mode": "trace", "prompt": "Compute 32+7. Show your work, then give the final answer.", "a": 32, "b": 7, "answer": 39}
+{"id": "771721-00021", "mode": "direct", "prompt": "Compute 8+0. Do not show your work. Give only the final answer.", "a": 8, "b": 0, "answer": 8}
+{"id": "771721-00021", "mode": "trace", "prompt": "Compute 8+0. Show your work, then give the final answer.", "a": 8, "b": 0, "answer": 8}
+{"id": "771721-00022", "mode": "direct", "prompt": "Compute 16+31. Do not show your work. Give only the final answer.", "a": 16, "b": 31, "answer": 47}
+{"id": "771721-00022", "mode": "trace", "prompt": "Compute 16+31. Show your work, then give the final answer.", "a": 16, "b": 31, "answer": 47}
+{"id": "771721-00023", "mode": "direct", "prompt": "Compute 29+10. Do not show your work. Give only the final answer.", "a": 29, "b": 10, "answer": 39}
+{"id": "771721-00023", "mode": "trace", "prompt": "Compute 29+10. Show your work, then give the final answer.", "a": 29, "b": 10, "answer": 39}
+{"id": "771721-00024", "mode": "direct", "prompt": "Compute 5+2. Do not show your work. Give only the final answer.", "a": 5, "b": 2, "answer": 7}
+{"id": "771721-00024", "mode": "trace", "prompt": "Compute 5+2. Show your work, then give the final answer.", "a": 5, "b": 2, "answer": 7}
+{"id": "771721-00025", "mode": "direct", "prompt": "Compute 5+0. Do not show your work. Give only the final answer.", "a": 5, "b": 0, "answer": 5}
+{"id": "771721-00025", "mode": "trace", "prompt": "Compute 5+0. Show your work, then give the final answer.", "a": 5, "b": 0, "answer": 5}
+{"id": "771721-00026", "mode": "direct", "prompt": "Compute 0+9. Do not show your work. Give only the final answer.", "a": 0, "b": 9, "answer": 9}
+{"id": "771721-00026", "mode": "trace", "prompt": "Compute 0+9. Show your work, then give the final answer.", "a": 0, "b": 9, "answer": 9}
+{"id": "771721-00027", "mode": "direct", "prompt": "Compute 1+6. Do not show your work. Give only the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00027", "mode": "trace", "prompt": "Compute 1+6. Show your work, then give the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00028", "mode": "direct", "prompt": "Compute 11+34. Do not show your work. Give only the final answer.", "a": 11, "b": 34, "answer": 45}
+{"id": "771721-00028", "mode": "trace", "prompt": "Compute 11+34. Show your work, then give the final answer.", "a": 11, "b": 34, "answer": 45}
+{"id": "771721-00029", "mode": "direct", "prompt": "Compute 4+38. Do not show your work. Give only the final answer.", "a": 4, "b": 38, "answer": 42}
+{"id": "771721-00029", "mode": "trace", "prompt": "Compute 4+38. Show your work, then give the final answer.", "a": 4, "b": 38, "answer": 42}
+{"id": "771721-00030", "mode": "direct", "prompt": "Compute 17+6. Do not show your work. Give only the final answer.", "a": 17, "b": 6, "answer": 23}
+{"id": "771721-00030", "mode": "trace", "prompt": "Compute 17+6. Show your work, then give the final answer.", "a": 17, "b": 6, "answer": 23}
+{"id": "771721-00031", "mode": "direct", "prompt": "Compute 11+12. Do not show your work. Give only the final answer.", "a": 11, "b": 12, "answer": 23}
+{"id": "771721-00031", "mode": "trace", "prompt": "Compute 11+12. Show your work, then give the final answer.", "a": 11, "b": 12, "answer": 23}
+{"id": "771721-00032", "mode": "direct", "prompt": "Compute 46+34. Do not show your work. Give only the final answer.", "a": 46, "b": 34, "answer": 80}
+{"id": "771721-00032", "mode": "trace", "prompt": "Compute 46+34. Show your work, then give the final answer.", "a": 46, "b": 34, "answer": 80}
+{"id": "771721-00033", "mode": "direct", "prompt": "Compute 0+4. Do not show your work. Give only the final answer.", "a": 0, "b": 4, "answer": 4}
+{"id": "771721-00033", "mode": "trace", "prompt": "Compute 0+4. Show your work, then give the final answer.", "a": 0, "b": 4, "answer": 4}
+{"id": "771721-00034", "mode": "direct", "prompt": "Compute 6+8. Do not show your work. Give only the final answer.", "a": 6, "b": 8, "answer": 14}
+{"id": "771721-00034", "mode": "trace", "prompt": "Compute 6+8. Show your work, then give the final answer.", "a": 6, "b": 8, "answer": 14}
+{"id": "771721-00035", "mode": "direct", "prompt": "Compute 9+3. Do not show your work. Give only the final answer.", "a": 9, "b": 3, "answer": 12}
+{"id": "771721-00035", "mode": "trace", "prompt": "Compute 9+3. Show your work, then give the final answer.", "a": 9, "b": 3, "answer": 12}
+{"id": "771721-00036", "mode": "direct", "prompt": "Compute 3+1. Do not show your work. Give only the final answer.", "a": 3, "b": 1, "answer": 4}
+{"id": "771721-00036", "mode": "trace", "prompt": "Compute 3+1. Show your work, then give the final answer.", "a": 3, "b": 1, "answer": 4}
+{"id": "771721-00037", "mode": "direct", "prompt": "Compute 39+28. Do not show your work. Give only the final answer.", "a": 39, "b": 28, "answer": 67}
+{"id": "771721-00037", "mode": "trace", "prompt": "Compute 39+28. Show your work, then give the final answer.", "a": 39, "b": 28, "answer": 67}
+{"id": "771721-00038", "mode": "direct", "prompt": "Compute 8+38. Do not show your work. Give only the final answer.", "a": 8, "b": 38, "answer": 46}
+{"id": "771721-00038", "mode": "trace", "prompt": "Compute 8+38. Show your work, then give the final answer.", "a": 8, "b": 38, "answer": 46}
+{"id": "771721-00039", "mode": "direct", "prompt": "Compute 6+6. Do not show your work. Give only the final answer.", "a": 6, "b": 6, "answer": 12}
+{"id": "771721-00039", "mode": "trace", "prompt": "Compute 6+6. Show your work, then give the final answer.", "a": 6, "b": 6, "answer": 12}
+{"id": "771721-00040", "mode": "direct", "prompt": "Compute 1+6. Do not show your work. Give only the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00040", "mode": "trace", "prompt": "Compute 1+6. Show your work, then give the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00041", "mode": "direct", "prompt": "Compute 28+46. Do not show your work. Give only the final answer.", "a": 28, "b": 46, "answer": 74}
+{"id": "771721-00041", "mode": "trace", "prompt": "Compute 28+46. Show your work, then give the final answer.", "a": 28, "b": 46, "answer": 74}
+{"id": "771721-00042", "mode": "direct", "prompt": "Compute 44+5. Do not show your work. Give only the final answer.", "a": 44, "b": 5, "answer": 49}
+{"id": "771721-00042", "mode": "trace", "prompt": "Compute 44+5. Show your work, then give the final answer.", "a": 44, "b": 5, "answer": 49}
+{"id": "771721-00043", "mode": "direct", "prompt": "Compute 2+4. Do not show your work. Give only the final answer.", "a": 2, "b": 4, "answer": 6}
+{"id": "771721-00043", "mode": "trace", "prompt": "Compute 2+4. Show your work, then give the final answer.", "a": 2, "b": 4, "answer": 6}
+{"id": "771721-00044", "mode": "direct", "prompt": "Compute 7+9. Do not show your work. Give only the final answer.", "a": 7, "b": 9, "answer": 16}
+{"id": "771721-00044", "mode": "trace", "prompt": "Compute 7+9. Show your work, then give the final answer.", "a": 7, "b": 9, "answer": 16}
+{"id": "771721-00045", "mode": "direct", "prompt": "Compute 8+3. Do not show your work. Give only the final answer.", "a": 8, "b": 3, "answer": 11}
+{"id": "771721-00045", "mode": "trace", "prompt": "Compute 8+3. Show your work, then give the final answer.", "a": 8, "b": 3, "answer": 11}
+{"id": "771721-00046", "mode": "direct", "prompt": "Compute 2+5. Do not show your work. Give only the final answer.", "a": 2, "b": 5, "answer": 7}
+{"id": "771721-00046", "mode": "trace", "prompt": "Compute 2+5. Show your work, then give the final answer.", "a": 2, "b": 5, "answer": 7}
+{"id": "771721-00047", "mode": "direct", "prompt": "Compute 33+38. Do not show your work. Give only the final answer.", "a": 33, "b": 38, "answer": 71}
+{"id": "771721-00047", "mode": "trace", "prompt": "Compute 33+38. Show your work, then give the final answer.", "a": 33, "b": 38, "answer": 71}
+{"id": "771721-00048", "mode": "direct", "prompt": "Compute 24+36. Do not show your work. Give only the final answer.", "a": 24, "b": 36, "answer": 60}
+{"id": "771721-00048", "mode": "trace", "prompt": "Compute 24+36. Show your work, then give the final answer.", "a": 24, "b": 36, "answer": 60}
+{"id": "771721-00049", "mode": "direct", "prompt": "Compute 22+23. Do not show your work. Give only the final answer.", "a": 22, "b": 23, "answer": 45}
+{"id": "771721-00049", "mode": "trace", "prompt": "Compute 22+23. Show your work, then give the final answer.", "a": 22, "b": 23, "answer": 45}
+{"id": "771721-00050", "mode": "direct", "prompt": "Compute 2+41. Do not show your work. Give only the final answer.", "a": 2, "b": 41, "answer": 43}
+{"id": "771721-00050", "mode": "trace", "prompt": "Compute 2+41. Show your work, then give the final answer.", "a": 2, "b": 41, "answer": 43}
+{"id": "771721-00051", "mode": "direct", "prompt": "Compute 11+31. Do not show your work. Give only the final answer.", "a": 11, "b": 31, "answer": 42}
+{"id": "771721-00051", "mode": "trace", "prompt": "Compute 11+31. Show your work, then give the final answer.", "a": 11, "b": 31, "answer": 42}
+{"id": "771721-00052", "mode": "direct", "prompt": "Compute 47+26. Do not show your work. Give only the final answer.", "a": 47, "b": 26, "answer": 73}
+{"id": "771721-00052", "mode": "trace", "prompt": "Compute 47+26. Show your work, then give the final answer.", "a": 47, "b": 26, "answer": 73}
+{"id": "771721-00053", "mode": "direct", "prompt": "Compute 28+8. Do not show your work. Give only the final answer.", "a": 28, "b": 8, "answer": 36}
+{"id": "771721-00053", "mode": "trace", "prompt": "Compute 28+8. Show your work, then give the final answer.", "a": 28, "b": 8, "answer": 36}
+{"id": "771721-00054", "mode": "direct", "prompt": "Compute 30+23. Do not show your work. Give only the final answer.", "a": 30, "b": 23, "answer": 53}
+{"id": "771721-00054", "mode": "trace", "prompt": "Compute 30+23. Show your work, then give the final answer.", "a": 30, "b": 23, "answer": 53}
+{"id": "771721-00055", "mode": "direct", "prompt": "Compute 9+44. Do not show your work. Give only the final answer.", "a": 9, "b": 44, "answer": 53}
+{"id": "771721-00055", "mode": "trace", "prompt": "Compute 9+44. Show your work, then give the final answer.", "a": 9, "b": 44, "answer": 53}
+{"id": "771721-00056", "mode": "direct", "prompt": "Compute 3+8. Do not show your work. Give only the final answer.", "a": 3, "b": 8, "answer": 11}
+{"id": "771721-00056", "mode": "trace", "prompt": "Compute 3+8. Show your work, then give the final answer.", "a": 3, "b": 8, "answer": 11}
+{"id": "771721-00057", "mode": "direct", "prompt": "Compute 7+7. Do not show your work. Give only the final answer.", "a": 7, "b": 7, "answer": 14}
+{"id": "771721-00057", "mode": "trace", "prompt": "Compute 7+7. Show your work, then give the final answer.", "a": 7, "b": 7, "answer": 14}
+{"id": "771721-00058", "mode": "direct", "prompt": "Compute 1+20. Do not show your work. Give only the final answer.", "a": 1, "b": 20, "answer": 21}
+{"id": "771721-00058", "mode": "trace", "prompt": "Compute 1+20. Show your work, then give the final answer.", "a": 1, "b": 20, "answer": 21}
+{"id": "771721-00059", "mode": "direct", "prompt": "Compute 9+6. Do not show your work. Give only the final answer.", "a": 9, "b": 6, "answer": 15}
+{"id": "771721-00059", "mode": "trace", "prompt": "Compute 9+6. Show your work, then give the final answer.", "a": 9, "b": 6, "answer": 15}
+{"id": "771721-00060", "mode": "direct", "prompt": "Compute 6+7. Do not show your work. Give only the final answer.", "a": 6, "b": 7, "answer": 13}
+{"id": "771721-00060", "mode": "trace", "prompt": "Compute 6+7. Show your work, then give the final answer.", "a": 6, "b": 7, "answer": 13}
+{"id": "771721-00061", "mode": "direct", "prompt": "Compute 45+23. Do not show your work. Give only the final answer.", "a": 45, "b": 23, "answer": 68}
+{"id": "771721-00061", "mode": "trace", "prompt": "Compute 45+23. Show your work, then give the final answer.", "a": 45, "b": 23, "answer": 68}
+{"id": "771721-00062", "mode": "direct", "prompt": "Compute 0+0. Do not show your work. Give only the final answer.", "a": 0, "b": 0, "answer": 0}
+{"id": "771721-00062", "mode": "trace", "prompt": "Compute 0+0. Show your work, then give the final answer.", "a": 0, "b": 0, "answer": 0}
+{"id": "771721-00063", "mode": "direct", "prompt": "Compute 0+9. Do not show your work. Give only the final answer.", "a": 0, "b": 9, "answer": 9}
+{"id": "771721-00063", "mode": "trace", "prompt": "Compute 0+9. Show your work, then give the final answer.", "a": 0, "b": 9, "answer": 9}
+{"id": "771721-00064", "mode": "direct", "prompt": "Compute 29+22. Do not show your work. Give only the final answer.", "a": 29, "b": 22, "answer": 51}
+{"id": "771721-00064", "mode": "trace", "prompt": "Compute 29+22. Show your work, then give the final answer.", "a": 29, "b": 22, "answer": 51}
+{"id": "771721-00065", "mode": "direct", "prompt": "Compute 36+28. Do not show your work. Give only the final answer.", "a": 36, "b": 28, "answer": 64}
+{"id": "771721-00065", "mode": "trace", "prompt": "Compute 36+28. Show your work, then give the final answer.", "a": 36, "b": 28, "answer": 64}
+{"id": "771721-00066", "mode": "direct", "prompt": "Compute 14+22. Do not show your work. Give only the final answer.", "a": 14, "b": 22, "answer": 36}
+{"id": "771721-00066", "mode": "trace", "prompt": "Compute 14+22. Show your work, then give the final answer.", "a": 14, "b": 22, "answer": 36}
+{"id": "771721-00067", "mode": "direct", "prompt": "Compute 1+5. Do not show your work. Give only the final answer.", "a": 1, "b": 5, "answer": 6}
+{"id": "771721-00067", "mode": "trace", "prompt": "Compute 1+5. Show your work, then give the final answer.", "a": 1, "b": 5, "answer": 6}
+{"id": "771721-00068", "mode": "direct", "prompt": "Compute 1+12. Do not show your work. Give only the final answer.", "a": 1, "b": 12, "answer": 13}
+{"id": "771721-00068", "mode": "trace", "prompt": "Compute 1+12. Show your work, then give the final answer.", "a": 1, "b": 12, "answer": 13}
+{"id": "771721-00069", "mode": "direct", "prompt": "Compute 9+6. Do not show your work. Give only the final answer.", "a": 9, "b": 6, "answer": 15}
+{"id": "771721-00069", "mode": "trace", "prompt": "Compute 9+6. Show your work, then give the final answer.", "a": 9, "b": 6, "answer": 15}
+{"id": "771721-00070", "mode": "direct", "prompt": "Compute 8+0. Do not show your work. Give only the final answer.", "a": 8, "b": 0, "answer": 8}
+{"id": "771721-00070", "mode": "trace", "prompt": "Compute 8+0. Show your work, then give the final answer.", "a": 8, "b": 0, "answer": 8}
+{"id": "771721-00071", "mode": "direct", "prompt": "Compute 6+1. Do not show your work. Give only the final answer.", "a": 6, "b": 1, "answer": 7}
+{"id": "771721-00071", "mode": "trace", "prompt": "Compute 6+1. Show your work, then give the final answer.", "a": 6, "b": 1, "answer": 7}
+{"id": "771721-00072", "mode": "direct", "prompt": "Compute 1+4. Do not show your work. Give only the final answer.", "a": 1, "b": 4, "answer": 5}
+{"id": "771721-00072", "mode": "trace", "prompt": "Compute 1+4. Show your work, then give the final answer.", "a": 1, "b": 4, "answer": 5}
+{"id": "771721-00073", "mode": "direct", "prompt": "Compute 16+24. Do not show your work. Give only the final answer.", "a": 16, "b": 24, "answer": 40}
+{"id": "771721-00073", "mode": "trace", "prompt": "Compute 16+24. Show your work, then give the final answer.", "a": 16, "b": 24, "answer": 40}
+{"id": "771721-00074", "mode": "direct", "prompt": "Compute 3+11. Do not show your work. Give only the final answer.", "a": 3, "b": 11, "answer": 14}
+{"id": "771721-00074", "mode": "trace", "prompt": "Compute 3+11. Show your work, then give the final answer.", "a": 3, "b": 11, "answer": 14}
+{"id": "771721-00075", "mode": "direct", "prompt": "Compute 21+49. Do not show your work. Give only the final answer.", "a": 21, "b": 49, "answer": 70}
+{"id": "771721-00075", "mode": "trace", "prompt": "Compute 21+49. Show your work, then give the final answer.", "a": 21, "b": 49, "answer": 70}
+{"id": "771721-00076", "mode": "direct", "prompt": "Compute 7+15. Do not show your work. Give only the final answer.", "a": 7, "b": 15, "answer": 22}
+{"id": "771721-00076", "mode": "trace", "prompt": "Compute 7+15. Show your work, then give the final answer.", "a": 7, "b": 15, "answer": 22}
+{"id": "771721-00077", "mode": "direct", "prompt": "Compute 0+9. Do not show your work. Give only the final answer.", "a": 0, "b": 9, "answer": 9}
+{"id": "771721-00077", "mode": "trace", "prompt": "Compute 0+9. Show your work, then give the final answer.", "a": 0, "b": 9, "answer": 9}
+{"id": "771721-00078", "mode": "direct", "prompt": "Compute 3+3. Do not show your work. Give only the final answer.", "a": 3, "b": 3, "answer": 6}
+{"id": "771721-00078", "mode": "trace", "prompt": "Compute 3+3. Show your work, then give the final answer.", "a": 3, "b": 3, "answer": 6}
+{"id": "771721-00079", "mode": "direct", "prompt": "Compute 8+1. Do not show your work. Give only the final answer.", "a": 8, "b": 1, "answer": 9}
+{"id": "771721-00079", "mode": "trace", "prompt": "Compute 8+1. Show your work, then give the final answer.", "a": 8, "b": 1, "answer": 9}
+{"id": "771721-00080", "mode": "direct", "prompt": "Compute 0+1. Do not show your work. Give only the final answer.", "a": 0, "b": 1, "answer": 1}
+{"id": "771721-00080", "mode": "trace", "prompt": "Compute 0+1. Show your work, then give the final answer.", "a": 0, "b": 1, "answer": 1}
+{"id": "771721-00081", "mode": "direct", "prompt": "Compute 45+2. Do not show your work. Give only the final answer.", "a": 45, "b": 2, "answer": 47}
+{"id": "771721-00081", "mode": "trace", "prompt": "Compute 45+2. Show your work, then give the final answer.", "a": 45, "b": 2, "answer": 47}
+{"id": "771721-00082", "mode": "direct", "prompt": "Compute 23+14. Do not show your work. Give only the final answer.", "a": 23, "b": 14, "answer": 37}
+{"id": "771721-00082", "mode": "trace", "prompt": "Compute 23+14. Show your work, then give the final answer.", "a": 23, "b": 14, "answer": 37}
+{"id": "771721-00083", "mode": "direct", "prompt": "Compute 5+2. Do not show your work. Give only the final answer.", "a": 5, "b": 2, "answer": 7}
+{"id": "771721-00083", "mode": "trace", "prompt": "Compute 5+2. Show your work, then give the final answer.", "a": 5, "b": 2, "answer": 7}
+{"id": "771721-00084", "mode": "direct", "prompt": "Compute 40+1. Do not show your work. Give only the final answer.", "a": 40, "b": 1, "answer": 41}
+{"id": "771721-00084", "mode": "trace", "prompt": "Compute 40+1. Show your work, then give the final answer.", "a": 40, "b": 1, "answer": 41}
+{"id": "771721-00085", "mode": "direct", "prompt": "Compute 1+4. Do not show your work. Give only the final answer.", "a": 1, "b": 4, "answer": 5}
+{"id": "771721-00085", "mode": "trace", "prompt": "Compute 1+4. Show your work, then give the final answer.", "a": 1, "b": 4, "answer": 5}
+{"id": "771721-00086", "mode": "direct", "prompt": "Compute 19+17. Do not show your work. Give only the final answer.", "a": 19, "b": 17, "answer": 36}
+{"id": "771721-00086", "mode": "trace", "prompt": "Compute 19+17. Show your work, then give the final answer.", "a": 19, "b": 17, "answer": 36}
+{"id": "771721-00087", "mode": "direct", "prompt": "Compute 16+46. Do not show your work. Give only the final answer.", "a": 16, "b": 46, "answer": 62}
+{"id": "771721-00087", "mode": "trace", "prompt": "Compute 16+46. Show your work, then give the final answer.", "a": 16, "b": 46, "answer": 62}
+{"id": "771721-00088", "mode": "direct", "prompt": "Compute 6+30. Do not show your work. Give only the final answer.", "a": 6, "b": 30, "answer": 36}
+{"id": "771721-00088", "mode": "trace", "prompt": "Compute 6+30. Show your work, then give the final answer.", "a": 6, "b": 30, "answer": 36}
+{"id": "771721-00089", "mode": "direct", "prompt": "Compute 2+2. Do not show your work. Give only the final answer.", "a": 2, "b": 2, "answer": 4}
+{"id": "771721-00089", "mode": "trace", "prompt": "Compute 2+2. Show your work, then give the final answer.", "a": 2, "b": 2, "answer": 4}
+{"id": "771721-00090", "mode": "direct", "prompt": "Compute 27+18. Do not show your work. Give only the final answer.", "a": 27, "b": 18, "answer": 45}
+{"id": "771721-00090", "mode": "trace", "prompt": "Compute 27+18. Show your work, then give the final answer.", "a": 27, "b": 18, "answer": 45}
+{"id": "771721-00091", "mode": "direct", "prompt": "Compute 24+15. Do not show your work. Give only the final answer.", "a": 24, "b": 15, "answer": 39}
+{"id": "771721-00091", "mode": "trace", "prompt": "Compute 24+15. Show your work, then give the final answer.", "a": 24, "b": 15, "answer": 39}
+{"id": "771721-00092", "mode": "direct", "prompt": "Compute 1+6. Do not show your work. Give only the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00092", "mode": "trace", "prompt": "Compute 1+6. Show your work, then give the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00093", "mode": "direct", "prompt": "Compute 1+7. Do not show your work. Give only the final answer.", "a": 1, "b": 7, "answer": 8}
+{"id": "771721-00093", "mode": "trace", "prompt": "Compute 1+7. Show your work, then give the final answer.", "a": 1, "b": 7, "answer": 8}
+{"id": "771721-00094", "mode": "direct", "prompt": "Compute 9+4. Do not show your work. Give only the final answer.", "a": 9, "b": 4, "answer": 13}
+{"id": "771721-00094", "mode": "trace", "prompt": "Compute 9+4. Show your work, then give the final answer.", "a": 9, "b": 4, "answer": 13}
+{"id": "771721-00095", "mode": "direct", "prompt": "Compute 38+44. Do not show your work. Give only the final answer.", "a": 38, "b": 44, "answer": 82}
+{"id": "771721-00095", "mode": "trace", "prompt": "Compute 38+44. Show your work, then give the final answer.", "a": 38, "b": 44, "answer": 82}
+{"id": "771721-00096", "mode": "direct", "prompt": "Compute 4+7. Do not show your work. Give only the final answer.", "a": 4, "b": 7, "answer": 11}
+{"id": "771721-00096", "mode": "trace", "prompt": "Compute 4+7. Show your work, then give the final answer.", "a": 4, "b": 7, "answer": 11}
+{"id": "771721-00097", "mode": "direct", "prompt": "Compute 5+8. Do not show your work. Give only the final answer.", "a": 5, "b": 8, "answer": 13}
+{"id": "771721-00097", "mode": "trace", "prompt": "Compute 5+8. Show your work, then give the final answer.", "a": 5, "b": 8, "answer": 13}
+{"id": "771721-00098", "mode": "direct", "prompt": "Compute 14+15. Do not show your work. Give only the final answer.", "a": 14, "b": 15, "answer": 29}
+{"id": "771721-00098", "mode": "trace", "prompt": "Compute 14+15. Show your work, then give the final answer.", "a": 14, "b": 15, "answer": 29}
+{"id": "771721-00099", "mode": "direct", "prompt": "Compute 8+33. Do not show your work. Give only the final answer.", "a": 8, "b": 33, "answer": 41}
+{"id": "771721-00099", "mode": "trace", "prompt": "Compute 8+33. Show your work, then give the final answer.", "a": 8, "b": 33, "answer": 41}
+{"id": "771721-00100", "mode": "direct", "prompt": "Compute 5+8. Do not show your work. Give only the final answer.", "a": 5, "b": 8, "answer": 13}
+{"id": "771721-00100", "mode": "trace", "prompt": "Compute 5+8. Show your work, then give the final answer.", "a": 5, "b": 8, "answer": 13}
+{"id": "771721-00101", "mode": "direct", "prompt": "Compute 2+7. Do not show your work. Give only the final answer.", "a": 2, "b": 7, "answer": 9}
+{"id": "771721-00101", "mode": "trace", "prompt": "Compute 2+7. Show your work, then give the final answer.", "a": 2, "b": 7, "answer": 9}
+{"id": "771721-00102", "mode": "direct", "prompt": "Compute 44+48. Do not show your work. Give only the final answer.", "a": 44, "b": 48, "answer": 92}
+{"id": "771721-00102", "mode": "trace", "prompt": "Compute 44+48. Show your work, then give the final answer.", "a": 44, "b": 48, "answer": 92}
+{"id": "771721-00103", "mode": "direct", "prompt": "Compute 0+4. Do not show your work. Give only the final answer.", "a": 0, "b": 4, "answer": 4}
+{"id": "771721-00103", "mode": "trace", "prompt": "Compute 0+4. Show your work, then give the final answer.", "a": 0, "b": 4, "answer": 4}
+{"id": "771721-00104", "mode": "direct", "prompt": "Compute 24+10. Do not show your work. Give only the final answer.", "a": 24, "b": 10, "answer": 34}
+{"id": "771721-00104", "mode": "trace", "prompt": "Compute 24+10. Show your work, then give the final answer.", "a": 24, "b": 10, "answer": 34}
+{"id": "771721-00105", "mode": "direct", "prompt": "Compute 4+2. Do not show your work. Give only the final answer.", "a": 4, "b": 2, "answer": 6}
+{"id": "771721-00105", "mode": "trace", "prompt": "Compute 4+2. Show your work, then give the final answer.", "a": 4, "b": 2, "answer": 6}
+{"id": "771721-00106", "mode": "direct", "prompt": "Compute 5+2. Do not show your work. Give only the final answer.", "a": 5, "b": 2, "answer": 7}
+{"id": "771721-00106", "mode": "trace", "prompt": "Compute 5+2. Show your work, then give the final answer.", "a": 5, "b": 2, "answer": 7}
+{"id": "771721-00107", "mode": "direct", "prompt": "Compute 16+11. Do not show your work. Give only the final answer.", "a": 16, "b": 11, "answer": 27}
+{"id": "771721-00107", "mode": "trace", "prompt": "Compute 16+11. Show your work, then give the final answer.", "a": 16, "b": 11, "answer": 27}
+{"id": "771721-00108", "mode": "direct", "prompt": "Compute 7+8. Do not show your work. Give only the final answer.", "a": 7, "b": 8, "answer": 15}
+{"id": "771721-00108", "mode": "trace", "prompt": "Compute 7+8. Show your work, then give the final answer.", "a": 7, "b": 8, "answer": 15}
+{"id": "771721-00109", "mode": "direct", "prompt": "Compute 37+31. Do not show your work. Give only the final answer.", "a": 37, "b": 31, "answer": 68}
+{"id": "771721-00109", "mode": "trace", "prompt": "Compute 37+31. Show your work, then give the final answer.", "a": 37, "b": 31, "answer": 68}
+{"id": "771721-00110", "mode": "direct", "prompt": "Compute 14+14. Do not show your work. Give only the final answer.", "a": 14, "b": 14, "answer": 28}
+{"id": "771721-00110", "mode": "trace", "prompt": "Compute 14+14. Show your work, then give the final answer.", "a": 14, "b": 14, "answer": 28}
+{"id": "771721-00111", "mode": "direct", "prompt": "Compute 8+6. Do not show your work. Give only the final answer.", "a": 8, "b": 6, "answer": 14}
+{"id": "771721-00111", "mode": "trace", "prompt": "Compute 8+6. Show your work, then give the final answer.", "a": 8, "b": 6, "answer": 14}
+{"id": "771721-00112", "mode": "direct", "prompt": "Compute 13+9. Do not show your work. Give only the final answer.", "a": 13, "b": 9, "answer": 22}
+{"id": "771721-00112", "mode": "trace", "prompt": "Compute 13+9. Show your work, then give the final answer.", "a": 13, "b": 9, "answer": 22}
+{"id": "771721-00113", "mode": "direct", "prompt": "Compute 5+3. Do not show your work. Give only the final answer.", "a": 5, "b": 3, "answer": 8}
+{"id": "771721-00113", "mode": "trace", "prompt": "Compute 5+3. Show your work, then give the final answer.", "a": 5, "b": 3, "answer": 8}
+{"id": "771721-00114", "mode": "direct", "prompt": "Compute 9+5. Do not show your work. Give only the final answer.", "a": 9, "b": 5, "answer": 14}
+{"id": "771721-00114", "mode": "trace", "prompt": "Compute 9+5. Show your work, then give the final answer.", "a": 9, "b": 5, "answer": 14}
+{"id": "771721-00115", "mode": "direct", "prompt": "Compute 42+19. Do not show your work. Give only the final answer.", "a": 42, "b": 19, "answer": 61}
+{"id": "771721-00115", "mode": "trace", "prompt": "Compute 42+19. Show your work, then give the final answer.", "a": 42, "b": 19, "answer": 61}
+{"id": "771721-00116", "mode": "direct", "prompt": "Compute 8+6. Do not show your work. Give only the final answer.", "a": 8, "b": 6, "answer": 14}
+{"id": "771721-00116", "mode": "trace", "prompt": "Compute 8+6. Show your work, then give the final answer.", "a": 8, "b": 6, "answer": 14}
+{"id": "771721-00117", "mode": "direct", "prompt": "Compute 1+1. Do not show your work. Give only the final answer.", "a": 1, "b": 1, "answer": 2}
+{"id": "771721-00117", "mode": "trace", "prompt": "Compute 1+1. Show your work, then give the final answer.", "a": 1, "b": 1, "answer": 2}
+{"id": "771721-00118", "mode": "direct", "prompt": "Compute 9+3. Do not show your work. Give only the final answer.", "a": 9, "b": 3, "answer": 12}
+{"id": "771721-00118", "mode": "trace", "prompt": "Compute 9+3. Show your work, then give the final answer.", "a": 9, "b": 3, "answer": 12}
+{"id": "771721-00119", "mode": "direct", "prompt": "Compute 7+46. Do not show your work. Give only the final answer.", "a": 7, "b": 46, "answer": 53}
+{"id": "771721-00119", "mode": "trace", "prompt": "Compute 7+46. Show your work, then give the final answer.", "a": 7, "b": 46, "answer": 53}
+{"id": "771721-00120", "mode": "direct", "prompt": "Compute 45+22. Do not show your work. Give only the final answer.", "a": 45, "b": 22, "answer": 67}
+{"id": "771721-00120", "mode": "trace", "prompt": "Compute 45+22. Show your work, then give the final answer.", "a": 45, "b": 22, "answer": 67}
+{"id": "771721-00121", "mode": "direct", "prompt": "Compute 49+27. Do not show your work. Give only the final answer.", "a": 49, "b": 27, "answer": 76}
+{"id": "771721-00121", "mode": "trace", "prompt": "Compute 49+27. Show your work, then give the final answer.", "a": 49, "b": 27, "answer": 76}
+{"id": "771721-00122", "mode": "direct", "prompt": "Compute 5+5. Do not show your work. Give only the final answer.", "a": 5, "b": 5, "answer": 10}
+{"id": "771721-00122", "mode": "trace", "prompt": "Compute 5+5. Show your work, then give the final answer.", "a": 5, "b": 5, "answer": 10}
+{"id": "771721-00123", "mode": "direct", "prompt": "Compute 9+8. Do not show your work. Give only the final answer.", "a": 9, "b": 8, "answer": 17}
+{"id": "771721-00123", "mode": "trace", "prompt": "Compute 9+8. Show your work, then give the final answer.", "a": 9, "b": 8, "answer": 17}
+{"id": "771721-00124", "mode": "direct", "prompt": "Compute 49+17. Do not show your work. Give only the final answer.", "a": 49, "b": 17, "answer": 66}
+{"id": "771721-00124", "mode": "trace", "prompt": "Compute 49+17. Show your work, then give the final answer.", "a": 49, "b": 17, "answer": 66}
+{"id": "771721-00125", "mode": "direct", "prompt": "Compute 3+3. Do not show your work. Give only the final answer.", "a": 3, "b": 3, "answer": 6}
+{"id": "771721-00125", "mode": "trace", "prompt": "Compute 3+3. Show your work, then give the final answer.", "a": 3, "b": 3, "answer": 6}
+{"id": "771721-00126", "mode": "direct", "prompt": "Compute 5+7. Do not show your work. Give only the final answer.", "a": 5, "b": 7, "answer": 12}
+{"id": "771721-00126", "mode": "trace", "prompt": "Compute 5+7. Show your work, then give the final answer.", "a": 5, "b": 7, "answer": 12}
+{"id": "771721-00127", "mode": "direct", "prompt": "Compute 1+4. Do not show your work. Give only the final answer.", "a": 1, "b": 4, "answer": 5}
+{"id": "771721-00127", "mode": "trace", "prompt": "Compute 1+4. Show your work, then give the final answer.", "a": 1, "b": 4, "answer": 5}
+{"id": "771721-00128", "mode": "direct", "prompt": "Compute 6+7. Do not show your work. Give only the final answer.", "a": 6, "b": 7, "answer": 13}
+{"id": "771721-00128", "mode": "trace", "prompt": "Compute 6+7. Show your work, then give the final answer.", "a": 6, "b": 7, "answer": 13}
+{"id": "771721-00129", "mode": "direct", "prompt": "Compute 8+5. Do not show your work. Give only the final answer.", "a": 8, "b": 5, "answer": 13}
+{"id": "771721-00129", "mode": "trace", "prompt": "Compute 8+5. Show your work, then give the final answer.", "a": 8, "b": 5, "answer": 13}
+{"id": "771721-00130", "mode": "direct", "prompt": "Compute 19+8. Do not show your work. Give only the final answer.", "a": 19, "b": 8, "answer": 27}
+{"id": "771721-00130", "mode": "trace", "prompt": "Compute 19+8. Show your work, then give the final answer.", "a": 19, "b": 8, "answer": 27}
+{"id": "771721-00131", "mode": "direct", "prompt": "Compute 8+7. Do not show your work. Give only the final answer.", "a": 8, "b": 7, "answer": 15}
+{"id": "771721-00131", "mode": "trace", "prompt": "Compute 8+7. Show your work, then give the final answer.", "a": 8, "b": 7, "answer": 15}
+{"id": "771721-00132", "mode": "direct", "prompt": "Compute 4+7. Do not show your work. Give only the final answer.", "a": 4, "b": 7, "answer": 11}
+{"id": "771721-00132", "mode": "trace", "prompt": "Compute 4+7. Show your work, then give the final answer.", "a": 4, "b": 7, "answer": 11}
+{"id": "771721-00133", "mode": "direct", "prompt": "Compute 22+41. Do not show your work. Give only the final answer.", "a": 22, "b": 41, "answer": 63}
+{"id": "771721-00133", "mode": "trace", "prompt": "Compute 22+41. Show your work, then give the final answer.", "a": 22, "b": 41, "answer": 63}
+{"id": "771721-00134", "mode": "direct", "prompt": "Compute 9+9. Do not show your work. Give only the final answer.", "a": 9, "b": 9, "answer": 18}
+{"id": "771721-00134", "mode": "trace", "prompt": "Compute 9+9. Show your work, then give the final answer.", "a": 9, "b": 9, "answer": 18}
+{"id": "771721-00135", "mode": "direct", "prompt": "Compute 3+9. Do not show your work. Give only the final answer.", "a": 3, "b": 9, "answer": 12}
+{"id": "771721-00135", "mode": "trace", "prompt": "Compute 3+9. Show your work, then give the final answer.", "a": 3, "b": 9, "answer": 12}
+{"id": "771721-00136", "mode": "direct", "prompt": "Compute 9+4. Do not show your work. Give only the final answer.", "a": 9, "b": 4, "answer": 13}
+{"id": "771721-00136", "mode": "trace", "prompt": "Compute 9+4. Show your work, then give the final answer.", "a": 9, "b": 4, "answer": 13}
+{"id": "771721-00137", "mode": "direct", "prompt": "Compute 27+35. Do not show your work. Give only the final answer.", "a": 27, "b": 35, "answer": 62}
+{"id": "771721-00137", "mode": "trace", "prompt": "Compute 27+35. Show your work, then give the final answer.", "a": 27, "b": 35, "answer": 62}
+{"id": "771721-00138", "mode": "direct", "prompt": "Compute 32+2. Do not show your work. Give only the final answer.", "a": 32, "b": 2, "answer": 34}
+{"id": "771721-00138", "mode": "trace", "prompt": "Compute 32+2. Show your work, then give the final answer.", "a": 32, "b": 2, "answer": 34}
+{"id": "771721-00139", "mode": "direct", "prompt": "Compute 8+8. Do not show your work. Give only the final answer.", "a": 8, "b": 8, "answer": 16}
+{"id": "771721-00139", "mode": "trace", "prompt": "Compute 8+8. Show your work, then give the final answer.", "a": 8, "b": 8, "answer": 16}
+{"id": "771721-00140", "mode": "direct", "prompt": "Compute 0+4. Do not show your work. Give only the final answer.", "a": 0, "b": 4, "answer": 4}
+{"id": "771721-00140", "mode": "trace", "prompt": "Compute 0+4. Show your work, then give the final answer.", "a": 0, "b": 4, "answer": 4}
+{"id": "771721-00141", "mode": "direct", "prompt": "Compute 9+2. Do not show your work. Give only the final answer.", "a": 9, "b": 2, "answer": 11}
+{"id": "771721-00141", "mode": "trace", "prompt": "Compute 9+2. Show your work, then give the final answer.", "a": 9, "b": 2, "answer": 11}
+{"id": "771721-00142", "mode": "direct", "prompt": "Compute 40+2. Do not show your work. Give only the final answer.", "a": 40, "b": 2, "answer": 42}
+{"id": "771721-00142", "mode": "trace", "prompt": "Compute 40+2. Show your work, then give the final answer.", "a": 40, "b": 2, "answer": 42}
+{"id": "771721-00143", "mode": "direct", "prompt": "Compute 7+8. Do not show your work. Give only the final answer.", "a": 7, "b": 8, "answer": 15}
+{"id": "771721-00143", "mode": "trace", "prompt": "Compute 7+8. Show your work, then give the final answer.", "a": 7, "b": 8, "answer": 15}
+{"id": "771721-00144", "mode": "direct", "prompt": "Compute 24+28. Do not show your work. Give only the final answer.", "a": 24, "b": 28, "answer": 52}
+{"id": "771721-00144", "mode": "trace", "prompt": "Compute 24+28. Show your work, then give the final answer.", "a": 24, "b": 28, "answer": 52}
+{"id": "771721-00145", "mode": "direct", "prompt": "Compute 41+15. Do not show your work. Give only the final answer.", "a": 41, "b": 15, "answer": 56}
+{"id": "771721-00145", "mode": "trace", "prompt": "Compute 41+15. Show your work, then give the final answer.", "a": 41, "b": 15, "answer": 56}
+{"id": "771721-00146", "mode": "direct", "prompt": "Compute 0+7. Do not show your work. Give only the final answer.", "a": 0, "b": 7, "answer": 7}
+{"id": "771721-00146", "mode": "trace", "prompt": "Compute 0+7. Show your work, then give the final answer.", "a": 0, "b": 7, "answer": 7}
+{"id": "771721-00147", "mode": "direct", "prompt": "Compute 23+43. Do not show your work. Give only the final answer.", "a": 23, "b": 43, "answer": 66}
+{"id": "771721-00147", "mode": "trace", "prompt": "Compute 23+43. Show your work, then give the final answer.", "a": 23, "b": 43, "answer": 66}
+{"id": "771721-00148", "mode": "direct", "prompt": "Compute 7+8. Do not show your work. Give only the final answer.", "a": 7, "b": 8, "answer": 15}
+{"id": "771721-00148", "mode": "trace", "prompt": "Compute 7+8. Show your work, then give the final answer.", "a": 7, "b": 8, "answer": 15}
+{"id": "771721-00149", "mode": "direct", "prompt": "Compute 2+3. Do not show your work. Give only the final answer.", "a": 2, "b": 3, "answer": 5}
+{"id": "771721-00149", "mode": "trace", "prompt": "Compute 2+3. Show your work, then give the final answer.", "a": 2, "b": 3, "answer": 5}
+{"id": "771721-00150", "mode": "direct", "prompt": "Compute 48+26. Do not show your work. Give only the final answer.", "a": 48, "b": 26, "answer": 74}
+{"id": "771721-00150", "mode": "trace", "prompt": "Compute 48+26. Show your work, then give the final answer.", "a": 48, "b": 26, "answer": 74}
+{"id": "771721-00151", "mode": "direct", "prompt": "Compute 27+33. Do not show your work. Give only the final answer.", "a": 27, "b": 33, "answer": 60}
+{"id": "771721-00151", "mode": "trace", "prompt": "Compute 27+33. Show your work, then give the final answer.", "a": 27, "b": 33, "answer": 60}
+{"id": "771721-00152", "mode": "direct", "prompt": "Compute 9+1. Do not show your work. Give only the final answer.", "a": 9, "b": 1, "answer": 10}
+{"id": "771721-00152", "mode": "trace", "prompt": "Compute 9+1. Show your work, then give the final answer.", "a": 9, "b": 1, "answer": 10}
+{"id": "771721-00153", "mode": "direct", "prompt": "Compute 9+17. Do not show your work. Give only the final answer.", "a": 9, "b": 17, "answer": 26}
+{"id": "771721-00153", "mode": "trace", "prompt": "Compute 9+17. Show your work, then give the final answer.", "a": 9, "b": 17, "answer": 26}
+{"id": "771721-00154", "mode": "direct", "prompt": "Compute 3+19. Do not show your work. Give only the final answer.", "a": 3, "b": 19, "answer": 22}
+{"id": "771721-00154", "mode": "trace", "prompt": "Compute 3+19. Show your work, then give the final answer.", "a": 3, "b": 19, "answer": 22}
+{"id": "771721-00155", "mode": "direct", "prompt": "Compute 3+36. Do not show your work. Give only the final answer.", "a": 3, "b": 36, "answer": 39}
+{"id": "771721-00155", "mode": "trace", "prompt": "Compute 3+36. Show your work, then give the final answer.", "a": 3, "b": 36, "answer": 39}
+{"id": "771721-00156", "mode": "direct", "prompt": "Compute 7+4. Do not show your work. Give only the final answer.", "a": 7, "b": 4, "answer": 11}
+{"id": "771721-00156", "mode": "trace", "prompt": "Compute 7+4. Show your work, then give the final answer.", "a": 7, "b": 4, "answer": 11}
+{"id": "771721-00157", "mode": "direct", "prompt": "Compute 8+5. Do not show your work. Give only the final answer.", "a": 8, "b": 5, "answer": 13}
+{"id": "771721-00157", "mode": "trace", "prompt": "Compute 8+5. Show your work, then give the final answer.", "a": 8, "b": 5, "answer": 13}
+{"id": "771721-00158", "mode": "direct", "prompt": "Compute 0+6. Do not show your work. Give only the final answer.", "a": 0, "b": 6, "answer": 6}
+{"id": "771721-00158", "mode": "trace", "prompt": "Compute 0+6. Show your work, then give the final answer.", "a": 0, "b": 6, "answer": 6}
+{"id": "771721-00159", "mode": "direct", "prompt": "Compute 8+19. Do not show your work. Give only the final answer.", "a": 8, "b": 19, "answer": 27}
+{"id": "771721-00159", "mode": "trace", "prompt": "Compute 8+19. Show your work, then give the final answer.", "a": 8, "b": 19, "answer": 27}
+{"id": "771721-00160", "mode": "direct", "prompt": "Compute 34+47. Do not show your work. Give only the final answer.", "a": 34, "b": 47, "answer": 81}
+{"id": "771721-00160", "mode": "trace", "prompt": "Compute 34+47. Show your work, then give the final answer.", "a": 34, "b": 47, "answer": 81}
+{"id": "771721-00161", "mode": "direct", "prompt": "Compute 32+23. Do not show your work. Give only the final answer.", "a": 32, "b": 23, "answer": 55}
+{"id": "771721-00161", "mode": "trace", "prompt": "Compute 32+23. Show your work, then give the final answer.", "a": 32, "b": 23, "answer": 55}
+{"id": "771721-00162", "mode": "direct", "prompt": "Compute 37+38. Do not show your work. Give only the final answer.", "a": 37, "b": 38, "answer": 75}
+{"id": "771721-00162", "mode": "trace", "prompt": "Compute 37+38. Show your work, then give the final answer.", "a": 37, "b": 38, "answer": 75}
+{"id": "771721-00163", "mode": "direct", "prompt": "Compute 20+32. Do not show your work. Give only the final answer.", "a": 20, "b": 32, "answer": 52}
+{"id": "771721-00163", "mode": "trace", "prompt": "Compute 20+32. Show your work, then give the final answer.", "a": 20, "b": 32, "answer": 52}
+{"id": "771721-00164", "mode": "direct", "prompt": "Compute 3+6. Do not show your work. Give only the final answer.", "a": 3, "b": 6, "answer": 9}
+{"id": "771721-00164", "mode": "trace", "prompt": "Compute 3+6. Show your work, then give the final answer.", "a": 3, "b": 6, "answer": 9}
+{"id": "771721-00165", "mode": "direct", "prompt": "Compute 9+5. Do not show your work. Give only the final answer.", "a": 9, "b": 5, "answer": 14}
+{"id": "771721-00165", "mode": "trace", "prompt": "Compute 9+5. Show your work, then give the final answer.", "a": 9, "b": 5, "answer": 14}
+{"id": "771721-00166", "mode": "direct", "prompt": "Compute 0+6. Do not show your work. Give only the final answer.", "a": 0, "b": 6, "answer": 6}
+{"id": "771721-00166", "mode": "trace", "prompt": "Compute 0+6. Show your work, then give the final answer.", "a": 0, "b": 6, "answer": 6}
+{"id": "771721-00167", "mode": "direct", "prompt": "Compute 2+6. Do not show your work. Give only the final answer.", "a": 2, "b": 6, "answer": 8}
+{"id": "771721-00167", "mode": "trace", "prompt": "Compute 2+6. Show your work, then give the final answer.", "a": 2, "b": 6, "answer": 8}
+{"id": "771721-00168", "mode": "direct", "prompt": "Compute 6+6. Do not show your work. Give only the final answer.", "a": 6, "b": 6, "answer": 12}
+{"id": "771721-00168", "mode": "trace", "prompt": "Compute 6+6. Show your work, then give the final answer.", "a": 6, "b": 6, "answer": 12}
+{"id": "771721-00169", "mode": "direct", "prompt": "Compute 1+3. Do not show your work. Give only the final answer.", "a": 1, "b": 3, "answer": 4}
+{"id": "771721-00169", "mode": "trace", "prompt": "Compute 1+3. Show your work, then give the final answer.", "a": 1, "b": 3, "answer": 4}
+{"id": "771721-00170", "mode": "direct", "prompt": "Compute 48+35. Do not show your work. Give only the final answer.", "a": 48, "b": 35, "answer": 83}
+{"id": "771721-00170", "mode": "trace", "prompt": "Compute 48+35. Show your work, then give the final answer.", "a": 48, "b": 35, "answer": 83}
+{"id": "771721-00171", "mode": "direct", "prompt": "Compute 8+1. Do not show your work. Give only the final answer.", "a": 8, "b": 1, "answer": 9}
+{"id": "771721-00171", "mode": "trace", "prompt": "Compute 8+1. Show your work, then give the final answer.", "a": 8, "b": 1, "answer": 9}
+{"id": "771721-00172", "mode": "direct", "prompt": "Compute 1+8. Do not show your work. Give only the final answer.", "a": 1, "b": 8, "answer": 9}
+{"id": "771721-00172", "mode": "trace", "prompt": "Compute 1+8. Show your work, then give the final answer.", "a": 1, "b": 8, "answer": 9}
+{"id": "771721-00173", "mode": "direct", "prompt": "Compute 3+0. Do not show your work. Give only the final answer.", "a": 3, "b": 0, "answer": 3}
+{"id": "771721-00173", "mode": "trace", "prompt": "Compute 3+0. Show your work, then give the final answer.", "a": 3, "b": 0, "answer": 3}
+{"id": "771721-00174", "mode": "direct", "prompt": "Compute 32+27. Do not show your work. Give only the final answer.", "a": 32, "b": 27, "answer": 59}
+{"id": "771721-00174", "mode": "trace", "prompt": "Compute 32+27. Show your work, then give the final answer.", "a": 32, "b": 27, "answer": 59}
+{"id": "771721-00175", "mode": "direct", "prompt": "Compute 33+40. Do not show your work. Give only the final answer.", "a": 33, "b": 40, "answer": 73}
+{"id": "771721-00175", "mode": "trace", "prompt": "Compute 33+40. Show your work, then give the final answer.", "a": 33, "b": 40, "answer": 73}
+{"id": "771721-00176", "mode": "direct", "prompt": "Compute 8+8. Do not show your work. Give only the final answer.", "a": 8, "b": 8, "answer": 16}
+{"id": "771721-00176", "mode": "trace", "prompt": "Compute 8+8. Show your work, then give the final answer.", "a": 8, "b": 8, "answer": 16}
+{"id": "771721-00177", "mode": "direct", "prompt": "Compute 36+23. Do not show your work. Give only the final answer.", "a": 36, "b": 23, "answer": 59}
+{"id": "771721-00177", "mode": "trace", "prompt": "Compute 36+23. Show your work, then give the final answer.", "a": 36, "b": 23, "answer": 59}
+{"id": "771721-00178", "mode": "direct", "prompt": "Compute 24+22. Do not show your work. Give only the final answer.", "a": 24, "b": 22, "answer": 46}
+{"id": "771721-00178", "mode": "trace", "prompt": "Compute 24+22. Show your work, then give the final answer.", "a": 24, "b": 22, "answer": 46}
+{"id": "771721-00179", "mode": "direct", "prompt": "Compute 2+4. Do not show your work. Give only the final answer.", "a": 2, "b": 4, "answer": 6}
+{"id": "771721-00179", "mode": "trace", "prompt": "Compute 2+4. Show your work, then give the final answer.", "a": 2, "b": 4, "answer": 6}
+{"id": "771721-00180", "mode": "direct", "prompt": "Compute 3+4. Do not show your work. Give only the final answer.", "a": 3, "b": 4, "answer": 7}
+{"id": "771721-00180", "mode": "trace", "prompt": "Compute 3+4. Show your work, then give the final answer.", "a": 3, "b": 4, "answer": 7}
+{"id": "771721-00181", "mode": "direct", "prompt": "Compute 42+16. Do not show your work. Give only the final answer.", "a": 42, "b": 16, "answer": 58}
+{"id": "771721-00181", "mode": "trace", "prompt": "Compute 42+16. Show your work, then give the final answer.", "a": 42, "b": 16, "answer": 58}
+{"id": "771721-00182", "mode": "direct", "prompt": "Compute 18+12. Do not show your work. Give only the final answer.", "a": 18, "b": 12, "answer": 30}
+{"id": "771721-00182", "mode": "trace", "prompt": "Compute 18+12. Show your work, then give the final answer.", "a": 18, "b": 12, "answer": 30}
+{"id": "771721-00183", "mode": "direct", "prompt": "Compute 9+46. Do not show your work. Give only the final answer.", "a": 9, "b": 46, "answer": 55}
+{"id": "771721-00183", "mode": "trace", "prompt": "Compute 9+46. Show your work, then give the final answer.", "a": 9, "b": 46, "answer": 55}
+{"id": "771721-00184", "mode": "direct", "prompt": "Compute 23+21. Do not show your work. Give only the final answer.", "a": 23, "b": 21, "answer": 44}
+{"id": "771721-00184", "mode": "trace", "prompt": "Compute 23+21. Show your work, then give the final answer.", "a": 23, "b": 21, "answer": 44}
+{"id": "771721-00185", "mode": "direct", "prompt": "Compute 25+22. Do not show your work. Give only the final answer.", "a": 25, "b": 22, "answer": 47}
+{"id": "771721-00185", "mode": "trace", "prompt": "Compute 25+22. Show your work, then give the final answer.", "a": 25, "b": 22, "answer": 47}
+{"id": "771721-00186", "mode": "direct", "prompt": "Compute 14+32. Do not show your work. Give only the final answer.", "a": 14, "b": 32, "answer": 46}
+{"id": "771721-00186", "mode": "trace", "prompt": "Compute 14+32. Show your work, then give the final answer.", "a": 14, "b": 32, "answer": 46}
+{"id": "771721-00187", "mode": "direct", "prompt": "Compute 1+6. Do not show your work. Give only the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00187", "mode": "trace", "prompt": "Compute 1+6. Show your work, then give the final answer.", "a": 1, "b": 6, "answer": 7}
+{"id": "771721-00188", "mode": "direct", "prompt": "Compute 47+25. Do not show your work. Give only the final answer.", "a": 47, "b": 25, "answer": 72}
+{"id": "771721-00188", "mode": "trace", "prompt": "Compute 47+25. Show your work, then give the final answer.", "a": 47, "b": 25, "answer": 72}
+{"id": "771721-00189", "mode": "direct", "prompt": "Compute 24+35. Do not show your work. Give only the final answer.", "a": 24, "b": 35, "answer": 59}
+{"id": "771721-00189", "mode": "trace", "prompt": "Compute 24+35. Show your work, then give the final answer.", "a": 24, "b": 35, "answer": 59}
+{"id": "771721-00190", "mode": "direct", "prompt": "Compute 6+8. Do not show your work. Give only the final answer.", "a": 6, "b": 8, "answer": 14}
+{"id": "771721-00190", "mode": "trace", "prompt": "Compute 6+8. Show your work, then give the final answer.", "a": 6, "b": 8, "answer": 14}
+{"id": "771721-00191", "mode": "direct", "prompt": "Compute 39+35. Do not show your work. Give only the final answer.", "a": 39, "b": 35, "answer": 74}
+{"id": "771721-00191", "mode": "trace", "prompt": "Compute 39+35. Show your work, then give the final answer.", "a": 39, "b": 35, "answer": 74}
+{"id": "771721-00192", "mode": "direct", "prompt": "Compute 40+46. Do not show your work. Give only the final answer.", "a": 40, "b": 46, "answer": 86}
+{"id": "771721-00192", "mode": "trace", "prompt": "Compute 40+46. Show your work, then give the final answer.", "a": 40, "b": 46, "answer": 86}
+{"id": "771721-00193", "mode": "direct", "prompt": "Compute 6+47. Do not show your work. Give only the final answer.", "a": 6, "b": 47, "answer": 53}
+{"id": "771721-00193", "mode": "trace", "prompt": "Compute 6+47. Show your work, then give the final answer.", "a": 6, "b": 47, "answer": 53}
+{"id": "771721-00194", "mode": "direct", "prompt": "Compute 19+3. Do not show your work. Give only the final answer.", "a": 19, "b": 3, "answer": 22}
+{"id": "771721-00194", "mode": "trace", "prompt": "Compute 19+3. Show your work, then give the final answer.", "a": 19, "b": 3, "answer": 22}
+{"id": "771721-00195", "mode": "direct", "prompt": "Compute 25+17. Do not show your work. Give only the final answer.", "a": 25, "b": 17, "answer": 42}
+{"id": "771721-00195", "mode": "trace", "prompt": "Compute 25+17. Show your work, then give the final answer.", "a": 25, "b": 17, "answer": 42}
+{"id": "771721-00196", "mode": "direct", "prompt": "Compute 44+1. Do not show your work. Give only the final answer.", "a": 44, "b": 1, "answer": 45}
+{"id": "771721-00196", "mode": "trace", "prompt": "Compute 44+1. Show your work, then give the final answer.", "a": 44, "b": 1, "answer": 45}
+{"id": "771721-00197", "mode": "direct", "prompt": "Compute 2+0. Do not show your work. Give only the final answer.", "a": 2, "b": 0, "answer": 2}
+{"id": "771721-00197", "mode": "trace", "prompt": "Compute 2+0. Show your work, then give the final answer.", "a": 2, "b": 0, "answer": 2}
+{"id": "771721-00198", "mode": "direct", "prompt": "Compute 0+2. Do not show your work. Give only the final answer.", "a": 0, "b": 2, "answer": 2}
+{"id": "771721-00198", "mode": "trace", "prompt": "Compute 0+2. Show your work, then give the final answer.", "a": 0, "b": 2, "answer": 2}
+{"id": "771721-00199", "mode": "direct", "prompt": "Compute 23+38. Do not show your work. Give only the final answer.", "a": 23, "b": 38, "answer": 61}
+{"id": "771721-00199", "mode": "trace", "prompt": "Compute 23+38. Show your work, then give the final answer.", "a": 23, "b": 38, "answer": 61}

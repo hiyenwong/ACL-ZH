@@ -1,0 +1,13 @@
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    if isinstance(value, dict):
+        sorted_dict = {k: value[k] for k in sorted(value)}
+        return json.dumps(sorted_dict)
+    else:
+        return json.dumps(value)
+<<<END>>>
+
+The test file remains unchanged as it already passes with the new behavior.

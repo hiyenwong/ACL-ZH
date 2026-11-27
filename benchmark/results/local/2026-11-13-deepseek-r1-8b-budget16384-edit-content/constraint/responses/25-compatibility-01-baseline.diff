@@ -1,0 +1,9 @@
+
+<<<FILE:src/formatter.py>>>
+def format_name(value, uppercase=False):
+    stripped = value.strip()
+    if uppercase:
+        return stripped.upper()
+    else:
+        return stripped
+<<<END>>>

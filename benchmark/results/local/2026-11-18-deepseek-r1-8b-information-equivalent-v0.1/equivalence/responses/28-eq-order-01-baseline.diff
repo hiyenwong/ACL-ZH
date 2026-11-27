@@ -1,0 +1,16 @@
+
+<<<FILE:src/order_tags.py>>>
+def ordered_tags(values):
+    if not isinstance(values, list):
+        try:
+            values = list(values)
+        except TypeError:
+            return [values]
+    seen = []
+    result = []
+    for value in values:
+        if value not in seen:
+            seen.append(value)
+            result.append(value)
+    return result
+<<<END>>>

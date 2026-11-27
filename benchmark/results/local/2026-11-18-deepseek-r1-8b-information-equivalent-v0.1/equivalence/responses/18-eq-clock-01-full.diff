@@ -1,0 +1,18 @@
+
+<<<FILE:src/clock.py>>>
+def format_clock(seconds):
+    total_minutes = seconds // 60
+    current_seconds = seconds % 60
+    
+    if total_minutes < 10:
+        minute_str = "0" + str(total_minutes)
+    else:
+        minute_str = str(total_minutes)
+        
+    if current_seconds < 10:
+        second_str = "0" + str(current_seconds)
+    else:
+        second_str = str(current_seconds)
+        
+    return minute_str + ":" + second_str
+<<<END>>>

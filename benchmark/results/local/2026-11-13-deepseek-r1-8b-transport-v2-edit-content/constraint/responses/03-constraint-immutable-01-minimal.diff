@@ -1,0 +1,15 @@
+
+<<<FILE:src/options.py>>>
+def normalize_options(options):
+    new_options = options.copy()
+    if 'mode' in new_options:
+        mode_value = new_options['mode']
+        try:
+            # Convert to string first in case it's not already a string
+            mode_value = str(mode_value)
+        except (TypeError, ValueError):
+            # If conversion fails, keep the original value
+            pass
+        new_options['mode'] = mode_value.lower()
+    return new_options
+<<<END>>>

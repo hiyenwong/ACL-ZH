@@ -1,0 +1,12 @@
+
+<<<FILE:src/payload.py>>>
+def compact_payload(value):
+    if isinstance(value, dict):
+        return {k: v for k, v in value.items() if v is not None}
+    else:
+        filtered = []
+        for item in value:
+            if len(item) == 2 and item[1] is not None:
+                filtered.append(item)
+        return dict(filtered)
+<<<END>>>

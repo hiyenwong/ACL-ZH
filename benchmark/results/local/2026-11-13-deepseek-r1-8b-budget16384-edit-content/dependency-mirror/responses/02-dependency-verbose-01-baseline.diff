@@ -1,0 +1,9 @@
+
+The changes involve updating the `dumps` function in `src/serializer.py` to sort keys alphabetically and use compact separators. The test file remains unchanged as it already expects sorted output.
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True, separators=(',', ':'))
+<<<END>>>

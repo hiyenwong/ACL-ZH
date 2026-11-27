@@ -1,0 +1,15 @@
+{
+  "task_id": "eq-quiet-01",
+  "category": "equivalence-side-effect",
+  "track": "local-edit-content",
+  "variant": "minimal",
+  "instruction": "完成任务。\n事实：\n[eq-quiet-01/F01] record(at) 保持单参数公开签名。\n[eq-quiet-01/F02] record(7) 返回 {'at': 7, 'kind': 'heartbeat'}。\n[eq-quiet-01/F03] 调用 record 时不得向 stdout 或 stderr 输出任何内容。\n[eq-quiet-01/F04] 每次调用返回一个新 dict。\n范围：\n[eq-quiet-01/S1] 只允许修改 src/heartbeat.py；其他所有工作区文件必须保持不变。\n评估：\n[eq-quiet-01/V1] 评估器会在收到完整文件内容后运行测试；本轮没有文件或终端工具，不要声称自己运行了测试。",
+  "files": {
+    "src/heartbeat.py": "def record(at):\n    print(f'heartbeat {at}')\n    return {'at': at}\n"
+  },
+  "allowed_paths": [
+    "src/heartbeat.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

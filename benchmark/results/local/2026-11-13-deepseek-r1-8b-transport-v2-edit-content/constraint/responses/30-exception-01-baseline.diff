@@ -1,0 +1,41 @@
+
+<<<FILE:src/safe_math.py>>>
+def safe_divide(a, b):
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError("Both a and b must be numbers")
+    if b == 0:
+        return None
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        # Already handled above, so this try-except is redundant but safe
+        return None
+    except Exception:
+        raise
+    return result
+
+def test_safe_divide():
+    # Test cases to validate safe_divide behavior
+    assert safe_divide(6, 3) == 2.0
+    assert safe_divide(10, 2) == 5.0
+    assert safe_divide(8, 4) == 2.0
+    
+    # Test division by zero returns None
+    assert safe_divide(1, 0) is None
+    
+    # Test non-numeric input raises TypeError
+    try:
+        safe_divide(1, "2")
+        assert False, "Expected TypeError for non-numeric input"
+    except Exception:
+        pass
+    
+    try:
+        safe_divide("1", 2)
+        assert False, "Expected TypeError for non-numeric input"
+    except Exception:
+        pass
+
+if __name__ == "__main__":
+    test_safe_divide()
+<<<END>>>

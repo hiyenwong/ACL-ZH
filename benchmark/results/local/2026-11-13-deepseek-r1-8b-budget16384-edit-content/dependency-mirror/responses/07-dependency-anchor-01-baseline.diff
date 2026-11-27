@@ -1,0 +1,11 @@
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True)
+<<<END>>>
+
+The test file already expects sorted keys and compact output. No changes needed there.
+
+Note: The change in `src/serializer.py` adds the `sort_keys=True` parameter to ensure keys are sorted alphabetically, and compact output is achieved by default JSON formatting.

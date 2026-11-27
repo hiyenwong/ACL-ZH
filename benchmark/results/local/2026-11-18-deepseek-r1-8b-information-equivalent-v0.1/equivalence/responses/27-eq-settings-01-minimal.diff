@@ -1,0 +1,12 @@
+
+<<<FILE:src/session_settings.py>>>
+def build_settings(settings):
+    base_defaults = {'mode': 'viewer', 'page': 1}
+    if not isinstance(settings, dict) or settings is None:
+        raise TypeError("build_settings expects a dictionary")
+    if len(settings) == 0:
+        return base_defaults
+    result = base_defaults.copy()
+    result.update(settings)
+    return result
+<<<END>>>

@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-1zgy0mx930dphtsnejfgx8",
+  "object": "chat.completion",
+  "created": 1795001609,
+  "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"task_id\": \"arith-mixed-01\", \"answer\": 4}",
+        "reasoning_content": "",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 47,
+    "completion_tokens": 19,
+    "total_tokens": 66,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "deepseek/deepseek-r1-0528-qwen3-8b"
+}

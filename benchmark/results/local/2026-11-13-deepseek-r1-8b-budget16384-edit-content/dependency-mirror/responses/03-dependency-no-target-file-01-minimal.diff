@@ -1,0 +1,11 @@
+
+The changes involve updating the `dumps` function to output sorted and compact JSON. The test remains unchanged since it already expects a dictionary with keys 'a' then 'b'.
+
+<<<FILE:src/serializer.py>>>
+import json
+
+def dumps(value):
+    return json.dumps(value, sort_keys=True, separators=(',', ':'))
+<<<END>>>
+
+The test file `tests/test_serializer.py` remains unchanged.

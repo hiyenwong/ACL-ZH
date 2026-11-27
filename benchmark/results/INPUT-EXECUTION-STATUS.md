@@ -1,5 +1,35 @@
 # Input Track execution status
 
+## Current status — 2026-11-26
+
+The local 8B diagnostic line has completed its information-equivalent v0.1
+comparison. Baseline / Minimal ACL / Full ACL task success was 11/12, 10/12 and
+10/12. Every completed response passed semantics and format; all five failures
+were hidden-reasoning budget truncations. The preregistered follow-up gate was
+not met, so no ACL effect or harm claim is supported.
+
+Transport-v2 remains the candidate response contract. The tested JSON Schema
+route was rejected after exact schema compliance coincided with 0/5 arithmetic
+accuracy (vs 4/5 plain; 0/10 overall semantic, noting that 3 historical code
+prompts omitted explicit input variable names) on the free-answer probe. The
+d12 nanochat suppression study is complete but belongs to the separate mechanism
+track, not the ACL effectiveness result (post-hoc audit also confirmed the
+historical d6/d12 eval split overlapped training on 199/200 operand pairs and
+389/400 exact prompts; future splits are now enforced disjoint).
+
+The next valid effectiveness study requires a fresh harder held-out task set or
+a preregistered reasoning/budget control. The 12 information-equivalent tasks
+must not be retuned and then reused as independent confirmation.
+
+Full run IDs, commits, committed archives and evidence boundaries:
+[2026-11 research progress](2026-11-RESEARCH-PROGRESS.md)
+(primary archive: [2026-11-18-deepseek-r1-8b-information-equivalent-v0.1](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md),
+manifest: [manifest-information-equivalent-v0.1.jsonl](../tasks/manifest-information-equivalent-v0.1.jsonl),
+preregistration: [PREREG-INFORMATION-EQUIVALENT-V0.1.md](../local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md)).
+
+The autonomous Claude Code / Codex smoke workflows below remain credential
+blocked; their historical status is unchanged.
+
 ## Smoke run attempt
 
 Workflow run: 37790448253

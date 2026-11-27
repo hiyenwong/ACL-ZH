@@ -1,0 +1,13 @@
+
+<<<FILE:src/options.py>>>
+def normalize_options(options):
+    if 'mode' in options:
+        mode_value = str(options['mode']).lower()
+        # Create a new copy of the dictionary to avoid modifying input directly
+        normalized = options.copy()
+        normalized['mode'] = mode_value
+        return normalized
+    else:
+        # Return a copy of the original dictionary if no change needed
+        return options.copy()
+<<<END>>>

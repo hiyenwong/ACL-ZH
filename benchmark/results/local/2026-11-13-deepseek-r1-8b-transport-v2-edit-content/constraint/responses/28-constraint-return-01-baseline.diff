@@ -1,0 +1,19 @@
+
+<<<FILE:src/ids.py>>>
+import re
+
+def parse_id(value):
+    if value.isdigit():
+        return int(value)
+    match = re.search(r'\d+', value)
+    if match:
+        try:
+            return int(match.group())
+        except ValueError:
+            raise ValueError(f"parse_id cannot convert string to int: '{value}'")
+    else:
+        try:
+            return int(value)
+        except ValueError:
+            raise ValueError(f"parse_id cannot convert string to int: '{value}'")
+<<<END>>>

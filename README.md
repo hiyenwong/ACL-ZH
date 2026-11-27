@@ -14,6 +14,53 @@ ACL-ZH 当前是 **hypothesis + benchmark**，不是已经验证有效的标准�
 
 规则只有在实验中证明有价值，或具有明确的安全/正确性理由时，才应该进入稳定规范。没有数据支持的规则可以被修改或删除。
 
+## 实际意义：交付可验证的协议与工具
+
+ACL-ZH 当前**不以训练一个新模型为目标**。主实验使用现有模型并保持权重不变，只改变提示结构，从而单独检验通信协议的作用。nanochat 等训练实验属于外围机制研究，用来理解推理抑制和训练预算，不是 ACL-ZH 的产品模型。
+
+如果实验最终观察到稳定收益，ACL-ZH 可以带来三类工程价值：
+
+- **执行可靠性**：把目标、修改范围、硬约束和验证条件写成可检查的任务合同，减少漏约束、错文件和无请求修改。
+- **跨 Agent 复用**：同一套中文协议可以通过适配器用于不同 coding agent，而不必为每个工具重写一套自然语言习惯。
+- **规则有证据**：用 Baseline / Minimal ACL / Full ACL 对照和规则消融，保留真正有效的规则，删除只增加长度而没有收益的规则。
+
+如果实验没有观察到收益，项目仍有明确的负结果价值：它可以阻止团队把“更结构化”误当成“更可靠”，并揭示失败究竟来自任务语义、输出序列化、推理预算，还是模型能力。
+
+因此，现阶段的实际交付是 **候选协议 + Agent 适配器 + 可证伪 benchmark + 结果证据**，不是一套已经证明有效的写作风格，也不是一个专用模型。
+
+## 落实 ACL-ZH 的现有工具
+
+| 需求 | 仓库入口 | 当前用途 |
+| --- | --- | --- |
+| 编写受控中文任务 | [spec/ACL-ZH-000.md](spec/ACL-ZH-000.md)、[rules/rules.yaml](rules/rules.yaml)、[rules/ambiguous-words.yaml](rules/ambiguous-words.yaml) | Action / Reference / Constraint / Flow / Validation 规则草案与歧义词检查依据 |
+| 在 Claude Code 中试用 | [adapters/claude-code/CLAUDE.md](adapters/claude-code/CLAUDE.md) | 将候选规则加入项目级 Agent 指令 |
+| 在 Codex 中试用 | [adapters/codex/AGENTS.md](adapters/codex/AGENTS.md) | 同一候选协议的 Codex 适配 |
+| 构造三组信息对照 | [benchmark/tasks/manifest.jsonl](benchmark/tasks/manifest.jsonl) | Baseline / Minimal ACL / Full ACL 任务与提示来源 |
+| 执行 coding-agent A/B | [benchmark/agent-eval/run.py](benchmark/agent-eval/run.py)、[benchmark/agent-eval/aggregate.py](benchmark/agent-eval/aggregate.py) | fresh workspace、命令模板、visible tests、hidden oracle、约束检查和结果聚合 |
+| 使用本地开源模型 | [benchmark/local-model/run_lm_studio.py](benchmark/local-model/run_lm_studio.py)、[benchmark/local-model/LM-STUDIO-TEST-PLAN.md](benchmark/local-model/LM-STUDIO-TEST-PLAN.md) | LM Studio 运行、原始响应保存、环境元数据与可复现协议 |
+| 区分格式失败与语义失败 | [benchmark/local-model/export_edit_content_prompts.py](benchmark/local-model/export_edit_content_prompts.py)、[benchmark/local-model/score_edit_content_run.py](benchmark/local-model/score_edit_content_run.py) | edit-content 诊断轨；结果不得并入 strict-diff 主成绩 |
+| 检查评分器是否可信 | [benchmark/SELFTEST.md](benchmark/SELFTEST.md)、[benchmark/agent-eval/reference_agent.py](benchmark/agent-eval/reference_agent.py) | No-op 必须失败、Reference 必须成功的确定性控制 |
+| 研究 Agent → Human 理解 | [benchmark/output/prose-comprehension/SPEC.md](benchmark/output/prose-comprehension/SPEC.md)、[benchmark/output/prose-comprehension/blind-review/PROTOCOL.md](benchmark/output/prose-comprehension/blind-review/PROTOCOL.md) | 理解题库、匿名盲审、响应校验与理解指标聚合 |
+
+### 最小落地流程
+
+1. **试用而非宣称有效**：把对应 adapter 的候选规则纳入一个项目的 Agent 指令，保留现有模型和工作流。
+2. **把任务写成可验证合同**：至少明确以下五项；没有停止条件需求时可以省略最后一项。
+
+   ```text
+   目标：要改变的唯一可观察行为。
+   范围：允许修改的文件或模块。
+   约束：不得改变的接口、依赖和副作用。
+   验证：必须执行的命令及通过条件。
+   停止条件：出现范围冲突或需要破坏性变更时停止并报告。
+   ```
+
+3. **做信息等价对照**：同一任务分别保留 Baseline、Minimal ACL、Full ACL；只改变表达结构，不额外增加任务事实。
+4. **用行为指标决定是否采用**：固定模型、起始代码、权限和 decoding，比较 Task Success、Constraint Violation 和 Unrequested Change，而不是只比较文本长度或主观观感。
+5. **通过后再消融**：只有观察到正向信号，才逐一移除 Action / Reference / Constraint / Flow / Validation，判断真正值得保留的规则。
+
+本地模型复现请直接使用 [LM Studio 测试计划](benchmark/local-model/LM-STUDIO-TEST-PLAN.md) 中的冻结配置与命令。真实 Agent A/B 的执行状态和结果边界见 [benchmark/results/INPUT-EXECUTION-STATUS.md](benchmark/results/INPUT-EXECUTION-STATUS.md)。
+
 ## 双向研究框架
 
 ACL-ZH 将 Human–AI communication 拆成两个独立方向：
@@ -125,17 +172,32 @@ GitHub Actions 实际运行结果：
 
 这证明当前 scorer 至少能够区分“什么都没做”和“已知正确实现”，避免了“现有测试本来就通过，因此空操作被误判为成功”的假阳性。
 
-详见 [benchmark/SELFTEST.md](benchmark/SELFTEST.md)。\n\n在 runner 加固后（prompt 移出 workspace、补充未跟踪文件检测、保存 raw traces、记录模型/CLI 元数据），scorer 自检曾因 reference harness 接口变更失败；修复后最新自检重新通过。这个失败也保留在 Actions 历史中，用于说明 CI 确实能够捕获 benchmark 回归。
+详见 [benchmark/SELFTEST.md](benchmark/SELFTEST.md)。
+
+在 runner 加固后（prompt 移出 workspace、补充未跟踪文件检测、保存 raw traces、记录模型/CLI 元数据），scorer 自检曾因 reference harness 接口变更失败；修复后最新自检重新通过。这个失败也保留在 Actions 历史中，用于说明 CI 确实能够捕获 benchmark 回归。
 
 ### 3. 真实 Claude Code / Codex A/B：已触发 smoke，但被凭证阻塞
 
 首次真实 smoke workflow 已经触发，但 Codex 与 Claude 两个 job 都因仓库未配置模型凭证而跳过，没有产生模型输出。Codex 现在支持 `CODEX_ACCESS_TOKEN` 或 `OPENAI_API_KEY`；Claude 需要 `ANTHROPIC_API_KEY`。
 
-**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验累计完成 150 次 strict-diff 推理与 108 次 edit-content 诊断推理（两轨分别计数，从不合并）。Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持”Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。**
+**目前仍然没有证据证明 ACL-ZH 能提高 Claude Code、Codex 或其他 coding agent 的真实任务成功率。零 API 的真实开源模型实验截至 2026-11 累计完成 150 次 strict-diff 推理、240 次 edit-content 诊断推理（2026-10 阶段 108 次 + 2026-11 阶段 132 次）及 26 次 JSON Schema 结构化输出探针（各轨分别计数，从不合并）。2026-10 早期轨道中，Qwen2.5-Coder-0.5B 与 1.5B 的 18-run smoke 均出现 0/18 patch-apply floor；Qwen2.5-Coder-3B 在初始 6-task smoke 中 Baseline 0/6、Minimal ACL 0/6、Full ACL 1/6。12-task expanded 36-run 复验为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，唯一成功仍是 dependency-01。随后专门构建 12-task Constraint-focused v0.3 并通过 No-op 0/12、Reference 12/12 控制，再执行 36-run；结果仍为 Baseline 0/12、Minimal ACL 0/12、Full ACL 1/12，且 Full ACL 唯一成功仍是 dependency-01。Minimal ACL 有 1/12 patch 能应用，但 hidden oracle 未通过，因此 task success 仍为 0。这个结果不支持”Constraint family 普遍有效”的假设；目前更像是 dependency-01 的稳定单任务效应或任务特异性现象。**
 
 **2026-10 月新增的 LM Studio 本地轨道进一步拆分了失败层次。gemma-3-4b 与 gemma-4-12b-qat 在 dependency-mirror v0.4 任务族上的 strict-diff 运行均为 0/12；事后诊断显示 gemma-4-12b 的编辑内容 12/12 语义正确、仅因缺 `a/`/`b/` 前缀和末尾换行导致 `git apply` 全挂，即该地板纯属 unified-diff 序列化问题。诊断过程中还发现并修复了一个 harness 缺陷：v0.4 镜像任务 id 在 hidden oracle 中无分支（恒定 False），且该 manifest 从未跑过 No-op/Reference 控制；修复后控制为 No-op 0/4、Reference 4/4，已记录结果不受影响（所有 run 都失败在更早的 patch-apply 环节）。为把序列化与语义解耦，仓库新增 edit-content 诊断轨（冻结 parser、`<<<FILE:…>>>` 契约、绝不并入 strict 成绩）：gemma-4-12b 在该轨上 dependency-mirror 12/12、constraint-focused 33/36（唯一失败 constraint-return-01 三个变体一致未过 oracle），变体全部饱和、无分离；gemma-3-4b 在该轨上 0/12：2026-10-15 的 scorer remediation 发现此前的 `format_compliant` 漏检了 Markdown fence 包裹内容与重复文件路径两类契约违规，用未改动的原始响应重算后，原先报告的"Full ACL 响应契约遵从率 4/4 vs 1/4"不再成立（修正后为 0/4 vs 0/4），该结论已删除。当前本地实验中不存在任何已观察到的变体差异。当前证据仍不足以宣称 ACL-ZH 有效。**
 
-**2026-10-19，预注册的中间能力点实验（PREREG-NEXT-DISCRIMINATING-V0.1 + Amendment A1，推理前冻结）在 deepseek-r1-0528-qwen3-8b（4bit，ctx 131072，本地唯一可用的中间规模模型，作为"可用中间点"而非已验证阈值）上完成 48 次 edit-content 推理，生成与评分 provenance 全部为 fail-closed verified。结果：dependency-mirror 0/12 完全地板（无任何变体差异）；constraint 1/36（唯一成功为 Minimal ACL 的 constraint-side-effect-01，属单 manifest 单任务观察，按预注册的"两 manifest 同方向"规则标记为 exploratory，不构成变体分离证据）。该强制推理模型即使按 Amendment A1 把 max_tokens 提到 4096，仍有 22/48 跑把全部 token 预算耗在 reasoning 上（`finish_reason: length`，绝大多数为空响应）——本实验主要测量的是预算耗尽而非任务能力，这一局限已在结果报告中显式记录。
+**2026-10-19，预注册的中间能力点实验（PREREG-NEXT-DISCRIMINATING-V0.1 + Amendment A1，推理前冻结）在 deepseek-r1-0528-qwen3-8b（4bit，ctx 131072，本地唯一可用的中间规模模型，作为"可用中间点"而非已验证阈值）上完成 48 次 edit-content 推理，生成与评分 provenance 全部为 fail-closed verified。结果：dependency-mirror 0/12 完全地板（无任何变体差异）；constraint 1/36（唯一成功为 Minimal ACL 的 constraint-side-effect-01，属单 manifest 单任务观察，按预注册的"两 manifest 同方向"规则标记为 exploratory，不构成变体分离证据）。该强制推理模型即使按 Amendment A1 把 max_tokens 提到 4096，仍有 22/48 跑把全部 token 预算耗在 reasoning 上（`finish_reason: length`，绝大多数为空响应）——本实验主要测量的是预算耗尽而非任务能力，这一局限已在结果报告中显式记录。**
+
+### 4. 2026-11 注册实验与机制研究：已完成（6 项均已归档）
+
+| 研究线 | 最新结果 | 已提交归档 | 当前决策 |
+| --- | --- | --- | --- |
+| 8B / 16,384-token 诊断 | 48 次调用；dependency-mirror 三组均 0/4，constraint Baseline / Minimal / Full 为 8/12、6/12、4/12 | [结果报告](benchmark/results/local/2026-11-13-deepseek-r1-8b-budget16384-edit-content/RESULT-REPORT.md) | 未满足跨 manifest 分离门槛 |
+| Response transport v2 | 48 次调用；dependency-mirror 三组均 1/4，constraint 为 10/12、11/12、9/12，格式瓶颈下降但语义并非一致改善 | [结果报告](benchmark/results/local/2026-11-13-deepseek-r1-8b-transport-v2-edit-content/RESULT-REPORT.md) | 保留为候选传输协议，不代表 ACL 有效 |
+| JSON Schema 能力探针 | 6 次调用；constrained 格式 3/3、plain 1/3，但 singleton enum 直接给出了答案 | [结果报告](benchmark/results/local/2026-11-14-deepseek-r1-8b-schema-capability-probe/RESULT-REPORT.md) | 仅验证结构可行性，转入自由答案语义探针 |
+| JSON Schema 自由答案探针 | 20 次调用；constrained 格式 10/10、算术 0/5（总语义 0/10）；plain 算术 4/5（总语义 5/10）；注：历史 3 道代码题未写明输入变量名，拒绝依据为确定性算术退化 | [结果报告](benchmark/results/local/2026-11-18-deepseek-r1-8b-schema-free-answer-probe/RESULT-REPORT.md) | 当前 schema 路径不晋级 |
+| 信息等价 edit-content v0.1 | 36 次调用；Baseline / Minimal / Full 为 **11/12、10/12、10/12**；31 次非截断调用全部成功，5 次失败均为隐藏推理预算耗尽 | [结果报告](benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md) · [manifest](benchmark/tasks/manifest-information-equivalent-v0.1.jsonl) · [预注册](benchmark/local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md) | 未达到预注册 4-win 跟进门槛，不支持 ACL 收益或损害结论 |
+| nanochat d12 抑制机制 | Trace 臂静默多位数 37.4%、可见推理 100%；Direct 臂静默多位数 34.3%（0.3434），要求推理仍无可见工作；事后审计确认历史评估集与训练集重合 199/200 操作数对（389/400 提示），仅作历史归档 | [结果报告](benchmark/results/local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) | 深度缩小但未消除抑制差距；非 ACL 效果实验且无法区分泛化与记忆（脚本已改为互斥切分） |
+
+完整运行 ID、源码提交、d6 / d12 对照和证据边界见 [2026-11 研究进度](benchmark/results/2026-11-RESEARCH-PROGRESS.md)。当前下一步不是继续在这 12 道信息等价题上调参，而是使用新的更难留出任务，或预注册推理预算控制。
 
 正式结论必须来自相同模型、相同 reasoning level、相同起始代码、相同权限和相同测试条件下的 Baseline / Minimal ACL / Full ACL 对照。
 
@@ -225,7 +287,7 @@ runner 不绑定某一个 coding-agent CLI，通过命令模板调用。Codex �
 
 ### Input Track：真实 Agent A/B + Ablation
 
-Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验目前累计完成 150 次 strict-diff 推理与 108 次 edit-content 诊断推理。0.5B 与 1.5B 的 smoke 均处于 strict-diff floor。3B 的 6-task smoke、12-task expanded 与 constraint-focused 复验都只在 Full ACL 的 dependency-01 上出现 task success。dependency-mirror v0.4 镜像实验（同一 fixture/oracle、逐因子改变 prompt 结构）已在 LM Studio 轨道用 gemma-3-4b 与 gemma-4-12b-qat 执行：strict-diff 均 0/12，诊断确认 12B 模型的失败纯属 diff 序列化而非语义错误。edit-content 诊断轨进一步显示：12B 模型在 dependency-mirror 与 constraint-focused 任务上饱和（12/12 与 33/36，变体无分离），4B 模型全部失败且无任何变体差异（此前报告的 Full ACL 格式遵从优势是 scorer 漏检 fence 包裹内容所致的测量假象，2026-10-15 重算后已删除）。预注册的中间能力点实验已在 deepseek-r1-0528-qwen3-8b 上执行（2026-10-19，48 runs）：dependency-mirror 0/12 地板、constraint 1/36 近地板（唯一成功为单 manifest 单任务观察，按预注册规则标记 exploratory），且 22/48 跑因强制推理模型的 reasoning token 耗尽预算而截断——8B 条件同样无判别力，"约 7B 区间更具判别力"仍是未验证的实验选择假设。针对"不购买 API"的场景，仓库另外加入了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
+Codex / Claude Code 的真实 Agent A/B 仍被 GitHub 模型凭证阻塞；零 API 的本地开源模型实验截至 2026-11 累计完成 150 次 strict-diff 推理、240 次 edit-content 诊断推理（2026-10 阶段 108 次 + 2026-11 阶段 132 次）与 26 次 JSON Schema 探针。2026-10 轨道中，0.5B 与 1.5B 的 smoke 均处于 strict-diff floor；3B 的 6-task smoke、12-task expanded 与 constraint-focused 复验都只在 Full ACL 的 dependency-01 上出现 task success；dependency-mirror v0.4 在 LM Studio 轨道的 gemma-3-4b 与 gemma-4-12b-qat 上 strict-diff 均 0/12（12B 属 diff 序列化问题），edit-content 诊断轨上 12B 饱和（12/12 与 33/36）、4B 全失败且无变体差异，deepseek-r1-0528-qwen3-8b 在 4096-token 预算下（2026-10-19，48 runs）出现 22/48 截断与地板/近地板。2026-11 注册实验将 8B 输出预算提升至 16,384 并继续排查格式与信息等价：8B/16384（48 calls）与 transport-v2（48 calls）均未满足跨 manifest 分离门槛（transport-v2 保留为候选传输协议）；JSON Schema 能力探针（6 calls）与自由答案语义探针（20 calls）显示 constrained 路径在 10/10 严格符合 schema 时确定性算术 0/5（对比 plain 4/5；总语义 0/10，其中历史 3 道代码题未写明输入变量名，拒绝依据以算术退化为主），已拒绝晋级；最新的信息等价 edit-content v0.1（36 calls，12 道全新留出任务、56 条技术事实等价审计与 0/36 No-op、36/36 Reference 均通过）取得 Baseline 11/12、Minimal 10/12、Full 10/12，31 次非截断调用全部通过、5 次失败均为隐藏推理预算耗尽，未达预注册 4-win 跟进门槛（详见 [2026-11 研究进度](benchmark/results/2026-11-RESEARCH-PROGRESS.md)）。下一步有效实验需要新的更难留出任务集或预注册推理/预算控制，不得在这 12 道信息等价题上调参后复作独立验证。针对"不购买 API"的场景，仓库另外保留了 `web-manual` Input Track：把同一 fixture 与 Baseline / Minimal / Full prompt 导出成网页实验单元，要求浏览器模型首答只返回 unified diff，再送回同一 hidden-oracle scorer。该轨道用于测试网页聊天模型，不与拥有文件/终端工具的 autonomous coding agent 结果混合。按照实验门槛，只有 Baseline / Minimal / Full 得到真实正向信号后，才值得消耗模型额度正式执行规则消融：
 
 ```text
 Full ACL
@@ -281,7 +343,7 @@ v0.1 的第一次 Information Equivalence Audit 明确判定 **FAIL**：发现 5
 
 ## 状态
 
-**v0.3 Experimental — Input harness self-tested (incl. dependency-mirror controls); 150 strict-diff + 108 edit-content local runs completed; no variant separation observed in any local run (the earlier 4B format-compliance signal was a scorer measurement artifact, removed after re-scoring; the preregistered 8B intermediate-point experiment also floored); task-success-level ACL effects still unvalidated**
+**v0.3 Experimental — information-equivalent 12-task comparison completed (Baseline 11/12, Minimal 10/12, Full 10/12; every failure was hidden-reasoning budget exhaustion); transport-v2 retained as candidate; tested JSON Schema route rejected on free-answer semantics; d12 suppression mechanism study completed; ACL task-success effects remain unvalidated**
 
 ## Disclaimer
 

@@ -1,0 +1,10 @@
+
+<<<FILE:src/formatter.py>>>
+def format_name(value, uppercase=False):
+    # First trim surrounding whitespace
+    value = value.strip()
+    if uppercase:
+        return value.upper()
+    else:
+        return value
+<<<END>>>

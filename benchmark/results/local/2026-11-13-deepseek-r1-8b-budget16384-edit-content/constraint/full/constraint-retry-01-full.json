@@ -1,0 +1,17 @@
+{
+  "task_id": "constraint-retry-01",
+  "category": "constraint",
+  "track": "local-edit-content",
+  "variant": "full",
+  "instruction": "目标：实现有上限的重试。\n任务：修改 src/retry.py 的 run_with_retry(call, attempts=3)。\n约束：最多调用 call() attempts 次。成功后必须立即停止。仅重试 ValueError；达到上限后重新抛出最后一个 ValueError。\n验证：运行 python -m unittest discover -s tests。",
+  "files": {
+    "src/retry.py": "def run_with_retry(call, attempts=3):\n    return call()\n",
+    "tests/test_retry.py": "import unittest\nfrom src.retry import run_with_retry\nclass T(unittest.TestCase):\n def test_success(self): self.assertEqual(run_with_retry(lambda:'ok'),'ok')\n"
+  },
+  "allowed_paths": [
+    "src/retry.py",
+    "tests/test_retry.py"
+  ],
+  "forbidden_paths": [],
+  "test_command": "python -m unittest discover -s tests"
+}

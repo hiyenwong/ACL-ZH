@@ -1,0 +1,13 @@
+
+<<<FILE:src/score.py>>>
+class InvalidScoreError(Exception):
+    pass
+
+def validate_score(value):
+    if not isinstance(value, int):
+        raise InvalidScoreError("Value must be an integer")
+    if value < 0 or value > 100:
+        raise InvalidScoreError("Invalid score")
+    else:
+        return value
+<<<END>>>

@@ -1,0 +1,7 @@
+
+<<<FILE:src/profile.py>>>
+def normalize_email(value):
+    # Remove surrounding whitespace and convert to lowercase
+    normalized = value.strip().lower()
+    return normalized
+<<<END>>>

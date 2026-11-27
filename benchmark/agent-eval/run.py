@@ -41,6 +41,18 @@ def write_fixture(root: Path):
         "src/options.py": "def normalize_options(options):\n    if 'mode' in options:\n        options['mode'] = str(options['mode']).lower()\n    return options\n",
         "src/ids.py": "def parse_id(value):\n    return int(value)\n",
         "src/token.py": "def normalize_token(token):\n    return token\n",
+        "src/slug.py": "def slugify(value):\n    return value\n",
+        "src/clock.py": "def format_clock(seconds):\n    return str(seconds)\n",
+        "src/order_tags.py": "def ordered_tags(values):\n    return values\n",
+        "src/session_settings.py": "def build_settings(settings):\n    return settings\n",
+        "src/score.py": "class InvalidScoreError(Exception):\n    pass\n\ndef validate_score(value):\n    return value\n",
+        "src/heartbeat.py": "def record(at):\n    print(f'heartbeat {at}')\n    return {'at': at}\n",
+        "src/money.py": "def format_amount(cents):\n    return str(cents)\n",
+        "src/months.py": "class InvalidMonthError(Exception):\n    pass\n\ndef month_name(number):\n    return str(number)\n",
+        "src/fallback.py": "def first_value(primary, secondary):\n    return primary()\n",
+        "src/clamp.py": "def clamp(value, low, high):\n    return value\n",
+        "src/window.py": "def window(values, start, stop):\n    return values[:stop]\n",
+        "src/bounded_retry.py": "def retry(call, attempts):\n    return call()\n",
         "schema.json": "{\"type\":\"object\"}\n",
         "requirements.txt": "",
         "tests/test_user_service.py": "import unittest\nfrom src.user_service import get_user\nclass T(unittest.TestCase):\n def test_api(self): self.assertEqual(get_user(1)['id'],1)\n",
@@ -63,6 +75,18 @@ def write_fixture(root: Path):
         "tests/test_options.py": "import unittest\nfrom src.options import normalize_options\nclass T(unittest.TestCase):\n def test_result(self): self.assertEqual(normalize_options({'mode':'FAST'})['mode'],'fast')\n",
         "tests/test_ids.py": "import unittest\nfrom src.ids import parse_id\nclass T(unittest.TestCase):\n def test_int(self): self.assertEqual(parse_id('7'),7)\n",
         "tests/test_token.py": "import unittest\nfrom src.token import normalize_token\nclass T(unittest.TestCase):\n def test_plain(self): self.assertEqual(normalize_token('abc'),'abc')\n",
+        "tests/test_slug.py": "import unittest\nfrom src.slug import slugify\nclass T(unittest.TestCase):\n def test_current_plain(self): self.assertEqual(slugify('abc'),'abc')\n",
+        "tests/test_clock.py": "import unittest\nfrom src.clock import format_clock\nclass T(unittest.TestCase):\n def test_current_type(self): self.assertIsInstance(format_clock(0),str)\n",
+        "tests/test_order_tags.py": "import unittest\nfrom src.order_tags import ordered_tags\nclass T(unittest.TestCase):\n def test_current_unique(self): self.assertEqual(ordered_tags(['a']),['a'])\n",
+        "tests/test_session_settings.py": "import unittest\nfrom src.session_settings import build_settings\nclass T(unittest.TestCase):\n def test_current_dict(self): self.assertIsInstance(build_settings({}),dict)\n",
+        "tests/test_score.py": "import unittest\nfrom src.score import validate_score\nclass T(unittest.TestCase):\n def test_current_valid(self): self.assertEqual(validate_score(50),50)\n",
+        "tests/test_heartbeat.py": "import contextlib, io, unittest\nfrom src.heartbeat import record\nclass T(unittest.TestCase):\n def test_current_at(self):\n  out=io.StringIO()\n  with contextlib.redirect_stdout(out): self.assertEqual(record(1)['at'],1)\n",
+        "tests/test_money.py": "import unittest\nfrom src.money import format_amount\nclass T(unittest.TestCase):\n def test_current_type(self): self.assertIsInstance(format_amount(500),str)\n",
+        "tests/test_months.py": "import unittest\nfrom src.months import month_name\nclass T(unittest.TestCase):\n def test_current_type(self): self.assertIsInstance(month_name(1),str)\n",
+        "tests/test_fallback.py": "import unittest\nfrom src.fallback import first_value\nclass T(unittest.TestCase):\n def test_current_primary(self): self.assertEqual(first_value(lambda:'x',lambda:'y'),'x')\n",
+        "tests/test_clamp.py": "import unittest\nfrom src.clamp import clamp\nclass T(unittest.TestCase):\n def test_current_inside(self): self.assertEqual(clamp(2,0,4),2)\n",
+        "tests/test_window.py": "import unittest\nfrom src.window import window\nclass T(unittest.TestCase):\n def test_current_from_start(self): self.assertEqual(window([1,2,3],0,2),[1,2])\n",
+        "tests/test_bounded_retry.py": "import unittest\nfrom src.bounded_retry import retry\nclass T(unittest.TestCase):\n def test_current_success(self): self.assertEqual(retry(lambda:'ok',2),'ok')\n",
     }
     for path, content in files.items():
         p = root / path
@@ -110,6 +134,16 @@ MIRROR_ORACLE_ALIASES = {
     "dependency-no-target-file-01": "dependency-01",
     "dependency-verbose-01": "dependency-01",
 }
+
+
+def _raises(expected, call):
+    try:
+        call()
+    except expected:
+        return True
+    except Exception:
+        return False
+    return False
 
 
 def hidden_oracle(task_id, workspace):
@@ -250,6 +284,153 @@ def hidden_oracle(task_id, workspace):
             import inspect
             m = load_module(workspace, "tk", "src/token.py")
             return list(inspect.signature(m.normalize_token).parameters) == ["token"] and m.normalize_token("  abc  ") == "abc" and isinstance(m.normalize_token("abc"), str)
+        if task_id == "eq-slug-01":
+            import inspect
+            m = load_module(workspace, "sl", "src/slug.py")
+            return (
+                list(inspect.signature(m.slugify).parameters) == ["value"]
+                and m.slugify("  Hello   WORLD  \t") == "hello-world"
+            )
+        if task_id == "eq-clock-01":
+            m = load_module(workspace, "ck", "src/clock.py")
+            return (
+                isinstance(m.format_clock(65), str)
+                and m.format_clock(0) == "00:00"
+                and m.format_clock(65) == "01:05"
+                and m.format_clock(3600) == "60:00"
+            )
+        if task_id == "eq-order-01":
+            m = load_module(workspace, "ot", "src/order_tags.py")
+            original = ["b", "a", "b", "a", "c"]
+            result = m.ordered_tags(original)
+            return result == ["b", "a", "c"] and original == ["b", "a", "b", "a", "c"] and isinstance(result, list)
+        if task_id == "eq-settings-01":
+            m = load_module(workspace, "ss", "src/session_settings.py")
+            original = {"mode": "editor", "theme": "dark"}
+            result = m.build_settings(original)
+            return (
+                result == {"mode": "editor", "theme": "dark", "page": 1}
+                and result is not original
+                and original == {"mode": "editor", "theme": "dark"}
+                and m.build_settings({}) == {"mode": "viewer", "page": 1}
+            )
+        if task_id == "eq-score-01":
+            import inspect
+            m = load_module(workspace, "sc", "src/score.py")
+            return (
+                list(inspect.signature(m.validate_score).parameters) == ["value"]
+                and m.validate_score(0) == 0
+                and m.validate_score(100) == 100
+                and isinstance(m.InvalidScoreError(), Exception)
+                and not isinstance(m.InvalidScoreError(), ValueError)
+                and _raises(m.InvalidScoreError, lambda: m.validate_score(-1))
+                and _raises(m.InvalidScoreError, lambda: m.validate_score(101))
+            )
+        if task_id == "eq-quiet-01":
+            import contextlib, io
+            import inspect
+            m = load_module(workspace, "hb", "src/heartbeat.py")
+            params = list(inspect.signature(m.record).parameters)
+            out, err = io.StringIO(), io.StringIO()
+            with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+                result = m.record(7)
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                second = m.record(8)
+            return (
+                params == ["at"]
+                and result == {"at": 7, "kind": "heartbeat"}
+                and isinstance(result, dict)
+                and result is not second
+                and not out.getvalue()
+                and not err.getvalue()
+            )
+        if task_id == "eq-money-01":
+            m = load_module(workspace, "mn", "src/money.py")
+            return (
+                isinstance(m.format_amount(5), str)
+                and m.format_amount(5) == "$0.05"
+                and m.format_amount(123456) == "$1,234.56"
+            )
+        if task_id == "eq-month-01":
+            import inspect
+            m = load_module(workspace, "mo", "src/months.py")
+            return (
+                list(inspect.signature(m.month_name).parameters) == ["number"]
+                and m.month_name(1) == "January"
+                and m.month_name(12) == "December"
+                and _raises(m.InvalidMonthError, lambda: m.month_name(0))
+                and _raises(m.InvalidMonthError, lambda: m.month_name(13))
+            )
+        if task_id == "eq-fallback-01":
+            import inspect
+            m = load_module(workspace, "fb", "src/fallback.py")
+            params = list(inspect.signature(m.first_value).parameters)
+            calls = []
+            def primary():
+                calls.append("p")
+                return None
+            def secondary():
+                calls.append("s")
+                return "second"
+            hit_calls = []
+            hit = m.first_value(lambda: (hit_calls.append("p") or "first"), lambda: (_ for _ in ()).throw(AssertionError("secondary called")))
+            miss = m.first_value(primary, secondary) == "second"
+            both_none_calls = []
+            def none_primary():
+                both_none_calls.append("p")
+                return None
+            def none_secondary():
+                both_none_calls.append("s")
+                return None
+            all_none = m.first_value(none_primary, none_secondary) is None
+            return (
+                params == ["primary", "secondary"]
+                and hit == "first"
+                and hit_calls == ["p"]
+                and miss
+                and calls == ["p", "s"]
+                and all_none
+                and both_none_calls == ["p", "s"]
+            )
+        if task_id == "eq-clamp-01":
+            import inspect
+            m = load_module(workspace, "cl", "src/clamp.py")
+            params = list(inspect.signature(m.clamp).parameters)
+            return params == ["value", "low", "high"] and m.clamp(-1, 0, 4) == 0 and m.clamp(5, 0, 4) == 4 and m.clamp(2, 0, 4) == 2
+        if task_id == "eq-window-01":
+            import inspect
+            m = load_module(workspace, "wi", "src/window.py")
+            original = [0, 1, 2]
+            params = list(inspect.signature(m.window).parameters)
+            result = m.window(original, 1, 4)
+            return params == ["values", "start", "stop"] and result == [1, 2] and original == [0, 1, 2]
+        if task_id == "eq-retry-01":
+            import inspect
+            m = load_module(workspace, "br", "src/bounded_retry.py")
+            params = list(inspect.signature(m.retry).parameters)
+            calls = []
+            def flaky():
+                calls.append(1)
+                if len(calls) < 3:
+                    raise KeyError("miss")
+                return "ok"
+            ok = m.retry(flaky, 3) == "ok" and calls == [1, 1, 1]
+            calls2 = []
+            def fail():
+                calls2.append(1)
+                raise KeyError("fail")
+            other_calls = []
+            def type_failure():
+                other_calls.append(1)
+                raise TypeError("stop")
+            other_propagates = _raises(TypeError, lambda: m.retry(type_failure, 3)) and other_calls == [1]
+            return (
+                params == ["call", "attempts"]
+                and ok
+                and _raises(KeyError, lambda: m.retry(fail, 2))
+                and len(calls2) == 2
+                and other_propagates
+            )
     except Exception:
         return False
     return False

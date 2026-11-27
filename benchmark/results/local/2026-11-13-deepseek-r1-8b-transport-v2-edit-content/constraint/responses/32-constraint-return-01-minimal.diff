@@ -1,0 +1,8 @@
+
+<<<FILE:src/ids.py>>>
+def parse_id(value):
+    cleaned = ''.join(filter(str.isdigit, value))
+    if not cleaned:
+        raise ValueError("No digits found in the input")
+    return int(cleaned)
+<<<END>>>

@@ -1,0 +1,171 @@
+{
+  "arms": {
+    "trace-trained": {
+      "overall": {
+        "n": 400,
+        "accuracy": 0.4925,
+        "mean_generated_tokens": 18.5,
+        "mean_prefix_chars": 20.2,
+        "mean_prefix_lines": 2.0,
+        "leak_rate_prefix_chars_gt_0": 0.5,
+        "step_pattern_rate": 0.5,
+        "ended_rate": 1.0
+      },
+      "by_mode": {
+        "direct": {
+          "n": 200,
+          "accuracy": 0.33,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "trace": {
+          "n": 200,
+          "accuracy": 0.655,
+          "mean_generated_tokens": 33.0,
+          "mean_prefix_chars": 40.39,
+          "mean_prefix_lines": 4.0,
+          "leak_rate_prefix_chars_gt_0": 1.0,
+          "step_pattern_rate": 1.0,
+          "ended_rate": 1.0
+        }
+      },
+      "by_mode_and_size": {
+        "direct_single": {
+          "n": 101,
+          "accuracy": 0.6238,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "direct_multi": {
+          "n": 99,
+          "accuracy": 0.0303,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "trace_single": {
+          "n": 101,
+          "accuracy": 0.7327,
+          "mean_generated_tokens": 33.0,
+          "mean_prefix_chars": 37.46,
+          "mean_prefix_lines": 4.0,
+          "leak_rate_prefix_chars_gt_0": 1.0,
+          "step_pattern_rate": 1.0,
+          "ended_rate": 1.0
+        },
+        "trace_multi": {
+          "n": 99,
+          "accuracy": 0.5758,
+          "mean_generated_tokens": 33.0,
+          "mean_prefix_chars": 43.38,
+          "mean_prefix_lines": 4.0,
+          "leak_rate_prefix_chars_gt_0": 1.0,
+          "step_pattern_rate": 1.0,
+          "ended_rate": 1.0
+        }
+      },
+      "model_tag": "d6-supp-trace-eq40"
+    },
+    "direct-trained": {
+      "overall": {
+        "n": 400,
+        "accuracy": 0.5775,
+        "mean_generated_tokens": 4.0,
+        "mean_prefix_chars": 0.0,
+        "mean_prefix_lines": 0.0,
+        "leak_rate_prefix_chars_gt_0": 0.0,
+        "step_pattern_rate": 0.0,
+        "ended_rate": 1.0
+      },
+      "by_mode": {
+        "direct": {
+          "n": 200,
+          "accuracy": 0.575,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "trace": {
+          "n": 200,
+          "accuracy": 0.58,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        }
+      },
+      "by_mode_and_size": {
+        "direct_single": {
+          "n": 101,
+          "accuracy": 1.0,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "direct_multi": {
+          "n": 99,
+          "accuracy": 0.1414,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "trace_single": {
+          "n": 101,
+          "accuracy": 1.0,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        },
+        "trace_multi": {
+          "n": 99,
+          "accuracy": 0.1515,
+          "mean_generated_tokens": 4.0,
+          "mean_prefix_chars": 0.0,
+          "mean_prefix_lines": 0.0,
+          "leak_rate_prefix_chars_gt_0": 0.0,
+          "step_pattern_rate": 0.0,
+          "ended_rate": 1.0
+        }
+      },
+      "model_tag": "d6-supp-direct-eq40"
+    }
+  },
+  "gates": {
+    "single_digit_direct_accuracy": {
+      "trace-trained": 0.6238,
+      "direct-trained": 1.0
+    },
+    "multi_digit_direct_accuracy": {
+      "trace-trained": 0.0303,
+      "direct-trained": 0.1414
+    },
+    "learnability_floor": false,
+    "ceiling": false,
+    "interpretation": "task is inside the discriminating band"
+  }
+}
