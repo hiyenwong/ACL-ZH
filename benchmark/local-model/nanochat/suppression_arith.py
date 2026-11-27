@@ -19,10 +19,22 @@ import os
 import random
 from pathlib import Path
 
-from tasks.common import Task, TaskMixture
+try:
+    from tasks.common import Task, TaskMixture
+except ModuleNotFoundError:  # Allows standalone eval generation and unit tests outside nanochat.
+    class Task:
+        def __init__(self, **kwargs):
+            pass
+
+    class TaskMixture:
+        def __init__(self, tasks):
+            self.tasks = tasks
 
 TRAIN_ITEMS = 24000
 EVAL_ITEMS = 200
+EVAL_SINGLE_PAIRS = 50
+EVAL_MULTI_PAIRS = EVAL_ITEMS - EVAL_SINGLE_PAIRS
+SPLIT_SEED = 20261127
 TRAIN_SEED = 20261121
 EVAL_SEED = 771721
 
@@ -39,25 +51,57 @@ ARM = os.environ.get("NANOCHAT_SUPP_ARM", "trace")
 assert ARM in {"trace", "direct"}, ARM
 
 
-def _draw(rng):
+def partition_operand_pairs(split_seed=SPLIT_SEED):
+    """Deterministically partition single- and multi-digit operand pairs into disjoint train/eval pools."""
+    single_pairs = [(a, b) for a in range(10) for b in range(10)]
+    multi_pairs = [(a, b) for a in range(50) for b in range(50) if a >= 10 or b >= 10]
+    rng = random.Random(split_seed)
+    rng.shuffle(single_pairs)
+    rng.shuffle(multi_pairs)
+    eval_single = single_pairs[:EVAL_SINGLE_PAIRS]
+    train_single = single_pairs[EVAL_SINGLE_PAIRS:]
+    eval_multi = multi_pairs[:EVAL_MULTI_PAIRS]
+    train_multi = multi_pairs[EVAL_MULTI_PAIRS:]
+    train_pairs = set(train_single) | set(train_multi)
+    eval_pairs = set(eval_single) | set(eval_multi)
+    assert not (train_pairs & eval_pairs), "train and eval operand pairs must be disjoint"
+    return (train_single, train_multi), (eval_single, eval_multi)
+
+
+def _draw_from_pools(rng, single_pool, multi_pool):
     """Half single-digit pairs, half pairs with at least one two-digit operand."""
     if rng.random() < 0.5:
-        return rng.randint(0, 9), rng.randint(0, 9)
-    while True:
-        a, b = rng.randint(0, 49), rng.randint(0, 49)
-        if a >= 10 or b >= 10:
-            return a, b
+        return rng.choice(single_pool)
+    return rng.choice(multi_pool)
 
 
-def make_items(n, seed):
+def make_items(n, seed, split="train", split_seed=SPLIT_SEED):
+    assert split in {"train", "eval"}, split
+    (train_single, train_multi), (eval_single, eval_multi) = partition_operand_pairs(split_seed)
     rng = random.Random(seed)
     items = []
+    if split == "eval":
+        eval_pool = list(eval_single) + list(eval_multi)
+        rng.shuffle(eval_pool)
+        assert n <= len(eval_pool), f"Requested {n} unique eval items, only {len(eval_pool)} available"
+        for i, (a, b) in enumerate(eval_pool[:n]):
+            mode = "trace" if (i % 2 == 0) else "direct"
+            items.append({"id": f"{seed}-{i:05d}", "a": a, "b": b, "mode": mode, "answer": a + b})
+        return items
+
     for i in range(n):
-        a, b = _draw(rng)
+        a, b = _draw_from_pools(rng, train_single, train_multi)
         # Deterministic instruction assignment: alternate, offset per index.
         mode = "trace" if (i % 2 == 0) else "direct"
         items.append({"id": f"{seed}-{i:05d}", "a": a, "b": b, "mode": mode, "answer": a + b})
     return items
+
+
+def assert_disjoint_splits(train_items, eval_items):
+    train_pairs = {(item["a"], item["b"]) for item in train_items}
+    eval_pairs = {(item["a"], item["b"]) for item in eval_items}
+    assert not (train_pairs & eval_pairs), "train and eval operand pairs overlap"
+    return train_pairs, eval_pairs
 
 
 def trace_target(item):
@@ -95,8 +139,11 @@ class SuppressionArith(Task):
         super().__init__(**kwargs)
         assert split in {"train", "eval"}
         self.split = split
-        base = make_items(TRAIN_ITEMS if split == "train" else EVAL_ITEMS,
-                          TRAIN_SEED if split == "train" else EVAL_SEED)
+        base = make_items(
+            TRAIN_ITEMS if split == "train" else EVAL_ITEMS,
+            TRAIN_SEED if split == "train" else EVAL_SEED,
+            split=split,
+        )
         if split == "train" and _train_items_override > 0:
             k = _train_items_override // TRAIN_ITEMS
             base = base * k
@@ -128,7 +175,9 @@ def build_val_dataset():
 
 def write_eval_set(path):
     """Freeze the exact evaluation prompts (both instruction modes) for the eval script."""
-    items = make_items(EVAL_ITEMS, EVAL_SEED)
+    train_items = make_items(TRAIN_ITEMS, TRAIN_SEED, split="train")
+    items = make_items(EVAL_ITEMS, EVAL_SEED, split="eval")
+    assert_disjoint_splits(train_items, items)
     rows = []
     for item in items:
         for mode in ("direct", "trace"):

@@ -132,8 +132,21 @@ def safe_eval(node, variables):
         if isinstance(node.op, ast.USub): return -value
         return not value
     if isinstance(node, ast.BoolOp):
-        values = [safe_eval(item, variables) for item in node.values]
-        return all(values) if isinstance(node.op, ast.And) else any(values)
+        if isinstance(node.op, ast.And):
+            result = True
+            for item in node.values:
+                result = safe_eval(item, variables)
+                if not result:
+                    return result
+            return result
+        if isinstance(node.op, ast.Or):
+            result = False
+            for item in node.values:
+                result = safe_eval(item, variables)
+                if result:
+                    return result
+            return result
+        raise ValueError('unsupported boolean operator: ' + type(node.op).__name__)
     if isinstance(node, ast.Compare):
         left = safe_eval(node.left, variables)
         for operator, comparator in zip(node.ops, node.comparators):
@@ -198,6 +211,14 @@ def self_test():
                     assert var in rendered, (task['id'], var, constrained_flag)
         assert not semantic_valid(json.dumps({'task_id': task['id'], 'answer': 999999}), task) if task['kind'] == 'arithmetic' else True
     assert not semantic_valid("{'task_id': 'x', 'expression': '__import__(\"os\").system(\"true\")'}", CODE_TASKS[0])
+    # Verify Python operand-returning and short-circuit BoolOp semantics.
+    assert safe_eval(ast.parse('value and value.strip().lower()', mode='eval'), {'value': '  ACL-ZH  '}) == 'acl-zh'
+    assert semantic_valid(json.dumps({'task_id': 'code-normalize-01', 'expression': 'value and value.strip().lower()'}), CODE_TASKS[0])
+    assert safe_eval(ast.parse('"" or "fallback"', mode='eval'), {}) == 'fallback'
+    assert safe_eval(ast.parse('0 or "" or None', mode='eval'), {}) is None
+    assert safe_eval(ast.parse('False and (1 / 0)', mode='eval'), {}) is False
+    assert safe_eval(ast.parse('"" and (1 / 0)', mode='eval'), {}) == ''
+    assert safe_eval(ast.parse('"ok" or (1 / 0)', mode='eval'), {}) == 'ok'
     print('free-answer schema task and safe evaluator self-test: PASS')
 
 

@@ -195,7 +195,7 @@ GitHub Actions 实际运行结果：
 | JSON Schema 能力探针 | 6 次调用；constrained 格式 3/3、plain 1/3，但 singleton enum 直接给出了答案 | [结果报告](benchmark/results/local/2026-11-14-deepseek-r1-8b-schema-capability-probe/RESULT-REPORT.md) | 仅验证结构可行性，转入自由答案语义探针 |
 | JSON Schema 自由答案探针 | 20 次调用；constrained 格式 10/10、算术 0/5（总语义 0/10）；plain 算术 4/5（总语义 5/10）；注：历史 3 道代码题未写明输入变量名，拒绝依据为确定性算术退化 | [结果报告](benchmark/results/local/2026-11-18-deepseek-r1-8b-schema-free-answer-probe/RESULT-REPORT.md) | 当前 schema 路径不晋级 |
 | 信息等价 edit-content v0.1 | 36 次调用；Baseline / Minimal / Full 为 **11/12、10/12、10/12**；31 次非截断调用全部成功，5 次失败均为隐藏推理预算耗尽 | [结果报告](benchmark/results/local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md) · [manifest](benchmark/tasks/manifest-information-equivalent-v0.1.jsonl) · [预注册](benchmark/local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md) | 未达到预注册 4-win 跟进门槛，不支持 ACL 收益或损害结论 |
-| nanochat d12 抑制机制 | Trace 臂静默多位数 37.4%、可见推理 100%；Direct 臂静默多位数 34.3%（0.3434），要求推理仍无可见工作 | [结果报告](benchmark/results/local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) | 深度缩小但未消除抑制差距；不是 ACL 效果实验 |
+| nanochat d12 抑制机制 | Trace 臂静默多位数 37.4%、可见推理 100%；Direct 臂静默多位数 34.3%（0.3434），要求推理仍无可见工作；事后审计确认历史评估集与训练集重合 199/200 操作数对（389/400 提示），仅作历史归档 | [结果报告](benchmark/results/local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) | 深度缩小但未消除抑制差距；非 ACL 效果实验且无法区分泛化与记忆（脚本已改为互斥切分） |
 
 完整运行 ID、源码提交、d6 / d12 对照和证据边界见 [2026-11 研究进度](benchmark/results/2026-11-RESEARCH-PROGRESS.md)。当前下一步不是继续在这 12 道信息等价题上调参，而是使用新的更难留出任务，或预注册推理预算控制。
 

@@ -31,7 +31,7 @@ and mechanism results, not autonomous Claude Code / Codex benchmark results.
 | JSON Schema capability probe | `91d11517-f949-4bff-ac82-ccf1105600d5` / `83d2f59` | 6/6 calls. Constrained responses were schema-valid 3/3 versus plain 1/3, but singleton enums supplied the entire answer. | [Report](local/2026-11-14-deepseek-r1-8b-schema-capability-probe/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-SCHEMA-CAPABILITY.md) | Structural feasibility only; require free-answer semantic tests. |
 | Free-answer schema semantic probe | `40e6d411-29c4-4091-8dfd-52f26ffc4a66` / `346f051` | 20/20 calls. Constrained exact-schema 10/10, arithmetic 0/5, code 0/5 (overall 0/10); plain arithmetic 4/5, code 1/5 (overall 5/10). Note: 3 historical code prompts omitted input variable names (see report). | [Report](local/2026-11-18-deepseek-r1-8b-schema-free-answer-probe/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-FREE-ANSWER-SCHEMA.md) | Reject this schema path based on deterministic arithmetic regression (0/5 vs 4/5); retain transport-v2. |
 | Information-equivalent edit-content v0.1 | `c7ab1518-ab20-472c-8c6e-fcf67bf71206` / `082d13c` | 36/36 calls. Baseline/Minimal/Full task success 11/12, 10/12, 10/12; all 31 non-truncated calls passed. | [Report](local/2026-11-18-deepseek-r1-8b-information-equivalent-v0.1/RESULT-REPORT.md) · [Prereg](../local-model/PREREG-INFORMATION-EQUIVALENT-V0.1.md) · [Manifest](../tasks/manifest-information-equivalent-v0.1.jsonl) | No follow-up gate met; do not claim an ACL effect or tune on the same tasks. |
-| d12 reasoning-suppression mechanism | `548d036b-3882-49d4-8f57-62f082ac0115` / `58ef5bd` | d12 trace arm: silent multi-digit 0.3737, visible 1.000; direct arm: silent multi-digit 0.3434, trace-requested 0.3131 with no visible work. | [Report](local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) · [JSON](local/2026-11-25-nanochat-d12-suppression-mechanism/d12-suppression-report.json) · [Prereg](../local-model/PREREG-NANOCHAT-SUPPRESSION-V0.1.md) | Depth narrows but does not close the suppression gap; training budget remains confounded. |
+| d12 reasoning-suppression mechanism | `548d036b-3882-49d4-8f57-62f082ac0115` / `58ef5bd` | d12 trace arm: silent multi-digit 0.3737, visible 1.000; direct arm: silent multi-digit 0.3434, trace-requested 0.3131 with no visible work. Post-hoc audit: 199/200 eval operand pairs (389/400 exact prompts) overlapped training. | [Report](local/2026-11-25-nanochat-d12-suppression-mechanism/RESULT-REPORT.md) · [JSON](local/2026-11-25-nanochat-d12-suppression-mechanism/d12-suppression-report.json) · [Prereg](../local-model/PREREG-NANOCHAT-SUPPRESSION-V0.1.md) | Depth narrows but does not close the suppression gap; training budget and train/eval overlap confound generalization (historical archive only). |
 
 All listed model runs are terminal, and all six source commits are ancestors in
 this repository's git history. Earlier interrupted or implementation-failed
@@ -88,8 +88,17 @@ overall silent accuracy, exceeding the d12 one-epoch direct arm. Capability and
 training budget therefore cannot be separated by the d12 result alone.
 
 These are deterministic synthetic-addition mechanism runs with unequal
-trace/direct SFT budgets. They support no ACL claim and no general language-model
-scaling law.
+trace/direct SFT budgets. Furthermore, a post-hoc audit of the frozen
+historical split (`58ef5bd`) confirmed that separate seeds did not make
+training and evaluation disjoint: 199/200 evaluation operand pairs (101/101
+single-digit, 98/99 multi-digit; 164/165 unique pairs) occurred in the
+24,000-row training set, and 389/400 evaluation prompts matched training
+prompts verbatim (including instruction mode). Thus the archived d6/d12
+evaluations cannot distinguish arithmetic generalization from memorization of
+supervised training examples and are kept strictly as historical records
+(`benchmark/local-model/nanochat/suppression_arith.py` has been updated to
+enforce disjoint train/eval operand-pair partitions for future runs). They
+support no ACL claim and no general language-model scaling law.
 
 ## Evidence boundary and next gate
 

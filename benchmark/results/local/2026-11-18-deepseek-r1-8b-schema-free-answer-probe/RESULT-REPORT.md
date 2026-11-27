@@ -58,8 +58,10 @@ isinstance(s, str)]`). Accordingly, the archived code semantic validity rates
 genuine semantic failures and must not be interpreted on their own as pure
 code-reasoning failure. The current script
 (`benchmark/local-model/probe_free_answer_schema.py`) now specifies these
-input bindings for any future re-runs, while all archived JSON files in this
-directory remain unchanged. The non-promoting decision for this schema route
+input bindings and implements Python short-circuit operand-returning `BoolOp`
+(`and`/`or`) semantics for any future re-runs (verified that `0/10` archived
+code responses in this run used `and`/`or`, so historical scores are
+unaffected), while all archived JSON files in this directory remain unchanged. The non-promoting decision for this schema route
 rests on the deterministic arithmetic probe (constrained `0/5` vs plain `4/5`,
 with `0` reported reasoning tokens on every constrained call), which does not
 depend on code variable bindings or the AST evaluator.

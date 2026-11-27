@@ -313,3 +313,38 @@ def test_validate_environment_requires_external_sft_patch(
 
     with pytest.raises(ValueError, match="external SFT mixture patch"):
         pipeline.validate_environment(paths)
+
+
+def load_suppression_arith():
+    arith_path = MODULE_PATH.parent / "nanochat/suppression_arith.py"
+    spec = importlib.util.spec_from_file_location("suppression_arith", arith_path)
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_suppression_arith_train_and_eval_operand_pairs_and_prompts_are_disjoint(
+    tmp_path: Path,
+) -> None:
+    sa = load_suppression_arith()
+    train_items = sa.make_items(sa.TRAIN_ITEMS, sa.TRAIN_SEED, split="train")
+    eval_items = sa.make_items(sa.EVAL_ITEMS, sa.EVAL_SEED, split="eval")
+
+    train_pairs, eval_pairs = sa.assert_disjoint_splits(train_items, eval_items)
+    assert len(eval_items) == sa.EVAL_ITEMS
+    assert len(eval_pairs) == sa.EVAL_ITEMS
+    assert not (train_pairs & eval_pairs)
+
+    train_prompts = {sa.prompt_for(item, item["mode"]) for item in train_items}
+    eval_path = tmp_path / "eval-set.jsonl"
+    sa.write_eval_set(eval_path)
+    eval_rows = [
+        json.loads(line)
+        for line in eval_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert len(eval_rows) == 2 * sa.EVAL_ITEMS
+    eval_prompts = {row["prompt"] for row in eval_rows}
+    assert not (train_prompts & eval_prompts)

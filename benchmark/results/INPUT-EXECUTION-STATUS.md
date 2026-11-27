@@ -13,7 +13,9 @@ route was rejected after exact schema compliance coincided with 0/5 arithmetic
 accuracy (vs 4/5 plain; 0/10 overall semantic, noting that 3 historical code
 prompts omitted explicit input variable names) on the free-answer probe. The
 d12 nanochat suppression study is complete but belongs to the separate mechanism
-track, not the ACL effectiveness result.
+track, not the ACL effectiveness result (post-hoc audit also confirmed the
+historical d6/d12 eval split overlapped training on 199/200 operand pairs and
+389/400 exact prompts; future splits are now enforced disjoint).
 
 The next valid effectiveness study requires a fresh harder held-out task set or
 a preregistered reasoning/budget control. The 12 information-equivalent tasks
